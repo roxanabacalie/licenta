@@ -1,3 +1,4 @@
+import sys
 from math import inf
 import numpy as np
 
@@ -14,6 +15,7 @@ class TransitNetwork:
             for other_node in range(self.number_of_vertices):
                 if self.graph[node][other_node] != 0 and self.graph[node][other_node] != inf:
                     print("The node " + str(other_node) + " at distance " + str(self.graph[node][other_node]))
+
     def printDemand(self):
         print("Demand Matrix")
         for node1 in range(self.number_of_vertices):
@@ -21,35 +23,39 @@ class TransitNetwork:
                 print(str(self.demand[node1][node2]), end=" ")
             print("")
 
-    def min_distance(self, distances, sptSet):
-        min_dist = inf
-        min_index = inf
+    def min_distance_vertex(self, distances, sptSet):
+        min_dist = sys.maxsize
+        min_index = 0
         for u in range(self.number_of_vertices):
-            if(distances[u] < min_dist and u not in sptSet):
+            if distances[u] < min_dist and u not in sptSet:
                 min_dist = distances[u]
                 min_index = u
         return min_index
 
-    # sa fac algoritmul sa returneze efectiv shortest_path (o lista de noduri in ordine al respectivului path
-    # sa organizez codul mai frumos pe module
-    # sa vad daca am demand matrix-ul corect si DS corect
-    def dijkstra_algorithm(self, source, destination):
+    def dijkstra_algorithm(self, source):
+        shortest_paths = [[] for _ in range(self.number_of_vertices)]
+
         sptSet = []
         distances = [inf] * self.number_of_vertices
-        shortest_path = []
-        shortest_path.append(source)
-
         distances[source] = 0
+
+        for neighbor in range(self.number_of_vertices):
+            if self.graph[source][neighbor] > 0 and neighbor not in sptSet:
+                distances[neighbor]= distances[source] + self.graph[source][neighbor]
+                shortest_paths[neighbor].append(source)
+        # update distance values of its adjacent vertices
+
         while len(sptSet) != self.number_of_vertices:
-            u = self.min_distance(distances, sptSet)
+            u = self.min_distance_vertex(distances, sptSet)
             sptSet.append(u)
-            for neighbor in self.graph[int(u)]:
-                if neighbor != inf and neighbor != 0:
+            for neighbor in range(self.number_of_vertices):
+                if self.graph[u][neighbor]>0 and neighbor not in sptSet:
                     if(distances[u] + self.graph[u][neighbor] < distances[neighbor]):
                         distances[neighbor] = distances[u] + self.graph[u][neighbor]
-                        shortest_path.append(neighbor)
-        shortest_path.append(destination)
-        return distances[destination]
+                        shortest_paths[neighbor] = shortest_paths[u] + [u]
+        for v in range(self.number_of_vertices):
+            shortest_paths[v].append(v)
+        return shortest_paths
 
 def create_demand_matrix(file_path, number_of_nodes):
     demand_data = []
@@ -89,14 +95,16 @@ Mandl_transit_network.graph = \
 Mandl_transit_network.demand = create_demand_matrix("mandl1_demand.txt", 15)
 Mandl_transit_network.printGraph()
 ds = [[] for _ in range(Mandl_transit_network.number_of_vertices)]
-
+"""
 for i in range(Mandl_transit_network.number_of_vertices):
     for j in range(Mandl_transit_network.number_of_vertices):
         if i != j:
             shortest_path = Mandl_transit_network.dijkstra_algorithm(i, j)
             for node1, node2 in shortest_path:
                 ds[i][j] += Mandl_transit_network.demand[node1][node2]
-
+"""
+shortest_paths = Mandl_transit_network.dijkstra_algorithm(5)
+print("Shortest paths: "+str(shortest_paths))
 
 #def find_initial_route_sets(graph):
 #    Y = []
