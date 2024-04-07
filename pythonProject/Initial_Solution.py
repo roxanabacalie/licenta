@@ -95,21 +95,18 @@ Mandl_transit_network.graph = \
                    [inf, inf, inf, inf, inf, inf, inf, inf, inf, 8, inf, inf, 2, 0, inf],   #13
                    [inf, inf, inf, inf, inf, 3, 2, 2, 8, inf, inf, inf, inf, inf, 0],       #14
                    ]
-Mandl_transit_network.printGraph()
+
 Mandl_transit_network.graph=create_adjacency_matrix("mandl1_links.txt",15)
-Mandl_transit_network.printGraph()
 Mandl_transit_network.demand = create_demand_matrix("mandl1_demand.txt", 15)
 
 ds = [[] for _ in range(Mandl_transit_network.number_of_vertices)]
-"""
+shortest_paths = [[] for _ in range(Mandl_transit_network.number_of_vertices)]
 for i in range(Mandl_transit_network.number_of_vertices):
-    for j in range(Mandl_transit_network.number_of_vertices):
-        if i != j:
-            shortest_path = Mandl_transit_network.dijkstra_algorithm(i, j)
-            for node1, node2 in shortest_path:
-                ds[i][j] += Mandl_transit_network.demand[node1][node2]
-"""
-shortest_paths = Mandl_transit_network.dijkstra_algorithm(10)
+    shortest_paths[i] = Mandl_transit_network.dijkstra_algorithm(i)
+i=0
+for row in shortest_paths:
+    print(str(i)+': ' + ' '.join(map(str, row)))
+    i=i+1
 print("Shortest paths: "+str(shortest_paths))
 
 def find_initial_route_sets(graph):
@@ -145,8 +142,10 @@ def find_initial_route_sets(graph):
 
         print(max_nodes)
         # Add shortest path between max_nodes to set Y
-        shortest_path = graph.dijkstra_algorithm(max_nodes[0])[max_nodes[1]]
+        shortest_path = shortest_paths[max_nodes[0]][max_nodes[1]]
         Y.append(shortest_path)
+
+        print(shortest_path)
 
         m += 1
         if m == N:
@@ -159,9 +158,16 @@ def find_initial_route_sets(graph):
                     for k in range(graph.number_of_vertices):
                         for l in range(graph.number_of_vertices):
                             if k != l:
-                                if i in graph.dijkstra_algorithm(k)[l] and j in graph.dijkstra_algorithm(k)[l]:
-                                    #print(k,l,i,j)
+                                if i in shortest_paths[k][l] and j in shortest_paths[k][l] and ds[k][l]>0:
+                                    #shortest_paths[k][l].remove()
                                     ds[k][l] -= graph.demand[i][j]
+                                    if k==0 and l==12:
+                                        print(k,l,i,j)
+        print("DS matrix:")
+        i = 0
+        for row in ds:
+            print(str(i) + ': ' + ' '.join(map(str, row)))
+            i = i + 1
 
 
     return Y
