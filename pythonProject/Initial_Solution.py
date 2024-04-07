@@ -16,13 +16,6 @@ class TransitNetwork:
                 if self.graph[node][other_node] != 0 and self.graph[node][other_node] != inf:
                     print("The node " + str(other_node) + " at distance " + str(self.graph[node][other_node]))
 
-    def printDemand(self):
-        print("Demand Matrix")
-        for node1 in range(self.number_of_vertices):
-            for node2 in range(self.number_of_vertices):
-                print(str(self.demand[node1][node2]), end=" ")
-            print("")
-
     def min_distance_vertex(self, distances, sptSet):
         min_dist = sys.maxsize
         min_index = 0
@@ -72,8 +65,19 @@ def create_demand_matrix(file_path, number_of_nodes):
         demand_matrix[from_node - 1][to_node - 1] = demand
     return demand_matrix
 
+def create_adjacency_matrix(file_path, number_of_nodes):
+    adjacency_matrix = np.zeros((number_of_nodes, number_of_nodes))
+    with open(file_path, 'r') as file:
+        next(file)  # Skip the header
+        for line in file:
+            parts = line.strip().split(',')
+            from_node = int(parts[0]) - 1
+            to_node = int(parts[1]) - 1
+            travel_time = int(parts[2])
+            adjacency_matrix[from_node][to_node] = travel_time
+    return adjacency_matrix
+
 Mandl_transit_network = TransitNetwork(15)
-#                   0  1   2    3    4    5    6    7    8    9   10   11   12   13   14
 Mandl_transit_network.graph = \
                    [[0, 8, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf], #0
                    [8, 0, 2, 3, 6, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf],       #1
@@ -82,18 +86,20 @@ Mandl_transit_network.graph = \
                    [inf, 6, inf, 4, 0, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf],   #4
                    [inf, inf, 3, 4, inf, 0, inf, 2, inf, inf, inf, inf, inf, inf, 3],       #5
                    [inf, inf, inf, inf, inf, inf, 0, inf, inf, 7, inf, inf, inf, inf, 2],   #6
-                   [inf, inf, inf, inf, inf, 2, 0, inf, inf, 8, inf, inf, inf, inf, 2],     #7
+                   [inf, inf, inf, inf, inf, 2, inf, 0, inf, 8, inf, inf, inf, inf, 2],     #7
                    [inf, inf, inf, inf, inf, inf, inf, inf, 0, inf, inf, inf, inf, inf, 8], #8
                    [inf, inf, inf, inf, inf, inf, 7, 8, inf, 0, 5, inf, 10, 8, inf],        #9
-                   [inf, inf, inf, inf, inf, inf, inf, inf, inf, 5, inf, 10, 5, inf, inf],  #10
-                   [inf, inf, inf, 1, inf, inf, inf, inf, inf, inf, 1, 0, inf, inf, inf],   #11
-                   [inf, inf, inf, inf, inf, inf, inf, inf, inf, 1, 5, inf, 0, 2, inf],     #12
+                   [inf, inf, inf, inf, inf, inf, inf, inf, inf, 5, 0, 10, 5, inf, inf],  #10
+                   [inf, inf, inf, 10, inf, inf, inf, inf, inf, inf, 10, 0, inf, inf, inf],   #11
+                   [inf, inf, inf, inf, inf, inf, inf, inf, inf, 10, 5, inf, 0, 2, inf],     #12
                    [inf, inf, inf, inf, inf, inf, inf, inf, inf, 8, inf, inf, 2, 0, inf],   #13
                    [inf, inf, inf, inf, inf, 3, 2, 2, 8, inf, inf, inf, inf, inf, 0],       #14
                    ]
-
-Mandl_transit_network.demand = create_demand_matrix("mandl1_demand.txt", 15)
 Mandl_transit_network.printGraph()
+Mandl_transit_network.graph=create_adjacency_matrix("mandl1_links.txt",15)
+Mandl_transit_network.printGraph()
+Mandl_transit_network.demand = create_demand_matrix("mandl1_demand.txt", 15)
+
 ds = [[] for _ in range(Mandl_transit_network.number_of_vertices)]
 """
 for i in range(Mandl_transit_network.number_of_vertices):
@@ -103,9 +109,64 @@ for i in range(Mandl_transit_network.number_of_vertices):
             for node1, node2 in shortest_path:
                 ds[i][j] += Mandl_transit_network.demand[node1][node2]
 """
-shortest_paths = Mandl_transit_network.dijkstra_algorithm(5)
+shortest_paths = Mandl_transit_network.dijkstra_algorithm(10)
 print("Shortest paths: "+str(shortest_paths))
 
-#def find_initial_route_sets(graph):
-#    Y = []
-#    m = 0
+def find_initial_route_sets(graph):
+    Y = [] # the set of routes
+    N = 8 # total number of routes in the solution
+
+    # Calculate DS matrix
+    ds = [[0 for _ in range(graph.number_of_vertices)] for _ in range(graph.number_of_vertices)]
+    for i in range(graph.number_of_vertices):
+        for j in range(graph.number_of_vertices):
+            total_demand = 0
+            for m in graph.dijkstra_algorithm(i)[j]:
+                for n in graph.dijkstra_algorithm(i)[j]:
+                    total_demand = total_demand + graph.demand[m][n]
+            ds[i][j] = total_demand
+    print(graph.demand)
+    print("DS matrix:")
+    i=0
+    for row in ds:
+        print(str(i)+': ' + ' '.join(map(str, row)))
+        i=i+1
+    m = 0
+
+    while True:
+        # Find pair of nodes with highest ds value
+        max_ds = -1
+        max_nodes = (-1, -1)
+        for i in range(graph.number_of_vertices):
+            for j in range(graph.number_of_vertices):
+                if ds[i][j] > max_ds:
+                    max_ds = ds[i][j]
+                    max_nodes = (i, j)
+
+        print(max_nodes)
+        # Add shortest path between max_nodes to set Y
+        shortest_path = graph.dijkstra_algorithm(max_nodes[0])[max_nodes[1]]
+        Y.append(shortest_path)
+
+        m += 1
+        if m == N:
+            break
+
+        # Update ds matrix after satisfying demands of the added route
+        for i in range(graph.number_of_vertices):
+            for j in range(graph.number_of_vertices):
+                if i in shortest_path and j in shortest_path and i != j:
+                    for k in range(graph.number_of_vertices):
+                        for l in range(graph.number_of_vertices):
+                            if k != l:
+                                if i in graph.dijkstra_algorithm(k)[l] and j in graph.dijkstra_algorithm(k)[l]:
+                                    #print(k,l,i,j)
+                                    ds[k][l] -= graph.demand[i][j]
+
+
+    return Y
+
+    #a, b - terminals of the highest ds route
+    #add shortest route between a and b to the set Y
+
+print("Initial route sets: "+ str(find_initial_route_sets(Mandl_transit_network)))
