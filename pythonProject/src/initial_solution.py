@@ -2,13 +2,14 @@ import sys
 from math import inf
 import numpy as np
 
+
 class TransitNetwork:
     def __init__(self, vertices, links_file_path, demand_file_path):
         self.number_of_vertices = vertices
         self.graph = self.create_adjacency_matrix(links_file_path)
         self.demand = self.create_demand_matrix(demand_file_path)
 
-    def printGraph(self):
+    def print_graph(self):
         for node in range(self.number_of_vertices):
             print("")
             print("The neighbors of node " + str(node))
@@ -16,12 +17,23 @@ class TransitNetwork:
                 if self.graph[node][other_node] != 0 and self.graph[node][other_node] != inf:
                     print("The node " + str(other_node) + " at distance " + str(self.graph[node][other_node]))
 
+    def calculate_ds_matrix(self):
+        ds = [[0 for _ in range(self.number_of_vertices)] for _ in range(self.number_of_vertices)]
+        for i in range(self.number_of_vertices):
+            for j in range(self.number_of_vertices):
+                total_demand = 0
+                for m in self.dijkstra_algorithm(i)[j]:
+                    for n in self.dijkstra_algorithm(i)[j]:
+                        total_demand = total_demand + self.demand[m][n]
+                ds[i][j] = total_demand
+        return ds
+
     # method that returns the index of the vertex at a minimum distance
-    def min_distance_vertex(self, distances, sptSet):
+    def min_distance_vertex(self, distances, spt_set):
         min_dist = sys.maxsize
         min_index = 0
         for u in range(self.number_of_vertices):
-            if distances[u] < min_dist and u not in sptSet:
+            if distances[u] < min_dist and u not in spt_set:
                 min_dist = distances[u]
                 min_index = u
         return min_index
@@ -30,22 +42,22 @@ class TransitNetwork:
     def dijkstra_algorithm(self, source):
         shortest_paths = [[] for _ in range(self.number_of_vertices)]
 
-        sptSet = []
+        spt_set = []
         distances = [inf] * self.number_of_vertices
         distances[source] = 0
 
         for neighbor in range(self.number_of_vertices):
-            if self.graph[source][neighbor] > 0 and neighbor not in sptSet:
-                distances[neighbor]= distances[source] + self.graph[source][neighbor]
+            if self.graph[source][neighbor] > 0 and neighbor not in spt_set:
+                distances[neighbor] = distances[source] + self.graph[source][neighbor]
                 shortest_paths[neighbor].append(source)
         # update distance values of its adjacent vertices
 
-        while len(sptSet) != self.number_of_vertices:
-            u = self.min_distance_vertex(distances, sptSet)
-            sptSet.append(u)
+        while len(spt_set) != self.number_of_vertices:
+            u = self.min_distance_vertex(distances, spt_set)
+            spt_set.append(u)
             for neighbor in range(self.number_of_vertices):
-                if self.graph[u][neighbor]>0 and neighbor not in sptSet:
-                    if(distances[u] + self.graph[u][neighbor] < distances[neighbor]):
+                if self.graph[u][neighbor] > 0 and neighbor not in spt_set:
+                    if distances[u] + self.graph[u][neighbor] < distances[neighbor]:
                         distances[neighbor] = distances[u] + self.graph[u][neighbor]
                         shortest_paths[neighbor] = shortest_paths[u] + [u]
         for v in range(self.number_of_vertices):
@@ -79,7 +91,7 @@ class TransitNetwork:
                 adjacency_matrix[from_node][to_node] = travel_time
         return adjacency_matrix
 
-    def find_initial_route_sets(self):
+    def find_initial_route_sets(self, route_set_size):
         shortest_paths = [[] for _ in range(self.number_of_vertices)]
         for i in range(self.number_of_vertices):
             shortest_paths[i] = self.dijkstra_algorithm(i)
@@ -87,17 +99,10 @@ class TransitNetwork:
                                  range(self.number_of_vertices)]
 
         Y = []  # the set of routes
-        N = 8  # total number of routes in the solution
+        N = route_set_size  # total number of routes in the solution
 
         # Calculate DS matrix
-        ds = [[0 for _ in range(self.number_of_vertices)] for _ in range(self.number_of_vertices)]
-        for i in range(self.number_of_vertices):
-            for j in range(self.number_of_vertices):
-                total_demand = 0
-                for m in self.dijkstra_algorithm(i)[j]:
-                    for n in self.dijkstra_algorithm(i)[j]:
-                        total_demand = total_demand + self.demand[m][n]
-                ds[i][j] = total_demand
+        ds = self.calculate_ds_matrix()
 
         m = 0
 
@@ -132,5 +137,6 @@ class TransitNetwork:
                                         ds[k][l] -= self.demand[i][j]
         return Y
 
+
 Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
-print("Initial route sets: "+ str(Mandl_transit_network.find_initial_route_sets()))
+print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
