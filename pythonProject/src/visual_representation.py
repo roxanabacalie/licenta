@@ -36,7 +36,7 @@ def draw_routes_mandl_network(routes):
                 alpha=0.5,
                 connectionstyle=f"arc3,rad={offset}",
             )
-            # Incrementarea offsetului pentru fiecare muchie
-            offset += 0.05
+
+            offset += 0.01
 
     plt.show()

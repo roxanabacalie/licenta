@@ -4,31 +4,40 @@ from math import inf
 from src.initial_solution import TransitNetwork
 from src.visual_representation import draw_routes_mandl_network
 
-pop_size = 100  # desired population size
-elite_size = 1  # desired number of elite individuals
+pop_size = 16  # desired population size
+elite_size = 4  # desired number of elite individuals
 route_set_size = 8  # number of routes in the individual
-t = 2  # tournament size for fitness
-p_swap = 0.1  # probability of swapping an index in Uniform Crossover
-p_ms = 0.8  # probability of doing small modification in Mutation
-p_delete = 0.5  # probability of deleting the selected terminal in small modification
-max_gen = 10  # maximum number of generations
+t = 10  # tournament size for fitness
+p_swap = 0.125  # probability of swapping an index in Uniform Crossover
+p_ms = 0.7  # probability of doing small modification in Mutation
+p_delete = 0.4  # probability of deleting the selected terminal in small modification
+max_gen = 100  # maximum number of generations
 P = []
 
 Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
 
+
 def calculate_fitness(individual):
 	fitness = 0
 	total_demand_covered = 0
+	fulfilled_demands = []
 	for j in range(len(individual)):
 		route = individual[j]
-		for node1 in range(len(route)):
-			for node2 in range(len(route)):
-				total_demand_covered += Mandl_transit_network.demand[node1][node2]
-		for i in range(len(route)-1):
-			fitness += Mandl_transit_network.graph[route[i]][route[i+1]]
-			fitness += (Mandl_transit_network.total_demand - total_demand_covered) * 0.5
-	print(fitness)
-	return 1/fitness
+		for node1_index in range(len(route)):
+			for node2_index in range(len(route)):
+				node1 = route[node1_index]
+				node2 = route[node2_index]
+				nodes_pair = (node1, node2)
+				if nodes_pair not in fulfilled_demands:
+					#print(nodes_pair, fulfilled_demands)
+					total_demand_covered += Mandl_transit_network.demand[node1][node2]
+					fulfilled_demands.append(nodes_pair)
+		for idx in range(len(route) - 1):
+			fitness += Mandl_transit_network.graph[route[idx]][route[idx + 1]]
+	fitness += (Mandl_transit_network.total_demand - total_demand_covered) * 0.5
+	#print(fitness)
+	return 1 / fitness
+
 
 
 # swap the routes of that position based on probability Pswap
@@ -47,7 +56,7 @@ def roulette_wheel_selection(probabilities):
 	cumulative_prob = 0
 	for index, prob in enumerate(probabilities):
 		cumulative_prob += prob
-		#print(cumulative_prob, rand)
+		# print(cumulative_prob, rand)
 		if cumulative_prob >= rand:
 			return index
 
@@ -66,7 +75,7 @@ def mutation(individual):
 		if ds[route_set[0]][route_set[len(route_set) - 1]] == 0:
 			mutation_probabilities[index] = inf
 		else:
-			mutation_probabilities[index] = (1/ds[route_set[0]][route_set[len(route_set) - 1]]) / sum_ds
+			mutation_probabilities[index] = (1 / ds[route_set[0]][route_set[len(route_set) - 1]]) / sum_ds
 		index += 1
 
 	# select a route based on roulette wheel selection
@@ -82,12 +91,16 @@ def mutation(individual):
 		# delete the terminal based on a probability p_delete
 		if rand < p_delete:
 			if len(individual[selected_route_index]) > 2:
-				individual[selected_route_index].remove(individual[selected_route_index][chosen_terminal])
+				new_route = individual[selected_route_index]
+				new_route.remove(new_route[selected_route_index][chosen_terminal])
+				if new_route not in individual:
+					individual[selected_route_index].remove(individual[selected_route_index][chosen_terminal])
 		# add a new node based on probability 1-p_delete
 		else:
 			neighbors = []
 			for node in range(Mandl_transit_network.number_of_vertices):
-				if Mandl_transit_network.graph[chosen_terminal][node] > 0 and node not in individual[selected_route_index]:
+				if Mandl_transit_network.graph[chosen_terminal][node] > 0 and node not in individual[
+					selected_route_index]:
 					neighbors.append(node)
 			if len(neighbors) != 0:
 				individual[selected_route_index].append(random.choice(neighbors))
@@ -107,15 +120,17 @@ def mutation(individual):
 
 		# the new route is the shortest path between the chosen terminal and the new terminal
 		new_route = Mandl_transit_network.dijkstra_algorithm(chosen_terminal)[new_terminal]
-		individual[selected_route_index] = new_route
+		if new_route not in individual:
+			individual[selected_route_index] = new_route
 	return individual
 
 
-def tournament_selection(population):
-	best_individual = population[0]
-	second_best_individual = population[1]
-	for j in range(1, pop_size-1):
-		next_individual = population[j]
+def tournament_selection(population, tournament_size):
+	tournament_population = random.sample(population, tournament_size)
+	best_individual = tournament_population[0]
+	second_best_individual = tournament_population[1]
+	for j in range(1, tournament_size - 1):
+		next_individual = tournament_population[j]
 		if calculate_fitness(next_individual) > calculate_fitness(best_individual):
 			second_best_individual = best_individual
 			best_individual = next_individual
@@ -124,27 +139,36 @@ def tournament_selection(population):
 	return best_individual, second_best_individual
 
 
+
+
+def genetic_algorithm(population, max_generations, tournament_size):
+	best = None
+	while max_generations > 0:
+		print(max_generations)
+		for idx in range(len(population)):
+			if best is None or calculate_fitness(population[idx]) > calculate_fitness(best):
+				best = population[idx]
+
+		sorted_population = sorted(population, key=calculate_fitness, reverse=True)
+		Q = sorted_population[:elite_size]
+
+		for idx in range(int((pop_size - elite_size) / 2)):
+			parent1, parent2 = tournament_selection(population, tournament_size)
+			child1, child2 = uniform_crossover(parent1, parent2)
+			Q.append(mutation(child1))
+			Q.append(mutation(child2))
+		population = Q
+		max_generations = max_generations - 1
+
+	print("Best", best)
+	print(population)
+	draw_routes_mandl_network(best)
+
+	print("Fitness initial " + str(calculate_fitness(Mandl_transit_network.find_initial_route_sets(8))))
+	print("Fitness final " + str(calculate_fitness(best)))
+
 for i in range(pop_size):
 	P.append(Mandl_transit_network.find_initial_route_sets(8))
 
+genetic_algorithm(P, max_gen, t)
 
-best = None
-while max_gen > 0:
-	for i in range(len(P)):
-		if best is None or calculate_fitness(P[i]) > calculate_fitness(best):
-			best = P[i]
-
-	sorted_population = sorted(P, key=calculate_fitness, reverse=True)
-	Q = sorted_population[:elite_size]
-
-	for i in range(int((pop_size - elite_size) / 2)):
-		Pa, Pb = tournament_selection(P)
-		Ca, Cb = uniform_crossover(Pa, Pb)
-		Q.append(mutation(Ca))
-		Q.append(mutation(Cb))
-	P = Q
-	max_gen = max_gen - 1
-
-print("Best", best)
-print(P)
-draw_routes_mandl_network(best)

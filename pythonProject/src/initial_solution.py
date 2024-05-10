@@ -10,6 +10,7 @@ class TransitNetwork:
         self.number_of_vertices = vertices
         self.graph = self.create_adjacency_matrix(links_file_path)
         self.demand = self.create_demand_matrix(demand_file_path)
+        self.total_demand = sum(sum(row) for row in self.demand)
 
     def print_graph(self):
         for node in range(self.number_of_vertices):
