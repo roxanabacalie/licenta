@@ -2,6 +2,8 @@ import sys
 from math import inf
 import numpy as np
 
+from src.visual_representation import draw_routes_mandl_network
+
 
 class TransitNetwork:
     def __init__(self, vertices, links_file_path, demand_file_path):
@@ -140,3 +142,4 @@ class TransitNetwork:
 
 Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
 print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
+draw_routes_mandl_network(Mandl_transit_network.find_initial_route_sets(8))

@@ -2,6 +2,7 @@ import random
 from math import inf
 
 from src.initial_solution import TransitNetwork
+from src.visual_representation import draw_routes_mandl_network
 
 pop_size = 100  # desired population size
 elite_size = 1  # desired number of elite individuals
@@ -17,12 +18,17 @@ Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/
 
 def calculate_fitness(individual):
 	fitness = 0
+	total_demand_covered = 0
 	for j in range(len(individual)):
 		route = individual[j]
 		for node1 in range(len(route)):
 			for node2 in range(len(route)):
-				fitness += Mandl_transit_network.demand[node1][node2]
-	return fitness
+				total_demand_covered += Mandl_transit_network.demand[node1][node2]
+		for i in range(len(route)-1):
+			fitness += Mandl_transit_network.graph[route[i]][route[i+1]]
+			fitness += (Mandl_transit_network.total_demand - total_demand_covered) * 0.5
+	print(fitness)
+	return 1/fitness
 
 
 # swap the routes of that position based on probability Pswap
@@ -48,6 +54,7 @@ def roulette_wheel_selection(probabilities):
 
 def mutation(individual):
 	# calculate mutation probabilities
+
 	ds = Mandl_transit_network.calculate_ds_matrix()
 	mutation_probabilities = [0 for _ in range(len(individual))]
 	sum_ds = 0
@@ -140,3 +147,4 @@ while max_gen > 0:
 
 print("Best", best)
 print(P)
+draw_routes_mandl_network(best)
