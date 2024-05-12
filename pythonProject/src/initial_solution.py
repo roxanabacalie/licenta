@@ -144,3 +144,19 @@ class TransitNetwork:
 Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
 print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
 draw_routes_mandl_network(Mandl_transit_network.find_initial_route_sets(8))
+
+individual= [[1,3,4], [2,5,7], [1,2,5,7,9,0]]
+selected_route_index = 1
+
+
+def is_subsequence(subsequence, list):
+    len_sub = len(subsequence)
+    for i in range(len(list) - len_sub + 1):
+        if list[i:i + len_sub] == subsequence:
+            return True
+    return False
+
+for route in individual:
+    if route != individual[selected_route_index] and is_subsequence(individual[selected_route_index], route):
+        print("true")
+    print(route)
