@@ -3,27 +3,22 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def save_graph(graph, file_name):
-    # Initialize figure
     plt.figure(num=None, figsize=(20, 20), dpi=80)
     plt.axis('off')
     fig = plt.figure(1)
 
-    # Spring layout for node positioning
     pos = nx.spring_layout(graph)
 
-    # Draw nodes, edges, and labels
     nx.draw_networkx_nodes(graph, pos)
     nx.draw_networkx_edges(graph, pos)
     nx.draw_networkx_labels(graph, pos)
 
-    # Adjust figure limits
     cut = 1.00
     xmax = cut * max(xx for xx, yy in pos.values())
     ymax = cut * max(yy for xx, yy in pos.values())
     plt.xlim(0, xmax)
     plt.ylim(0, ymax)
 
-    # Save the figure
     plt.savefig(file_name, bbox_inches="tight")
     plt.close(fig)
 
@@ -36,7 +31,6 @@ def draw_stops(stops):
         stop_lat = stop['stop_lat'] * 10000
         stop_lon = stop['stop_lon'] * 10000
         G.add_node(stop_id, label=stop_name, pos=(stop_lon, stop_lat))
-
 
     pos = nx.get_node_attributes(G, 'pos')
     labels = nx.get_node_attributes(G, 'label')
@@ -79,15 +73,12 @@ def connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data)
         block_id = trip_info['block_id']
         shape_id = trip_info['shape_id']
 
-        # Obținerea datelor despre ruta corespunzătoare
         route_info = routes_data.get(route_id)
         route_short_name = route_info.get('route_short_name', '')
         route_long_name = route_info.get('route_long_name', '')
 
-        # Crearea instanței pentru trip
         trip = Trip(trip_id, route_id, route_short_name, route_long_name, trip_headsign, direction_id, block_id, shape_id)
 
-        # Adăugarea stop-urilor corespunzătoare traseului în instanța trip
         if trip_id in stop_times_data:
             for stop_id, stop_sequence in stop_times_data[trip_id]:
                 stop_info = stops_data.get(stop_id)
