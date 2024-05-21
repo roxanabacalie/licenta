@@ -16,7 +16,7 @@ max_gen = 100  # maximum number of generations
 P = []
 
 Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
-
+Iasi_transit_network = TransitNetwork(207, "iasi_links.txt", "iasi_demand.txt")
 
 def calculate_fitness(individual):
 	fitness = 0
@@ -186,5 +186,14 @@ def genetic_algorithm(population, max_generations, tournament_size):
 
 for i in range(pop_size):
 	P.append(Mandl_transit_network.find_initial_route_sets(8))
+#genetic_algorithm(P, max_gen, t)
 
-genetic_algorithm(P, max_gen, t)
+print("sal")
+x = Iasi_transit_network.find_initial_route_sets(20)
+print("sal")
+P_Iasi=[]
+print("sal")
+for i in range(pop_size):
+	P_Iasi.append(x)
+	print("adaug")
+genetic_algorithm(P_Iasi, max_gen, t)

@@ -1,6 +1,10 @@
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+template_folder = os.path.join(current_dir, 'templates')
+app.template_folder = template_folder
 
 @app.route("/")
 def home():

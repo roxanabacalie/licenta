@@ -1,7 +1,33 @@
+import csv
+
 import requests
 import networkx as nx
 import matplotlib.pyplot as plt
 
+class Stop:
+    def __init__(self, stop_id, stop_name, stop_lat, stop_lon):
+        self.stop_id = stop_id
+        self.stop_name = stop_name
+        self.stop_lat = stop_lat
+        self.stop_lon = stop_lon
+
+class Trip:
+    def __init__(self, trip_id, route_id, route_short_name, route_long_name, trip_headsign, direction_id, block_id, shape_id):
+        self.trip_id = trip_id
+        self.route_id = route_id
+        self.route_short_name = route_short_name
+        self.route_long_name = route_long_name
+        self.trip_headsign = trip_headsign
+        self.direction_id = direction_id
+        self.block_id = block_id
+        self.shape_id = shape_id
+        self.stops = []
+
+class Route:
+    def __init__(self, route_id, route_short_name, route_long_name):
+        self.route_id = route_id
+        self.route_short_name = route_short_name
+        self.route_long_name = route_long_name
 def save_graph(graph, file_name):
     plt.figure(num=None, figsize=(20, 20), dpi=80)
     plt.axis('off')
@@ -38,30 +64,7 @@ def draw_stops(stops):
     nx.draw(G, pos, with_labels=True, labels=labels, node_size=30, node_color="skyblue", font_size=5, font_color="black")
     plt.show()
 
-class Stop:
-    def __init__(self, stop_id, stop_name, stop_lat, stop_lon):
-        self.stop_id = stop_id
-        self.stop_name = stop_name
-        self.stop_lat = stop_lat
-        self.stop_lon = stop_lon
 
-class Trip:
-    def __init__(self, trip_id, route_id, route_short_name, route_long_name, trip_headsign, direction_id, block_id, shape_id):
-        self.trip_id = trip_id
-        self.route_id = route_id
-        self.route_short_name = route_short_name
-        self.route_long_name = route_long_name
-        self.trip_headsign = trip_headsign
-        self.direction_id = direction_id
-        self.block_id = block_id
-        self.shape_id = shape_id
-        self.stops = []
-
-class Route:
-    def __init__(self, route_id, route_short_name, route_long_name):
-        self.route_id = route_id
-        self.route_short_name = route_short_name
-        self.route_long_name = route_long_name
 
 def connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data):
     connected_trips = {}
@@ -165,6 +168,14 @@ def build_trips_data(trips):
         }
     return trips_data
 
+def save_stops_to_csv(stops_data, file_name):
+    with open(file_name, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Stop ID', 'Stop Name', 'Stop Latitude', 'Stop Longitude'])
+        for stop in stops_data:
+            writer.writerow([stop['stop_id'], stop['stop_name'], stop['stop_lat'], stop['stop_lon']])
+
+
 api_url_stops = "https://api.tranzy.ai/v1/opendata/stops"
 api_url_stop_times = "https://api.tranzy.ai/v1/opendata/stop_times"
 api_url_trips = "https://api.tranzy.ai/v1/opendata/trips"
@@ -188,6 +199,8 @@ stop_times_data = build_stop_times_data(stop_times)
 trips_data = build_trips_data(trips)
 routes_data = build_routes_data(routes)
 
+csv_file_name = 'stops_data.csv'
+save_stops_to_csv(stops, csv_file_name)
 
 connected_trips = connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data)
 for trip_id, trip in connected_trips.items():
