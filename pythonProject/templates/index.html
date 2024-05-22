@@ -6,12 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-  <script>
-  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-    key: "AIzaSyD6wmTx_t7_PvRioFulanGvzhavryaZBQs",
-    v: "weekly"
-  });
-</script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <style>
     .navbar-custom .navbar-brand,
     .navbar-custom .navbar-nav .nav-link {
@@ -23,13 +18,13 @@
       color: #FFDF6C; /* culoarea textului la hover */
     }
 
-  .navbar-custom .navbar-brand:focus,
-  .navbar-custom .navbar-nav .nav-link:focus,
-  .navbar-custom .navbar-brand:active,
-  .navbar-custom .navbar-nav .nav-link:active {
-    color: #FFDF6C; /* culoarea textului la selectare */
+    .navbar-custom .navbar-brand:focus,
+    .navbar-custom .navbar-nav .nav-link:focus,
+    .navbar-custom .navbar-brand:active,
+    .navbar-custom .navbar-nav .nav-link:active {
+      color: #FFDF6C; /* culoarea textului la selectare */
+    }
 
-  }
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
@@ -40,7 +35,6 @@
       background-color: #707070;
       padding: 25px;
     }
-
 
     .navbar-inverse .navbar-nav > .active > a,
     .navbar-inverse .navbar-nav > .active > a:hover,
@@ -53,18 +47,26 @@
       color: #FFDF6C;
     }
 
-    #map {
-  height: 100%;
-}
+    .container-map {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 450px;
+    }
 
+    #map {
+      height: 400px; /* Set the height for the map */
+      width: 80%;
+    }
   </style>
 </head>
 <body>
 
 <nav class="navbar navbar-custom navbar-expand-lg">
-
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Portfolio</a>
+    <a class="navbar-brand" href="#">
+       <img src="../static/images/icon.png" alt="Icon" width="40"  class="d-inline-block align-text-top">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -82,15 +84,13 @@
     </div>
   </div>
 </nav>
-
+</br>
 <div class="jumbotron text-center">
   <div class="container">
-    <h1>My Portfolio</h1>
-    <p>Some text that represents "Me"...</p>
+    <h1>Proiectarea Rețelelor de Transport Public</h1>
   </div>
 </div>
-
-
+</br>
 <div class="container">
   <div class="mb-4 d-flex flex-row">
     <select class="form-select me-4" id="transport-station-select" aria-label="Select a station">
@@ -112,16 +112,23 @@
     </select>
 
     <input type="text" class="form-control me-4" id="distance-input" placeholder="Introduceți distanța">
-
     <input type="text" class="form-control" id="demand-input" placeholder="Introduceți cererea">
   </div>
 </div>
 
-<div id="map"></div>
+<!-- The div element for the map -->
+<div class="container-map">
+  <div id="map"></div>
+</div>
+
+<!-- Load the API from the specified URL -->
+
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+  <p>Băcălie Ioana-Roxana - Soluții pentru Proiectarea Rețelelor de Transport Public</p>
+  <p>Facultatea de Automatică și Calculatoare Iași</p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL9n-iu4Ata_D057iAE-Fo2sly5rhuZiA&loading=async&callback=initMap&v=weekly" async defer></script>
 <script src="../static/script.js"></script>
 
 </body>

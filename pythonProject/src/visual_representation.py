@@ -39,4 +39,5 @@ def draw_routes_mandl_network(routes):
 
             offset += 0.01
 
+    plt.savefig("img.png")
     plt.show()
