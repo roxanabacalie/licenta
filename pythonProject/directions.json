@@ -1,0 +1,206 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJibNN6IH7ykARyNUHIEk1M8k",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJGVjCkYP7ykARzqs18fqM678",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16331,
+                "west": 27.59466,
+                "north": 47.166540000000005,
+                "east": 27.59701
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,4 km",
+                        "value": 401
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 74
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 40
+                    },
+                    "end_address": "Padurii, Ia\u0219i 700259, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1633092,
+                        "lng": 27.5970087
+                    },
+                    "start_address": "Podu de Fier, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1665447,
+                        "lng": 27.5946646
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,4 km",
+                                "value": 401
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 74
+                            },
+                            "end_location": {
+                                "lat": 47.1633092,
+                                "lng": 27.5970087
+                            },
+                            "polyline": {
+                                "points": "{e{~GsqlgDj@_@x@i@lD_Cx@k@|AcAd@YdAs@lBmA"
+                            },
+                            "start_location": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "{e{~GsqlgDj@_@x@i@lD_Cx@k@|AcAd@YdAs@lBmA",
+                            "path": [
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                },
+                                {
+                                    "lat": 47.166320000000006,
+                                    "lng": 27.594820000000002
+                                },
+                                {
+                                    "lat": 47.166030000000006,
+                                    "lng": 27.59503
+                                },
+                                {
+                                    "lat": 47.16516000000001,
+                                    "lng": 27.595670000000002
+                                },
+                                {
+                                    "lat": 47.16487,
+                                    "lng": 27.59589
+                                },
+                                {
+                                    "lat": 47.1644,
+                                    "lng": 27.596230000000002
+                                },
+                                {
+                                    "lat": 47.164210000000004,
+                                    "lng": 27.59636
+                                },
+                                {
+                                    "lat": 47.16386000000001,
+                                    "lng": 27.59662
+                                },
+                                {
+                                    "lat": 47.16331,
+                                    "lng": 27.59701
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                },
+                                {
+                                    "lat": 47.166320000000006,
+                                    "lng": 27.594820000000002
+                                },
+                                {
+                                    "lat": 47.166030000000006,
+                                    "lng": 27.59503
+                                },
+                                {
+                                    "lat": 47.16516000000001,
+                                    "lng": 27.595670000000002
+                                },
+                                {
+                                    "lat": 47.16487,
+                                    "lng": 27.59589
+                                },
+                                {
+                                    "lat": 47.1644,
+                                    "lng": 27.596230000000002
+                                },
+                                {
+                                    "lat": 47.164210000000004,
+                                    "lng": 27.59636
+                                },
+                                {
+                                    "lat": 47.16386000000001,
+                                    "lng": 27.59662
+                                },
+                                {
+                                    "lat": 47.16331,
+                                    "lng": 27.59701
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>Bulevardul Tudor Vladimirescu</b>/<wbr/><b>DN24</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b> c\u0103tre <b>Strada Pantelimon</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            },
+                            "end_point": {
+                                "lat": 47.1633092,
+                                "lng": 27.5970087
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "{e{~GsqlgDdSuM",
+            "summary": "Bulevardul Tudor Vladimirescu/DN24/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.166540000000005,
+                    "lng": 27.59466
+                },
+                {
+                    "lat": 47.16331,
+                    "lng": 27.59701
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16654,
+                "lng": 27.59465
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16321,
+                "lng": 27.5969
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-05-31T00:30:00.000Z"
+        }
+    }
+}
