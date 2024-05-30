@@ -8,14 +8,14 @@ from src.visual_representation import draw_routes_mandl_network
 pop_size = 16  # desired population size
 elite_size = 4  # desired number of elite individuals
 route_set_size = 8  # number of routes in the individual
-t = 10  # tournament size for fitness
-p_swap = 0.125  # probability of swapping an index in Uniform Crossover
+t = 12  # tournament size for fitness
+p_swap = 0.15  # probability of swapping an index in Uniform Crossover
 p_ms = 0.7  # probability of doing small modification in Mutation
-p_delete = 0.4  # probability of deleting the selected terminal in small modification
-max_gen = 100  # maximum number of generations
+p_delete = 0.5  # probability of deleting the selected terminal in small modification
+max_gen = 500  # maximum number of generations
 P = []
 
-Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
+Mandl_transit_network = TransitNetwork(15, "../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
 Iasi_transit_network = TransitNetwork(207, "iasi_links.txt", "iasi_demand.txt")
 
 def calculate_fitness(individual, transit_network):
@@ -178,7 +178,7 @@ def genetic_algorithm(population, max_generations, tournament_size, transit_netw
 
 	print("Best", best)
 	print(population)
-	#draw_routes_mandl_network(best)
+	draw_routes_mandl_network(best)
 
 	print("Fitness initial " + str(calculate_fitness(transit_network.find_initial_route_sets(8), transit_network)))
 	print("Fitness final " + str(calculate_fitness(best, transit_network)))
@@ -186,14 +186,28 @@ def genetic_algorithm(population, max_generations, tournament_size, transit_netw
 
 for i in range(pop_size):
 	P.append(Mandl_transit_network.find_initial_route_sets(8))
-#genetic_algorithm(P, max_gen, t)
+genetic_algorithm(P, max_gen, t, Mandl_transit_network)
 
-print("sal")
-x = Iasi_transit_network.find_initial_route_sets(20)
-print("sal")
-P_Iasi=[]
-print("sal")
-for i in range(pop_size):
-	P_Iasi.append(x)
-	print("adaug")
-genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)
+
+#route_set = Mandl_transit_network.find_initial_route_sets(8);
+#route_set[0]=[0,1,2]
+#route_set[1]=[1,2,3]
+#route_set[2]=[2,3,4]
+#route_set[3]=[3,4,5]
+#route_set[4]=[6,7,8]
+#route_set[5]=[9,10,11]
+#route_set[6]=[12,13,14]
+#route_set[7]=[0,12,14]
+#for i in range(pop_size):
+#	P.append(route_set)
+#genetic_algorithm(P, max_gen, t, Mandl_transit_network)
+
+#print("sal")
+#x = Iasi_transit_network.find_initial_route_sets(20)
+#print("sal")
+#P_Iasi=[]
+#print("sal")
+#for i in range(pop_size):
+#	P_Iasi.append(x)
+#	print("adaug")
+#genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)

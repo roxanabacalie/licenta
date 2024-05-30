@@ -1,7 +1,7 @@
 import csv
 
 # Read data from the CSV file into a list
-with open('stops_data3.csv', 'r', newline='', encoding='utf-8') as csvfile:
+with open('../src/stops_data3.csv', 'r', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     stops_data = list(reader)
 
@@ -15,7 +15,7 @@ for stop in stops_data:
     new_id += 1
 
 # Write the updated data to a new CSV file
-with open('stops_data_consecutive_ids.csv', 'w', newline='', encoding='utf-8') as csvfile:
+with open('../src/stops_data_consecutive_ids.csv', 'w', newline='', encoding='utf-8') as csvfile:
     fieldnames = ['Stop ID', 'Stop Name', 'Stop Latitude', 'Stop Longitude']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()

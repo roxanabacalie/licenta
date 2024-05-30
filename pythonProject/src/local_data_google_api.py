@@ -1,20 +1,67 @@
+import json
+
 import requests
 from datetime import datetime, timedelta, timezone
 
 
-def get_timestamp_for_5pm():
-	# Obține data curentă
+def get_timestamp(hours, minutes):
 	today = datetime.now().date() + timedelta(days=1)
-
-	# Setează ora la 5 PM ora României (UTC+3)
-	five_pm_romania = datetime(today.year, today.month, today.day, 8, 50, tzinfo=timezone(timedelta(hours=3)))
-
-	# Convertește în timestamp de la epoch (midnight, January 1, 1970 UTC)
+	five_pm_romania = datetime(today.year, today.month, today.day, hours, minutes, tzinfo=timezone(timedelta(hours=3)))
 	timestamp = int(five_pm_romania.timestamp())
-
 	return timestamp
 
+def get_directions(origin_lat, origin_lon, destination_lat, destination_lon, api_key, departure_time):
+    url = "https://maps.googleapis.com/maps/api/directions/json"
+    params = {
+        "origin": f"{origin_lat},{origin_lon}",
+        "destination": f"{destination_lat},{destination_lon}",
+        "key": api_key,
+        "departure_time": departure_time,
+        "mode": "driving"
+    }
+    response = requests.get(url, params=params)
+    data = response.json()
 
+    # Build the JSON object with the desired structure
+    result = {
+        "geocoded_waypoints": [],
+        "routes": [],
+        "status": "",
+        "request": {
+            "origin": {
+                "location": {
+                    "lat": origin_lat,
+                    "lng": origin_lon
+                }
+            },
+            "destination": {
+                "location": {
+                    "lat": destination_lat,
+                    "lng": destination_lon
+                }
+            },
+            "travelMode": "driving"
+        }
+    }
+
+    # Copy geocoded_waypoints if present
+    if "geocoded_waypoints" in data:
+        result["geocoded_waypoints"] = data["geocoded_waypoints"]
+
+    # Copy routes if present
+    if "routes" in data:
+        result["routes"] = data["routes"]
+
+    # Copy status if present
+    if "status" in data:
+        result["status"] = data["status"]
+
+    return result
+def save_directions_list_to_file(directions_list, filename):
+    with open(filename, 'w') as f:
+        json.dump(directions_list, f, indent=4)
+
+'''
 def get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, departure_time):
 	url = "https://maps.googleapis.com/maps/api/distancematrix/json"
 	params = {
@@ -23,23 +70,39 @@ def get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, dep
 		"key": api_key,
 		"departure_time": departure_time,
 		"traffic_model": "best_guess",
-		"mode": "driving"
+		"mode": "DRIVING"
 	}
 	response = requests.get(url, params=params)
 	data = response.json()
 	return data
-
+'''
 
 # Exemplu de utilizare
-origin_lat = 47.1585
-origin_lng = 27.6014
-dest_lat = 47.1749
-dest_lng = 27.5723
+origin_coords = [
+    (47.1585, 27.6014),
+	(47.1685, 27.6014)
+]
+
+dest_coords = [
+    (47.1749, 27.5723),
+	(47.1849, 27.5423)
+]
+
 api_key = "AIzaSyAL9n-iu4Ata_D057iAE-Fo2sly5rhuZiA"
 
-# Obține timestamp-ul pentru ora 5 PM ora României
-departure_time = get_timestamp_for_5pm()
+directions_list = []
+departure_time = get_timestamp(3, 30)
 
+for origin in origin_coords:
+    for dest in dest_coords:
+        if origin != dest:  # Evită cererile de la un punct la el însuși
+            directions_data = get_directions(origin[0], origin[1], dest[0], dest[1], api_key, departure_time)
+            directions_list.append(directions_data)
+
+
+save_directions_list_to_file(directions_list, '../static/directions_data_list.json')
+
+'''
 distance_matrix = get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, departure_time)
 print(distance_matrix)
 
@@ -51,3 +114,4 @@ if distance_matrix['status'] == 'OK':
 	print(f"Timpul de călătorie: {duration}")
 else:
 	print("Nu s-au putut obține informațiile de la API.")
+'''

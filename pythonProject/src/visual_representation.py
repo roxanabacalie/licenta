@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 def draw_routes_mandl_network(routes):
     G = nx.Graph()
     node_positions = {}
-    with open("../data/mandl1_nodes.txt", "r") as file:
+    with open("../data/mandl/mandl1_nodes.txt", "r") as file:
         next(file)
         for line in file:
             node, lat, lon, _ = map(float, line.strip().split(","))
             G.add_node(node - 1)
             node_positions[node - 1] = (lon, lat)
 
-    with open("../data/mandl1_links.txt", "r") as file:
+    with open("../data/mandl/mandl1_links.txt", "r") as file:
         next(file)
         for line in file:
             from_node, to_node, weight = map(int, line.strip().split(","))

@@ -19,8 +19,8 @@ def write_stations_file(stations, file_path):
             file.write(f"{stop_id},{stop_name},{stop_lat},{stop_lon}\n")
 
 # Example usage
-input_file = "stops_data2.csv"
-output_file = "stops_data3.csv"
+input_file = "../src/stops_data2.csv"
+output_file = "../src/stops_data3.csv"
 
 stations_data = read_stations_file(input_file)
 write_stations_file(stations_data, output_file)

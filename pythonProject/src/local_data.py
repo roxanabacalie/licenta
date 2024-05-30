@@ -28,6 +28,7 @@ class Route:
         self.route_id = route_id
         self.route_short_name = route_short_name
         self.route_long_name = route_long_name
+
 def save_graph(graph, file_name):
     plt.figure(num=None, figsize=(20, 20), dpi=80)
     plt.axis('off')

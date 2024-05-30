@@ -137,7 +137,7 @@ class TransitNetwork:
         return Y
 
 
-Mandl_transit_network = TransitNetwork(15, "../data/mandl1_links.txt", "../data/mandl1_demand.txt")
+Mandl_transit_network = TransitNetwork(15, "../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
 print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
 draw_routes_mandl_network(Mandl_transit_network.find_initial_route_sets(8))
 
