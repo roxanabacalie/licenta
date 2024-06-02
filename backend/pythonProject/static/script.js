@@ -102,8 +102,8 @@ function getRandomColor() {
 
 // Ensure initMap is defined in the global scope
 window.initMap = initMap;
-
 */
+
 
 /*
 async function drawRoutesFromJSON() {
