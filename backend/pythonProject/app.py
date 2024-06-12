@@ -1,10 +1,12 @@
 import json
 from datetime import datetime, timedelta
 import jwt
+from bson import ObjectId
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_cors import CORS
 import os
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from pymongo import MongoClient
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'  # MySQL database URI
@@ -20,6 +22,11 @@ app.template_folder = template_folder
 app.config['SECRET_KEY'] = 'your_strong_secret_key'
 app.config["JWT_SECRET_KEY"] = 'your_jwt_secret_key'
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
+
+# Conectarea la MongoDB
+client = MongoClient('mongodb+srv://ioanaroxanabacalie:XNZ9IwfAmyRjju3y@cluster0.ulbfdch.mongodb.net/')
+db = client['licenta']
+collection = db['routes']
 
 # JWT Initialization
 jwt = JWTManager(app)
@@ -51,6 +58,19 @@ def login():
         return jsonify({'access_token': access_token})
     return jsonify({'message': 'Invalid credentials'}), 401
 
+@app.route('/api/routes/<route_id>', methods = ['GET'])
+def get_route(route_id):
+    route_id=str(route_id)
+    print("get_route")
+    try:
+        route = collection.find_one({'_id': ObjectId(route_id)})
+        if route:
+            route['_id'] = str(route['_id'])
+            return jsonify(route), 200
+        else:
+            return jsonify({'error': 'Route not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/protected', methods=['GET'])
 @jwt_required()

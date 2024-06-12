@@ -34,11 +34,11 @@
                     },
                     "duration": {
                         "text": "3 mins",
-                        "value": 159
+                        "value": 154
                     },
                     "duration_in_traffic": {
                         "text": "1 min",
-                        "value": 87
+                        "value": 75
                     },
                     "end_address": "Targu Cucu, Ia\u0219i, Rom\u00e2nia",
                     "end_location": {
@@ -135,7 +135,7 @@
                             },
                             "duration": {
                                 "text": "1 min",
-                                "value": 72
+                                "value": 68
                             },
                             "end_location": {
                                 "lat": 47.1662639,
@@ -268,7 +268,7 @@
                             },
                             "duration": {
                                 "text": "1 min",
-                                "value": 56
+                                "value": 55
                             },
                             "end_location": {
                                 "lat": 47.1655208,
@@ -501,7 +501,7 @@
         },
         "travelMode": "DRIVING",
         "drivingOptions": {
-            "departureTime": "2024-06-03T00:30:00.000Z"
+            "departureTime": "2024-06-06T00:30:00.000Z"
         }
     }
 }

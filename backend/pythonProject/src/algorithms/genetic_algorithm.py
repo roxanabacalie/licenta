@@ -2,7 +2,7 @@ import random
 from copy import deepcopy
 from math import inf
 
-from src.initial_solution import TransitNetwork
+from src.algorithms.initial_solution import TransitNetwork
 from src.visual_representation import draw_routes_mandl_network
 
 pop_size = 16  # desired population size
@@ -15,8 +15,8 @@ p_delete = 0.5  # probability of deleting the selected terminal in small modific
 max_gen = 500  # maximum number of generations
 P = []
 
-Mandl_transit_network = TransitNetwork(15, "../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
-Iasi_transit_network = TransitNetwork(207, "iasi_links.txt", "iasi_demand.txt")
+Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
+Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../data/iasi/Iasi_demand.txt")
 
 def calculate_fitness(individual, transit_network):
 	fitness = 0

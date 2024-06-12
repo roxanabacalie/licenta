@@ -189,6 +189,20 @@ Stop ID,Stop Name,Stop Latitude,Stop Longitude
 212,Tătărași Nord,47.16136752,27.60901943
 213,Columnei,47.16680333,27.54414859
 214,Str. Bacinschi,47.16810656,27.56839173
+215,Oțelarie,47.11728001,27.56304473
+216,Baza Nautică,47.11421352,27.56103921
+217,Horpaz,47.11073906,27.55961061
+218,Sere Ciurea,47.10561558,27.55964529
+219,Lunca Cetățuii,47.10066568,27.55977365
+220,Astoria,47.09705029,27.55900642
+221,Blocuri Ciurea,47.09664,27.56659
+222,Blocuri Ciurea,47.09670078,27.56119183
+223,Astoria,47.09718809,27.55900317
+224,Lunca Cetățuii,47.10033048,27.55977809
+225,Sere Ciurea,47.10486399,27.55970347
+226,Horpaz,47.11046291,27.55936384
+227,Baza Nautică,47.11399439,27.56101203
+228,Oțelărie,47.1167579,27.56268674
 229,Tehnopolis,47.12347297,27.56709644
 230,Aeroport,47.17652997,27.61748512
 231,Aeroport,47.17635964,27.61739462
@@ -382,6 +396,10 @@ Stop ID,Stop Name,Stop Latitude,Stop Longitude
 467,Complex Sun City,47.145779,27.549408
 468,Str. Viilor,47.145117,27.539313
 469,Str. Viilor,47.145095,27.540174
+470,Str. Constantin Langa,47.146289,27.531919
+471,Str. Constantin Langa,47.146187,27.531989
+472,Primăria Miroslava,47.145388,27.526025
+474,Blocuri Șorogari,47.197727,27.577273
 476,Str. Moara de Vânt,47.17583,27.59816
 477,Piata Independentei,47.1691,27.57802
 478,Complex Class Residence,47.14691,27.556
@@ -417,10 +435,78 @@ Stop ID,Stop Name,Stop Latitude,Stop Longitude
 509,Tătărași Nord,47.16157,27.60829
 510,Bd. Chimiei (staţie temporară),47.15089,27.6329
 511,Citadin,47.15943,27.60053
+512,Tomesti - Holboca,47.13131,27.69736
+513,Holboca,47.14843,27.68617
 514,Dancu - Capat,47.15217,27.65873
 515,Pod Sf. Ioan,47.15218,27.64165
+516,Primaria Miroslava,47.1462,27.52815
 517,Bulevardul C.A.Rosetti,47.17494,27.58808
+518,Pod Aroneanu,47.19349,27.59698
+519,Str. Valea lui Bors - Dorobant,47.21469,27.59636
+520,Str. I.C. Bratianu - Dorobant,47.21932,27.59433
+521,Rond Dorobant,47.22372,27.59487
+522,Str. Cuza Voda - Dorobant,47.227,27.5957
+523,Str. M. Kogalniceanu - Dorobant,47.22818,27.59603
+524,Str. Ionesti - Dorobant,47.23481,27.59706
+525,Str. Ionesti - Dorobant,47.2348,27.59701
+526,Depozite Tomesti,47.1295,27.71227
+527,Str. Pinilor -Tomesti,47.12423,27.74719
+528,Chiperesti,47.11928,27.76274
+529,Valea Domneasca - Tutora,47.13615,27.78618
+530,Centru Tutora,47.13488,27.79271
+531,Satul Nou - Tutora,47.13024,27.80099
+532,Hotar Tutora,47.12986,27.80189
+533,Prutet - Opriseni,47.12686,27.81034
+534,Primaverii - Opriseni,47.13185,27.81953
+535,Magazin Opriseni,47.12779,27.82416
+536,Str. Principala - Opriseni,47.12309,27.81893
+537,Putet - Opriseni,47.12754,27.80974
+538,Hotar Tutora,47.12945,27.71479
+539,Satul Nou - Tutora,47.13316,27.79653
+540,Centru Tutora,47.13512,27.79249
+541,Valea Domneasca - Tutora,47.13608,27.78545
+542,Chiperesti,47.11979,27.76151
+543,Str Pinilor - Tomesti,47.12429,27.7476
+544,Depozite Tomesti,47.12947,27.71482
+545,Prutet Opriseni,47.12729,27.81047
+546,Primaria Tomesti,47.11941,27.71009
+547,Primaria Tomesti,47.11961,27.71027
+548,Str. Codrului - Tomesti,47.11623,27.71829
+549,Str Codrului - Tomesti,47.11634,27.71874
+550,Goruni,47.10729,27.71621
+551,Dealul Zorilor - Rediu,47.17991,27.53163
+552,Notariat Rediu,47.18642,27.5253
+553,Notariat Rediu,47.18639,27.52496
+554,Casablanca - Rediu,47.19878,27.51779
+555,Casablanca - Rediu,47.19887,27.51745
+556,Esplanada Parc - Rediu,47.20568,27.51271
+557,Esplanada Parc - Rediu,47.2055,27.51265
+558,Str. M. Kogalniceanu - Dorobant,47.22825,27.59599
+559,Cherestea Rediu,47.209,27.51023
+560,Str. Cuza Voda - Dorobant,47.22472,27.59512
+561,Cherestea Rediu,47.20899,27.51003
+562,Primaria Rediu,47.21266,27.50552
+563,Strada Betonata - Rediu,47.21574,27.50647
+564,Iaz - Rediu,47.21948,27.50371
+565,Iaz - Rediu,47.21993,27.50338
+566,S.M.A. Breazu,47.22716,27.50472
+567,S.M.A. Breazu,47.22722,27.50447
+568,Sat Nou - Breazu,47.21923,27.51146
+569,Sat Nou - Breazu,47.21927,27.51175
+570,Biserica Breazu,47.21618,27.5209
+571,Biserica Breazu,47.21629,27.521
+572,Blocul Alb - Breazu,47.21512,27.52632
+573,Padurea Marzesti - Breazu,47.23242,27.49789
+574,Padurea Marzesti - Breazu,47.23233,27.4978
+575,Rond Dorobant,47.22355,27.59472
+576,Str. I.C. Bratianu - Dorobant,47.21858,27.59428
+577,Str Tautestilor - Breazu,47.23517,27.49225
+578,Baza Nautica - Dorobant,47.21482,27.59563
+579,Str Tautestilor - Breazu,47.23506,27.49216
+580,Cartierul Austriac - Horlesti,47.2554,27.46226
+581,Pod Aroneanu,47.19346,27.59652
 582,Cartierul Austriac,47.25545,27.46212
+583,Complex Horlesti,47.25777,27.45669
 584,Colegiul Economic Administrativ,47.16687,27.58961
 585,Colegiul Economic Administrativ,47.16677,27.58953
 586,Str Mihai Eminescu,47.16908,27.58808
@@ -433,11 +519,76 @@ Stop ID,Stop Name,Stop Latitude,Stop Longitude
 593,Centrul Rezidential pentru Mame si Copii,47.17655,27.5791
 594,Str Lascar Catargi,47.17879,27.57542
 595,Str Lascar Catargi,47.17872,27.57534
+596,Intersectie Carlig,47.20824,27.55444
+597,Intersectie Carlig,47.20841,27.55419
+598,Carolina - Vanatori,47.22124,27.54716
+599,Carolina - Vanatori,47.2213,27.54691
+600,Satu Nou - Vanatori,47.22967,27.53719
+601,Satu Nou - Vanatori,47.22968,27.537
+602,Vanatori,47.24036,27.53205
+603,Vanatori,47.24025,27.53199
+604,Intersectie Moimesti,47.27399,27.51933
+605,Intersectie Moimesti,47.274,27.51919
+606,Popricani (2),47.28135,27.51718
+607,Popricani (2),47.2813,27.51706
+608,Popricani (1),47.28792,27.51186
+609,Nicol Residence - Valea Adanca,47.12168,27.55405
+610,Nicol Residence - Valea Adanca,47.12162,27.55399
+611,5 Drumuri - Valea Adanca,47.12464,27.54654
+612,5 Drumuri - Valea Adanca,47.1246,27.54641
+613,Str. Marului - Valea Adanca,47.12721,27.54241
+614,Str. Marului - Valea Adanca,47.12713,27.54234
+615,Vulcanizare - Balciu,47.14181,27.52897
+616,Vulcanizare - Balciu,47.14178,27.52883
 617,str. Prof. Anton Nitu,47.14533,27.52606
+618,Primaria Miroslava,47.14569,27.52772
+619,Str. Ion Creanga - Aroneanu,47.19816,27.60091
+620,Str. Musatini - Aroneanu,47.2007,27.60179
+621,Rond Aroneanu,47.20356,27.6033
+622,Str. Izvor - Aroneanu,47.20092,27.60178
+623,Str. M. Eminescu - Aroneanu,47.19823,27.60082
+624,Str. Bogdan Voda - Aroneanu,47.20854,27.6103
+625,Str. 7 Oameni - Aroneanu,47.21068,27.61923
+626,Tess Conex - Miroslava,47.14559,27.52392
+627,Transanapet - Gaureni,47.14226,27.51383
+628,Transanapet - Gaureni,47.14222,27.51406
+629,Biserica - Valea Ursului,47.13693,27.4938
+630,Pod Netca - Rediul Aldei,47.21941,27.63755
+631,Biserica - Valea Ursului,47.13684,27.49384
+632,Pod Emil - Rediu Aldei,47.22423,27.63796
+633,Magazin Morosanu - Valea Ursului,47.13483,27.48353
+634,Magazin Morosanu - Valea Ursului,47.13476,27.48366
+635,Platou Vorovesti,47.13008,27.47694
+636,Platou Vorovesti,47.13003,27.47705
+637,Str. Firmelor - Holboca,47.14983,27.67705
+638,Str. Firmelor - Holboca,47.14994,27.67703
+639,Calea Tomesti - Holboca,47.14833,27.6865
+640,Calea Tomesti - Holboca,47.14842,27.68637
+641,Primaria Holboca,47.15402,27.68618
+642,Primaria Holboca,47.15417,27.68614
+643,Str. Lunga - Holboca,47.15974,27.68599
+644,Str Lunga - Holboca,47.15993,27.68596
+645,Str Principala - Holboca,47.16582,27.6883
+646,Str Principala - Holboca,47.16586,27.68816
+647,Str Orizont - Holboca,47.17216,27.68902
+648,Str Orizont - Holboca,47.17211,27.68888
+649,Scoala Rusenii Vechi,47.17758,27.6858
+650,Scoala Rusenii Vechi,47.17754,27.68568
+651,Str Veche - Rusenii Vechi,47.18233,27.68132
+652,Str Veche - Rusenii Vechi,47.18227,27.68123
+653,Str Neamului - Rusenii Noi,47.18957,27.67395
+654,Str Neamului,47.1895,27.67384
+655,Scoala Rusenii Noi,47.19622,27.66878
+656,Scoala Rusenii Noi,47.19609,27.66878
 657,Str. Cornelia Emilian,47.10725,27.63904
 658,Str. Boiangiu,47.09972,27.64959
 659,Str. Theodor Rosetti,47.09431,27.65107
 660,Motel Bucium,47.09067,27.65008
+661,Intrare Paun,47.08938,27.65514
+662,Centru Paun,47.09635,27.66269
+663,City View Paun,47.1031,27.66472
+664,Centru Paun,47.09656,27.66259
+665,Intrare Paun,47.08944,27.65502
 666,Motel Bucium,47.09084,27.65001
 667,Str. Theodor Rosetti,47.09431,27.65112
 668,Str. Boiangiu,47.10008,27.6495
@@ -454,14 +605,116 @@ Stop ID,Stop Name,Stop Latitude,Stop Longitude
 679,Parc Sorogari,47.2013,27.58948
 680,Troita Sorogari,47.19334,27.59584
 681,Zen Residence,47.12977,27.60581
+682,Str. Visan,47.12516,27.60194
+683,Verdi Residence - Visan,47.12166,27.60037
+684,Auras Residence - Visan,47.11884,27.60169
+685,Rezidential Decoflor - Visan,47.11492,27.60299
+686,Rezidential Decoflor - Visan,47.11491,27.60317
+687,Auras Residence - Visan,47.11834,27.6021
+688,Verdi Residence - Visan,47.12151,27.60051
+689,Str. Visan,47.12508,27.60204
+690,Zen Residence,47.12973,27.60593
+691,Biserica Dumbrava,47.07697,27.55078
+692,Dumbrava Vale,47.06875,27.54932
+693,Concretica - Dumbrava,47.06528,27.54762
+694,Santa,47.04284,27.54442
+695,Santa,47.04305,27.54466
+696,Concretica - Dumbrava,47.06498,27.54775
+697,Dumbrava Vale,47.06917,27.54938
+698,Biserica Dumbrava,47.07695,27.55089
+699,Magazin La Salcii - Horpaz,47.10543,27.55153
+700,Magazin Profi - Horpaz,47.10195,27.54075
+701,Str. Prof. Neculai Hartan - Ciurbesti,47.09833,27.5306
+702,Str. Parcului - Ciurbesti,47.09653,27.5259
+703,Str. Parcului - Ciurbesti,47.09649,27.52609
+704,Str. Prof. Neculai Hartan - Ciurbesti,47.09821,27.53049
+705,Magazin Profi - Horpaz,47.10193,27.5409
+706,Magazin La Salcii - Horpaz,47.10536,27.55173
+707,Str. Vioarei - Tomesti,47.11391,27.72586
+708,Str. Releu - Chicerea,47.11105334,27.73476809
+709,Scoala Chicerea,47.10461639,27.74647862
+710,Rond Chicerea,47.1034808,27.75670856
+711,Rond Chicerea,47.10364512,27.7572611
+712,Scoala Chicerea,47.1053357,27.74578661
+713,Str. Releu - Chicerea,47.11121032,27.73468763
+714,Str. Vioarei - Tomesti,47.1140251,27.72604018
 715,Gradinita Tineretului,47.09246857,27.55710488
 716,Gradinita Tineretului,47.09237,27.55722
+717,Strada Eliberarii - Dumbrava,47.08834915,27.55404471
+718,Str. Eliberarii - Dumbrava,47.08824,27.55415
+719,Str. Digului - Dumbrava,47.08134,27.5515
 720,Str. Digului,47.08127,27.55159
 721,Dancas - DC 28,47.11616072,27.51752618
+722,Centrul de zi Cornesti,47.10928,27.50835
+723,Centru Proselnici,47.1101333,27.5002152
+724,Scoala Proselnici,47.11019536,27.48607459
+725,Scoala Proselnici,47.11019171,27.48603704
+726,Centru Proselnici,47.11004932,27.5001401
+727,Centrul de zi Cornesti,47.10924975,27.50834229
+728,Dancas - DC28,47.11613516,27.51767638
+729,Capat Horlesti,47.26572,27.44608
+730,Capat Horlesti,47.26585,27.44624
+731,Farmacie Horlesti,47.25975,27.45417
+732,Farmacie Horlesti,47.26002,27.45349
 733,Podu Ros,47.15204,27.58637
 734,Magazin Verne,47.18949,27.52359
 735,Magazin Verne,47.18947,27.52348
 736,La Spalatorie,47.19231,27.52159
 737,La Spalatorie,47.19245,27.52136
+738,Primaria Valea Lupului,47.176553,27.495914
+739,Str. Lacului - Valea Lupului,47.178537,27.495993
+740,Str. Artarului - Valea Lului,47.178822,27.499352
+741,Str. Trandafirilor I - Valea Lupului,47.180289,27.499602
+742,Str. Nucilor - Valea Lupului,47.180165,27.50226
+743,Str. 1 Decembrie - Valea Lupului,47.180113,27.505311
+744,Str. Victoriei I - Valea Lupului,47.185948,27.505175
+745,Str. Victoriei II - Valea Lupului,47.18728,27.513536
+746,Str. Nufarului I - Valea Lupului,47.184467,27.515609
+747,Str. Nufarului II - Valea Lupului,47.182108,27.516843
+748,Str. Petre Culianu I - Valea Lupului,47.180908,27.51868
+749,Str. Petre Culianu II - Valea Lupului,47.177539,27.519108
+750,Str. Petre Culianu II - Valea Lupului,47.177843,27.519175
+751,Str. Petre Culianu I - Valea Lupului,47.180909,27.518772
+752,Str. Nufarului II - Valea Lupului,47.182204,27.516898
+753,Str. Nufarului I - Valea Lupului,47.184504,27.515386
+754,Str. Victoriei II - Valea Lupului,47.187324,27.513524
+755,Str. Victoriei I - Valea Lupului,47.18589,27.504592
+756,Str. 1 Decembrie - Valea Lupului,47.182236,27.504768
+757,Str. Trandafirilor II - Valea Lupului,47.182407,27.499686
+758,Str. Trandafirilor I - Valea Lupului,47.18031,27.499526
+759,Str. Artarului - Valea Lupului,47.178877,27.499234
+760,Str. Lacului - Valea Lupului,47.178614,27.49586
+761,Primaria Valea Lupului - Valea Lupului,47.176583,27.49593
+762,Str. Rubinului - Valea Lupului,47.18026,27.48839
+763,Str. Soimului - Valea Lupului,47.178118,27.488756
+764,Str. Diminetii - Valea Lupului,47.178026,27.493609
+765,Str. Amurgului - Valea Lupului,47.179006,27.495522
+766,Str. Mestecanis - Valea Lupului,47.179085,27.509874
+767,Str. Ion Creanga - Valea Lupului,47.177339,27.51155
+768,Str. Cuza Voda - Valea Lupului,47.183438,27.513548
+769,Str. Victoriei III - Valea Lupului,47.188002,27.517931
+770,Str. Soarelui I - Valea Lupului,47.187235,27.52181
+771,Str. Soarelui II - Valea Lupului,47.184791,27.523806
+772,Str. Soarelui III - Valea Lupului,47.180034,27.528331
+773,Str. Soarelui IV - Valea Lupului,47.177727,27.530293
+774,Str. Soarelui IV - Valea Lupului,47.178463,27.529836
+775,Str. Soarelui III - Valea Lupului,47.180508,27.528011
+776,Str. Soarelui II - Valea Lupului,47.185159,27.523666
+777,Strada Soarelui I - Valea Lupului,47.187125,27.522039
+778,Str. Victoriei III - Valea Lupului,47.187855,27.516917
+779,Str. Mestecanis - Valea Lupului,47.179135,27.510479
+780,Str. 1 Decembrie (Plaiesilor) - Valea Lupului,47.178243,27.505557
+781,Str. Amurgului - Valea Lupului,47.178884,27.494934
+782,Str. Rubinului - Valea Lupului,47.18032,27.48837
+783,Str. Soarelui III - Valea Lupului,47.180508,27.528011
 784,Podu Ros (4),47.15205,27.58635
 785,Ferma Liliac,47.11309,27.46098
+786,Str. Mazuru-Valea Adanca,47.13059,27.53693
+788,str. Militari - Vorovesti,47.12958,27.47642
+789,Str. Romanitei - Vorovesti,47.12499,27.47119
+790,Str. Iasomiei - Vorovesti,47.12116,27.46761
+791,Str. Cocosului - Vorovesti,47.12018,27.4664
+792,Str. Unirii - Vorovesti,47.11966,27.46546
+793,Str. Bucegi - Vorovesti,47.11675,27.4638
+794,Coso Garaj - Vorovesti,47.1163,27.46333
+795,Str. Mircea Eliade - Vorovesti,47.12468,27.47096

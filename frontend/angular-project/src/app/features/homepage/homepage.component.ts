@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleMapsService } from '../../google-maps.service';
 
 declare var google: any;
 
@@ -7,8 +6,7 @@ declare var google: any;
   selector: 'app-homepage',
   standalone: true,
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css'],
-  providers: [GoogleMapsService] // Provide the service here as well if needed
+  styleUrls: ['./homepage.component.css']
 })
 
 export class HomepageComponent implements OnInit {
@@ -16,44 +14,43 @@ export class HomepageComponent implements OnInit {
   private map: any;
   private directionsService: any;
 
-  constructor(private googleMapsService: GoogleMapsService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    /*
-    this.googleMapsService.loadApi().then(() => {
+    // load Google Maps API, initialize the map
+    this.loadGoogleMapsScript().then(() => {
       this.initMap();
-    });*/
+    });
   }
-/*
-  async initMap() {
-    console.log("map");
+  
+  
+  loadGoogleMapsScript(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAL9n-iu4Ata_D057iAE-Fo2sly5rhuZiA&libraries=places`;
+      script.onload = (event: Event) => resolve();
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  }
+  
+ 
+  initMap() {
+    console.log("initMap");
     const position = { lat: 47.19052, lng: 27.55848 };
-    const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    this.map = new Map(document.getElementById("map"), {
+    this.map = new google.maps.Map(document.getElementById("map"), {
       zoom: 12,
       center: position,
     });
 
     this.directionsService = new google.maps.DirectionsService();
-    this.drawRoutesFromCSV();
+    this.getRouteDataAndDraw();
+
   }
 
-  async drawRoutesFromCSV() {
-    const response = await fetch('../assets/stops_data.csv');
-    const data = await response.text();
-    const stops = this.parseCSV(data);
-
-    if (stops.length >= 2) {
-      for (let i = 0; i < 10; i++) {
-        const start = new google.maps.LatLng(stops[i].lat, stops[i].lng);
-        const end = new google.maps.LatLng(stops[i + 1].lat, stops[i + 1].lng);
-        this.drawRoute(start, end, this.getRandomColor());
-      }
-    }
-  }
 
   saveDirectionsToFile(response: any) {
+    console.log("saveDirectionsToFile");
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8000/directions", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -67,7 +64,8 @@ export class HomepageComponent implements OnInit {
     xhr.send(JSON.stringify(response));
   }
 
-  drawRoute(start: any, end: any, color: string) {
+
+  saveRoute(start: any, end: any, color: string) {
     const departureTime = new Date();
     departureTime.setDate(departureTime.getDate() + 1);
     departureTime.setHours(3);
@@ -86,16 +84,6 @@ export class HomepageComponent implements OnInit {
 
     this.directionsService.route(request, (result: any, status: string) => {
       if (status === 'OK') {
-        const renderer = new google.maps.DirectionsRenderer({
-          polylineOptions: {
-            strokeColor: color,
-            strokeWeight: 5,
-            strokeOpacity: 0.7
-          },
-          suppressMarkers: true
-        });
-        renderer.setMap(this.map);
-        renderer.setDirections(result);
         this.saveDirectionsToFile(result);
       } else {
         console.error('Could not display directions due to: ' + status);
@@ -103,20 +91,64 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  parseCSV(data: string) {
-    const rows = data.split('\n').slice(1);
-    return rows.map(row => {
-      const [stop_id, stop_name, stop_lat, stop_lon] = row.split(',');
-      return { id: stop_id, name: stop_name, lat: parseFloat(stop_lat), lng: parseFloat(stop_lon) };
-    });
-  }
 
   getRandomColor() {
+    console.log("getRandomColor")
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }*/
+  }
+
+
+  drawRoute(routeData: any, color: string) {
+    console.log("drawRoute", routeData)
+    const renderer = new google.maps.DirectionsRenderer({
+      polylineOptions: {
+        strokeColor: color,
+        strokeWeight: 5,
+        strokeOpacity: 0.7
+      },
+      suppressMarkers: true
+    });
+    renderer.setMap(this.map);
+    renderer.setDirections(routeData);
+  }
+
+
+  async getRouteDataAndDraw() {
+    console.log("getRouteDataAndDraw");
+    const routeId = "6660a679c1653b524b6e73cb";
+    try {
+        console.log('Salut');
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", 'http://localhost:8000/api/routes/' + routeId, true);
+        xhr.onreadystatechange = () => { 
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.log("xhr.readyState:", xhr.readyState);
+                console.log("xhr.status:", xhr.status);
+                if (xhr.status === 200) {
+                    const routeData = JSON.parse(xhr.responseText);
+                    delete routeData._id;
+                    console.log('Ruta găsită:', routeData);
+                    const color = this.getRandomColor(); 
+                    this.drawRoute(routeData, color); 
+                } else {
+                    console.error('Eroare la obținerea datelor rutei:', xhr.status);
+                }
+            }
+        };
+
+        console.log("here");
+        xhr.send();
+       
+    } catch (error) {
+        console.error('Eroare:', error);
+    }
+  }
+
+
+  
 }

@@ -1,8 +1,5 @@
 import csv
-
 import requests
-import networkx as nx
-import matplotlib.pyplot as plt
 
 class Stop:
     def __init__(self, stop_id, stop_name, stop_lat, stop_lon):
@@ -29,44 +26,6 @@ class Route:
         self.route_short_name = route_short_name
         self.route_long_name = route_long_name
 
-def save_graph(graph, file_name):
-    plt.figure(num=None, figsize=(20, 20), dpi=80)
-    plt.axis('off')
-    fig = plt.figure(1)
-
-    pos = nx.spring_layout(graph)
-
-    nx.draw_networkx_nodes(graph, pos)
-    nx.draw_networkx_edges(graph, pos)
-    nx.draw_networkx_labels(graph, pos)
-
-    cut = 1.00
-    xmax = cut * max(xx for xx, yy in pos.values())
-    ymax = cut * max(yy for xx, yy in pos.values())
-    plt.xlim(0, xmax)
-    plt.ylim(0, ymax)
-
-    plt.savefig(file_name, bbox_inches="tight")
-    plt.close(fig)
-
-def draw_stops(stops):
-    G = nx.Graph()
-
-    for stop in stops:
-        stop_id = stop['stop_id']
-        stop_name = stop['stop_name']
-        stop_lat = stop['stop_lat'] * 10000
-        stop_lon = stop['stop_lon'] * 10000
-        G.add_node(stop_id, label=stop_name, pos=(stop_lon, stop_lat))
-
-    pos = nx.get_node_attributes(G, 'pos')
-    labels = nx.get_node_attributes(G, 'label')
-    plt.figure(figsize=(10, 10))
-    nx.draw(G, pos, with_labels=True, labels=labels, node_size=30, node_color="skyblue", font_size=5, font_color="black")
-    plt.show()
-
-
-
 def connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data):
     connected_trips = {}
     for id, trip_info in trips_data.items():
@@ -76,11 +35,9 @@ def connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data)
         direction_id = trip_info['direction_id']
         block_id = trip_info['block_id']
         shape_id = trip_info['shape_id']
-
         route_info = routes_data.get(route_id)
         route_short_name = route_info.get('route_short_name', '')
         route_long_name = route_info.get('route_long_name', '')
-
         trip = Trip(trip_id, route_id, route_short_name, route_long_name, trip_headsign, direction_id, block_id, shape_id)
 
         if trip_id in stop_times_data:
@@ -89,19 +46,13 @@ def connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data)
                 if stop_info:
                     stop = Stop(stop_id, stop_info['name'], stop_info['lat'], stop_info['lon'])
                     trip.stops.append((stop, stop_sequence))
-
         connected_trips[trip_id] = trip
-
     return connected_trips
 
 def fetch_data(api_url, headers):
     try:
-        # Send GET request to the API endpoint with headers
         response = requests.get(api_url, headers=headers)
-
-        # Check if the request was successful (status code 200)
         if response.status_code == 200:
-            # Parse JSON response
             data = response.json()
             return data
         else:
@@ -200,7 +151,7 @@ stop_times_data = build_stop_times_data(stop_times)
 trips_data = build_trips_data(trips)
 routes_data = build_routes_data(routes)
 
-csv_file_name = 'stops_data.csv'
+csv_file_name = '../../data/iasi/iasi_all_stops_data.csv'
 save_stops_to_csv(stops, csv_file_name)
 
 connected_trips = connect_stops_to_trips(stops_data, stop_times_data, trips_data, routes_data)

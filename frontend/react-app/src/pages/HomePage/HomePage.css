@@ -1,0 +1,17 @@
+.jumbotron {
+    background-color: #FFFFFF;
+    color: #FFDF6C;
+  }
+  
+  .container-map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+  }
+  
+  #map {
+    height: 400px;
+    width: 80%;
+  }
+  

@@ -1,14 +1,12 @@
 import json
-
 import requests
 from datetime import datetime, timedelta, timezone
 
-
 def get_timestamp(hours, minutes):
-	today = datetime.now().date() + timedelta(days=1)
-	five_pm_romania = datetime(today.year, today.month, today.day, hours, minutes, tzinfo=timezone(timedelta(hours=3)))
-	timestamp = int(five_pm_romania.timestamp())
-	return timestamp
+    today = datetime.now().date() + timedelta(days=1)
+    five_pm_romania = datetime(today.year, today.month, today.day, hours, minutes, tzinfo=timezone(timedelta(hours=3)))
+    timestamp = int(five_pm_romania.timestamp())
+    return timestamp
 
 def get_directions(origin_lat, origin_lon, destination_lat, destination_lon, api_key, departure_time):
     url = "https://maps.googleapis.com/maps/api/directions/json"
@@ -57,9 +55,12 @@ def get_directions(origin_lat, origin_lon, destination_lat, destination_lon, api
         result["status"] = data["status"]
 
     return result
+
+
 def save_directions_list_to_file(directions_list, filename):
     with open(filename, 'w') as f:
         json.dump(directions_list, f, indent=4)
+
 
 '''
 def get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, departure_time):
@@ -79,12 +80,12 @@ def get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, dep
 
 # Exemplu de utilizare
 origin_coords = [
-    (47.1585, 27.6014),
+	(47.1585, 27.6014),
 	(47.1685, 27.6014)
 ]
 
 dest_coords = [
-    (47.1749, 27.5723),
+	(47.1749, 27.5723),
 	(47.1849, 27.5423)
 ]
 
@@ -99,8 +100,7 @@ for origin in origin_coords:
             directions_data = get_directions(origin[0], origin[1], dest[0], dest[1], api_key, departure_time)
             directions_list.append(directions_data)
 
-
-save_directions_list_to_file(directions_list, '../static/directions_data_list.json')
+save_directions_list_to_file(directions_list, '../../static/directions_data_list.json')
 
 '''
 distance_matrix = get_distance_matrix(origin_lat, origin_lng, dest_lat, dest_lng, api_key, departure_time)

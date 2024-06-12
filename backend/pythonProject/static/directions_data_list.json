@@ -37,11 +37,11 @@
                         },
                         "duration": {
                             "text": "9 mins",
-                            "value": 550
+                            "value": 543
                         },
                         "duration_in_traffic": {
                             "text": "5 mins",
-                            "value": 271
+                            "value": 273
                         },
                         "end_address": "Bulevardul Carol I 22, Ia\u0219i, Romania",
                         "end_location": {
@@ -84,7 +84,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 190
+                                    "value": 188
                                 },
                                 "end_location": {
                                     "lat": 47.1642078,
@@ -131,7 +131,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 181
+                                    "value": 178
                                 },
                                 "end_location": {
                                     "lat": 47.1697133,
@@ -155,7 +155,7 @@
                                 },
                                 "duration": {
                                     "text": "2 mins",
-                                    "value": 125
+                                    "value": 123
                                 },
                                 "end_location": {
                                     "lat": 47.1748614,
@@ -240,11 +240,11 @@
                         },
                         "duration": {
                             "text": "17 mins",
-                            "value": 1034
+                            "value": 1024
                         },
                         "duration_in_traffic": {
                             "text": "11 mins",
-                            "value": 633
+                            "value": 659
                         },
                         "end_address": "Strada Eudoxiu Hurmuzaki 79, Ia\u0219i 700540, Romania",
                         "end_location": {
@@ -287,7 +287,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 190
+                                    "value": 188
                                 },
                                 "end_location": {
                                     "lat": 47.1642078,
@@ -334,7 +334,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 154
+                                    "value": 152
                                 },
                                 "end_location": {
                                     "lat": 47.16874809999999,
@@ -358,7 +358,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 37
+                                    "value": 36
                                 },
                                 "end_location": {
                                     "lat": 47.1700726,
@@ -382,7 +382,7 @@
                                 },
                                 "duration": {
                                     "text": "4 mins",
-                                    "value": 228
+                                    "value": 223
                                 },
                                 "end_location": {
                                     "lat": 47.1743634,
@@ -406,7 +406,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 73
+                                    "value": 71
                                 },
                                 "end_location": {
                                     "lat": 47.1748039,
@@ -429,7 +429,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 24
+                                    "value": 23
                                 },
                                 "end_location": {
                                     "lat": 47.175628,
@@ -500,7 +500,7 @@
                                 },
                                 "duration": {
                                     "text": "2 mins",
-                                    "value": 123
+                                    "value": 125
                                 },
                                 "end_location": {
                                     "lat": 47.1844032,
@@ -548,7 +548,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 14
+                                    "value": 15
                                 },
                                 "end_location": {
                                     "lat": 47.1848763,
@@ -633,11 +633,11 @@
                         },
                         "duration": {
                             "text": "9 mins",
-                            "value": 548
+                            "value": 539
                         },
                         "duration_in_traffic": {
                             "text": "5 mins",
-                            "value": 309
+                            "value": 297
                         },
                         "end_address": "Bulevardul Carol I 22, Ia\u0219i, Romania",
                         "end_location": {
@@ -657,7 +657,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 26
+                                    "value": 24
                                 },
                                 "end_location": {
                                     "lat": 47.16889130000001,
@@ -680,7 +680,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 34
+                                    "value": 35
                                 },
                                 "end_location": {
                                     "lat": 47.1676282,
@@ -704,7 +704,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 60
+                                    "value": 58
                                 },
                                 "end_location": {
                                     "lat": 47.1670746,
@@ -728,7 +728,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 10
+                                    "value": 9
                                 },
                                 "end_location": {
                                     "lat": 47.1669095,
@@ -800,7 +800,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 187
+                                    "value": 184
                                 },
                                 "end_location": {
                                     "lat": 47.1697133,
@@ -823,7 +823,7 @@
                                 },
                                 "duration": {
                                     "text": "2 mins",
-                                    "value": 125
+                                    "value": 123
                                 },
                                 "end_location": {
                                     "lat": 47.1748614,
@@ -908,11 +908,11 @@
                         },
                         "duration": {
                             "text": "17 mins",
-                            "value": 1032
+                            "value": 1020
                         },
                         "duration_in_traffic": {
-                            "text": "11 mins",
-                            "value": 667
+                            "text": "12 mins",
+                            "value": 696
                         },
                         "end_address": "Strada Eudoxiu Hurmuzaki 79, Ia\u0219i 700540, Romania",
                         "end_location": {
@@ -932,7 +932,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 26
+                                    "value": 24
                                 },
                                 "end_location": {
                                     "lat": 47.16889130000001,
@@ -955,7 +955,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 34
+                                    "value": 35
                                 },
                                 "end_location": {
                                     "lat": 47.1676282,
@@ -979,7 +979,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 60
+                                    "value": 58
                                 },
                                 "end_location": {
                                     "lat": 47.1670746,
@@ -1003,7 +1003,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 10
+                                    "value": 9
                                 },
                                 "end_location": {
                                     "lat": 47.1669095,
@@ -1075,7 +1075,7 @@
                                 },
                                 "duration": {
                                     "text": "3 mins",
-                                    "value": 160
+                                    "value": 158
                                 },
                                 "end_location": {
                                     "lat": 47.16874809999999,
@@ -1098,7 +1098,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 37
+                                    "value": 36
                                 },
                                 "end_location": {
                                     "lat": 47.1700726,
@@ -1122,7 +1122,7 @@
                                 },
                                 "duration": {
                                     "text": "4 mins",
-                                    "value": 228
+                                    "value": 223
                                 },
                                 "end_location": {
                                     "lat": 47.1743634,
@@ -1146,7 +1146,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 73
+                                    "value": 71
                                 },
                                 "end_location": {
                                     "lat": 47.1748039,
@@ -1169,7 +1169,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 24
+                                    "value": 23
                                 },
                                 "end_location": {
                                     "lat": 47.175628,
@@ -1240,7 +1240,7 @@
                                 },
                                 "duration": {
                                     "text": "2 mins",
-                                    "value": 123
+                                    "value": 125
                                 },
                                 "end_location": {
                                     "lat": 47.1844032,
@@ -1288,7 +1288,7 @@
                                 },
                                 "duration": {
                                     "text": "1 min",
-                                    "value": 14
+                                    "value": 15
                                 },
                                 "end_location": {
                                     "lat": 47.1848763,
