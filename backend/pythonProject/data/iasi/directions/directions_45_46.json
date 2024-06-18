@@ -1,0 +1,360 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJt45h1P37ykARYwVhWwZSBYw",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJPcjznfv7ykAR0rGijC1HBRM",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.15173,
+                "west": 27.636400000000002,
+                "north": 47.152680000000004,
+                "east": 27.642840000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,5 km",
+                        "value": 510
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 47
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 41
+                    },
+                    "end_address": "Phoenix, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1518688,
+                        "lng": 27.6364012
+                    },
+                    "start_address": "Hotel Basarabia, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1526754,
+                        "lng": 27.6428396
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,5 km",
+                                "value": 510
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 47
+                            },
+                            "end_location": {
+                                "lat": 47.1518688,
+                                "lng": 27.6364012
+                            },
+                            "polyline": {
+                                "points": "gox~Gw~ugDjA~F^lBz@pEDZBR@L@N@Z?Z?Z@lBBxE?J?`@?VAVATAPCVCLCNCLCPA@"
+                            },
+                            "start_location": {
+                                "lat": 47.1526754,
+                                "lng": 27.6428396
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "gox~Gw~ugDjA~F^lBz@pEDZBR@L@N@Z?Z?Z@lBBxE?J?`@?VAVATAPCVCLCNCLCPA@",
+                            "path": [
+                                {
+                                    "lat": 47.152680000000004,
+                                    "lng": 27.642840000000003
+                                },
+                                {
+                                    "lat": 47.152300000000004,
+                                    "lng": 27.641560000000002
+                                },
+                                {
+                                    "lat": 47.15214,
+                                    "lng": 27.64101
+                                },
+                                {
+                                    "lat": 47.15184000000001,
+                                    "lng": 27.639960000000002
+                                },
+                                {
+                                    "lat": 47.151810000000005,
+                                    "lng": 27.639820000000004
+                                },
+                                {
+                                    "lat": 47.151790000000005,
+                                    "lng": 27.63972
+                                },
+                                {
+                                    "lat": 47.15178,
+                                    "lng": 27.639650000000003
+                                },
+                                {
+                                    "lat": 47.151770000000006,
+                                    "lng": 27.639570000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.63943
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.639290000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.63915
+                                },
+                                {
+                                    "lat": 47.15175000000001,
+                                    "lng": 27.638600000000004
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.637510000000002
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63745
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63728
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63716
+                                },
+                                {
+                                    "lat": 47.151740000000004,
+                                    "lng": 27.637040000000002
+                                },
+                                {
+                                    "lat": 47.15175000000001,
+                                    "lng": 27.636930000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.636840000000003
+                                },
+                                {
+                                    "lat": 47.15178,
+                                    "lng": 27.636720000000004
+                                },
+                                {
+                                    "lat": 47.1518,
+                                    "lng": 27.636650000000003
+                                },
+                                {
+                                    "lat": 47.15182,
+                                    "lng": 27.636570000000003
+                                },
+                                {
+                                    "lat": 47.15184000000001,
+                                    "lng": 27.6365
+                                },
+                                {
+                                    "lat": 47.151860000000006,
+                                    "lng": 27.63641
+                                },
+                                {
+                                    "lat": 47.15187,
+                                    "lng": 27.636400000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.152680000000004,
+                                    "lng": 27.642840000000003
+                                },
+                                {
+                                    "lat": 47.152300000000004,
+                                    "lng": 27.641560000000002
+                                },
+                                {
+                                    "lat": 47.15214,
+                                    "lng": 27.64101
+                                },
+                                {
+                                    "lat": 47.15184000000001,
+                                    "lng": 27.639960000000002
+                                },
+                                {
+                                    "lat": 47.151810000000005,
+                                    "lng": 27.639820000000004
+                                },
+                                {
+                                    "lat": 47.151790000000005,
+                                    "lng": 27.63972
+                                },
+                                {
+                                    "lat": 47.15178,
+                                    "lng": 27.639650000000003
+                                },
+                                {
+                                    "lat": 47.151770000000006,
+                                    "lng": 27.639570000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.63943
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.639290000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.63915
+                                },
+                                {
+                                    "lat": 47.15175000000001,
+                                    "lng": 27.638600000000004
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.637510000000002
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63745
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63728
+                                },
+                                {
+                                    "lat": 47.15173,
+                                    "lng": 27.63716
+                                },
+                                {
+                                    "lat": 47.151740000000004,
+                                    "lng": 27.637040000000002
+                                },
+                                {
+                                    "lat": 47.15175000000001,
+                                    "lng": 27.636930000000003
+                                },
+                                {
+                                    "lat": 47.15176,
+                                    "lng": 27.636840000000003
+                                },
+                                {
+                                    "lat": 47.15178,
+                                    "lng": 27.636720000000004
+                                },
+                                {
+                                    "lat": 47.1518,
+                                    "lng": 27.636650000000003
+                                },
+                                {
+                                    "lat": 47.15182,
+                                    "lng": 27.636570000000003
+                                },
+                                {
+                                    "lat": 47.15184000000001,
+                                    "lng": 27.6365
+                                },
+                                {
+                                    "lat": 47.151860000000006,
+                                    "lng": 27.63641
+                                },
+                                {
+                                    "lat": 47.15187,
+                                    "lng": 27.636400000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-vest</b> pe <b>Strada Aurel Vlaicu</b>/<wbr/><b>DJ249A</b> c\u0103tre <b>Strada Sf\u00e2ntul Ioan</b><div style=\"font-size:0.9em\">\u021aine pe Strada Aurel Vlaicu</div><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1526754,
+                                "lng": 27.6428396
+                            },
+                            "end_point": {
+                                "lat": 47.1518688,
+                                "lng": 27.6364012
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "gox~Gw~ugDjBlJ`AlFHlAD~JA|AKlAMp@",
+            "summary": "Strada Aurel Vlaicu",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.152680000000004,
+                    "lng": 27.642840000000003
+                },
+                {
+                    "lat": 47.15214,
+                    "lng": 27.64101
+                },
+                {
+                    "lat": 47.151810000000005,
+                    "lng": 27.639820000000004
+                },
+                {
+                    "lat": 47.15176,
+                    "lng": 27.63943
+                },
+                {
+                    "lat": 47.15173,
+                    "lng": 27.637510000000002
+                },
+                {
+                    "lat": 47.151740000000004,
+                    "lng": 27.637040000000002
+                },
+                {
+                    "lat": 47.1518,
+                    "lng": 27.636650000000003
+                },
+                {
+                    "lat": 47.15187,
+                    "lng": 27.636400000000002
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15265046,
+                "lng": 27.64285556
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.15191646,
+                "lng": 27.63644072
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "45",
+    "stop_id": "46"
+}

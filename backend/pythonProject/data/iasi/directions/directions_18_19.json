@@ -1,0 +1,200 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJs4rw9ej7ykARc2QDiaf3C-o",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ837Kpen7ykARx7n4eWIZs1I",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.14556,
+                "west": 27.617530000000002,
+                "north": 47.14596,
+                "east": 27.620330000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,2 km",
+                        "value": 217
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 25
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 18
+                    },
+                    "end_address": "C.F.S., Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.145958,
+                        "lng": 27.6175254
+                    },
+                    "start_address": "Tepro, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1455586,
+                        "lng": 27.6203308
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,2 km",
+                                "value": 217
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 25
+                            },
+                            "end_location": {
+                                "lat": 47.145958,
+                                "lng": 27.6175254
+                            },
+                            "polyline": {
+                                "points": "wbw~GarqgDOnBC`@Gx@Gt@e@jGANCP"
+                            },
+                            "start_location": {
+                                "lat": 47.1455586,
+                                "lng": 27.6203308
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "wbw~GarqgDOnBC`@Gx@Gt@e@jGANCP",
+                            "path": [
+                                {
+                                    "lat": 47.14556,
+                                    "lng": 27.620330000000003
+                                },
+                                {
+                                    "lat": 47.14564000000001,
+                                    "lng": 27.619770000000003
+                                },
+                                {
+                                    "lat": 47.14566000000001,
+                                    "lng": 27.619600000000002
+                                },
+                                {
+                                    "lat": 47.145700000000005,
+                                    "lng": 27.619310000000002
+                                },
+                                {
+                                    "lat": 47.14574,
+                                    "lng": 27.619040000000002
+                                },
+                                {
+                                    "lat": 47.14593000000001,
+                                    "lng": 27.617700000000003
+                                },
+                                {
+                                    "lat": 47.14594,
+                                    "lng": 27.617620000000002
+                                },
+                                {
+                                    "lat": 47.14596,
+                                    "lng": 27.617530000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.14556,
+                                    "lng": 27.620330000000003
+                                },
+                                {
+                                    "lat": 47.14564000000001,
+                                    "lng": 27.619770000000003
+                                },
+                                {
+                                    "lat": 47.14566000000001,
+                                    "lng": 27.619600000000002
+                                },
+                                {
+                                    "lat": 47.145700000000005,
+                                    "lng": 27.619310000000002
+                                },
+                                {
+                                    "lat": 47.14574,
+                                    "lng": 27.619040000000002
+                                },
+                                {
+                                    "lat": 47.14593000000001,
+                                    "lng": 27.617700000000003
+                                },
+                                {
+                                    "lat": 47.14594,
+                                    "lng": 27.617620000000002
+                                },
+                                {
+                                    "lat": 47.14596,
+                                    "lng": 27.617530000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>vest</b> pe <b>Bulevardul Virgil S\u0103hleanu</b>/<wbr/><b>DN28</b> c\u0103tre <b>Bulevardul Metalurgiei</b><div style=\"font-size:0.9em\">\u021aine pe DN28</div><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1455586,
+                                "lng": 27.6203308
+                            },
+                            "end_point": {
+                                "lat": 47.145958,
+                                "lng": 27.6175254
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "wbw~GarqgDoAnP",
+            "summary": "DN28",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.14556,
+                    "lng": 27.620330000000003
+                },
+                {
+                    "lat": 47.14596,
+                    "lng": 27.617530000000002
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.14556411,
+                "lng": 27.62033247
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.14594,
+                "lng": 27.61752
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-18T00:30:00.000Z"
+        }
+    },
+    "start_id": "18",
+    "stop_id": "19"
+}

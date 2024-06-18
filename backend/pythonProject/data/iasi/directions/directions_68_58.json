@@ -1,0 +1,349 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ0-n9iaL7ykARfup5pKLpGnc",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJzUavv7z7ykARO0wb8hJTMiE",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.146530000000006,
+                "west": 27.588520000000003,
+                "north": 47.15025000000001,
+                "east": 27.592050000000004
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,6 km",
+                        "value": 557
+                    },
+                    "duration": {
+                        "text": "2 mins",
+                        "value": 113
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 87
+                    },
+                    "end_address": "Piata Nicolina, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1465282,
+                        "lng": 27.5906622
+                    },
+                    "start_address": "Podu Ros (2), Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1502523,
+                        "lng": 27.5885245
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,4 km",
+                                "value": 409
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 81
+                            },
+                            "end_location": {
+                                "lat": 47.1474582,
+                                "lng": 27.5920506
+                            },
+                            "polyline": {
+                                "points": "a`x~GgkkgDvC}Db@m@pBmCnAcBx@gA^i@f@q@l@_A"
+                            },
+                            "start_location": {
+                                "lat": 47.1502523,
+                                "lng": 27.5885245
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "a`x~GgkkgDvC}Db@m@pBmCnAcBx@gA^i@f@q@l@_A",
+                            "path": [
+                                {
+                                    "lat": 47.15025000000001,
+                                    "lng": 27.588520000000003
+                                },
+                                {
+                                    "lat": 47.14949000000001,
+                                    "lng": 27.589470000000002
+                                },
+                                {
+                                    "lat": 47.14931000000001,
+                                    "lng": 27.5897
+                                },
+                                {
+                                    "lat": 47.148740000000004,
+                                    "lng": 27.590410000000002
+                                },
+                                {
+                                    "lat": 47.148340000000005,
+                                    "lng": 27.59091
+                                },
+                                {
+                                    "lat": 47.148050000000005,
+                                    "lng": 27.59127
+                                },
+                                {
+                                    "lat": 47.147890000000004,
+                                    "lng": 27.59148
+                                },
+                                {
+                                    "lat": 47.147690000000004,
+                                    "lng": 27.591730000000002
+                                },
+                                {
+                                    "lat": 47.14746,
+                                    "lng": 27.592050000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.15025000000001,
+                                    "lng": 27.588520000000003
+                                },
+                                {
+                                    "lat": 47.14949000000001,
+                                    "lng": 27.589470000000002
+                                },
+                                {
+                                    "lat": 47.14931000000001,
+                                    "lng": 27.5897
+                                },
+                                {
+                                    "lat": 47.148740000000004,
+                                    "lng": 27.590410000000002
+                                },
+                                {
+                                    "lat": 47.148340000000005,
+                                    "lng": 27.59091
+                                },
+                                {
+                                    "lat": 47.148050000000005,
+                                    "lng": 27.59127
+                                },
+                                {
+                                    "lat": 47.147890000000004,
+                                    "lng": 27.59148
+                                },
+                                {
+                                    "lat": 47.147690000000004,
+                                    "lng": 27.591730000000002
+                                },
+                                {
+                                    "lat": 47.14746,
+                                    "lng": 27.592050000000004
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>Bulevardul Socola</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1502523,
+                                "lng": 27.5885245
+                            },
+                            "end_point": {
+                                "lat": 47.1474582,
+                                "lng": 27.5920506
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,1 km",
+                                "value": 148
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 32
+                            },
+                            "end_location": {
+                                "lat": 47.1465282,
+                                "lng": 27.5906622
+                            },
+                            "maneuver": "turn-right",
+                            "polyline": {
+                                "points": "snw~GialgD`@h@r@jAb@p@PXHPDF@BRb@FP"
+                            },
+                            "start_location": {
+                                "lat": 47.1474582,
+                                "lng": 27.5920506
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "snw~GialgD`@h@r@jAb@p@PXHPDF@BRb@FP",
+                            "path": [
+                                {
+                                    "lat": 47.14746,
+                                    "lng": 27.592050000000004
+                                },
+                                {
+                                    "lat": 47.147290000000005,
+                                    "lng": 27.59184
+                                },
+                                {
+                                    "lat": 47.14703,
+                                    "lng": 27.59146
+                                },
+                                {
+                                    "lat": 47.14685,
+                                    "lng": 27.591210000000004
+                                },
+                                {
+                                    "lat": 47.14676,
+                                    "lng": 27.59108
+                                },
+                                {
+                                    "lat": 47.146710000000006,
+                                    "lng": 27.59099
+                                },
+                                {
+                                    "lat": 47.14668,
+                                    "lng": 27.590950000000003
+                                },
+                                {
+                                    "lat": 47.14667000000001,
+                                    "lng": 27.590930000000004
+                                },
+                                {
+                                    "lat": 47.146570000000004,
+                                    "lng": 27.590750000000003
+                                },
+                                {
+                                    "lat": 47.146530000000006,
+                                    "lng": 27.590660000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.14746,
+                                    "lng": 27.592050000000004
+                                },
+                                {
+                                    "lat": 47.147290000000005,
+                                    "lng": 27.59184
+                                },
+                                {
+                                    "lat": 47.14703,
+                                    "lng": 27.59146
+                                },
+                                {
+                                    "lat": 47.14685,
+                                    "lng": 27.591210000000004
+                                },
+                                {
+                                    "lat": 47.14676,
+                                    "lng": 27.59108
+                                },
+                                {
+                                    "lat": 47.146710000000006,
+                                    "lng": 27.59099
+                                },
+                                {
+                                    "lat": 47.14668,
+                                    "lng": 27.590950000000003
+                                },
+                                {
+                                    "lat": 47.14667000000001,
+                                    "lng": 27.590930000000004
+                                },
+                                {
+                                    "lat": 47.146570000000004,
+                                    "lng": 27.590750000000003
+                                },
+                                {
+                                    "lat": 47.146530000000006,
+                                    "lng": 27.590660000000003
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la dreapta</b> pe <b>Bulevardul Nicolae Iorga</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "start_point": {
+                                "lat": 47.1474582,
+                                "lng": 27.5920506
+                            },
+                            "end_point": {
+                                "lat": 47.1465282,
+                                "lng": 27.5906622
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "a`x~GgkkgD|J}MxAqBtAqBtAtBt@jAd@`AFP",
+            "summary": "Bulevardul Socola \u0219i Bulevardul Nicolae Iorga/DN28/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.15025000000001,
+                    "lng": 27.588520000000003
+                },
+                {
+                    "lat": 47.148340000000005,
+                    "lng": 27.59091
+                },
+                {
+                    "lat": 47.147890000000004,
+                    "lng": 27.59148
+                },
+                {
+                    "lat": 47.14746,
+                    "lng": 27.592050000000004
+                },
+                {
+                    "lat": 47.14703,
+                    "lng": 27.59146
+                },
+                {
+                    "lat": 47.14676,
+                    "lng": 27.59108
+                },
+                {
+                    "lat": 47.146570000000004,
+                    "lng": 27.590750000000003
+                },
+                {
+                    "lat": 47.146530000000006,
+                    "lng": 27.590660000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15030367,
+                "lng": 27.58861382
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.14644895,
+                "lng": 27.5907438
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "68",
+    "stop_id": "58"
+}

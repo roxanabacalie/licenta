@@ -1,0 +1,248 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJv2DimXj5ykARxojSEPLfNv8",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJCwyEUJ35ykARkkYrz6aM4Xw",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.119060000000005,
+                "west": 27.62525,
+                "north": 47.121390000000005,
+                "east": 27.629800000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,4 km",
+                        "value": 433
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 30
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 26
+                    },
+                    "end_address": "Plopii fara sot, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1190575,
+                        "lng": 27.6297996
+                    },
+                    "start_address": "Scoala Generala nr. 2, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1213874,
+                        "lng": 27.6252538
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,4 km",
+                                "value": 433
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 30
+                            },
+                            "end_location": {
+                                "lat": 47.1190575,
+                                "lng": 27.6297996
+                            },
+                            "polyline": {
+                                "points": "ukr~GyprgD`@m@jBqCFIZy@^kA|AcFVs@l@iB`@gA`@eAVm@"
+                            },
+                            "start_location": {
+                                "lat": 47.1213874,
+                                "lng": 27.6252538
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "ukr~GyprgD`@m@jBqCFIZy@^kA|AcFVs@l@iB`@gA`@eAVm@",
+                            "path": [
+                                {
+                                    "lat": 47.121390000000005,
+                                    "lng": 27.62525
+                                },
+                                {
+                                    "lat": 47.12122,
+                                    "lng": 27.625480000000003
+                                },
+                                {
+                                    "lat": 47.12068000000001,
+                                    "lng": 27.626210000000004
+                                },
+                                {
+                                    "lat": 47.12064,
+                                    "lng": 27.626260000000002
+                                },
+                                {
+                                    "lat": 47.12050000000001,
+                                    "lng": 27.62655
+                                },
+                                {
+                                    "lat": 47.120340000000006,
+                                    "lng": 27.62693
+                                },
+                                {
+                                    "lat": 47.119870000000006,
+                                    "lng": 27.62807
+                                },
+                                {
+                                    "lat": 47.11975,
+                                    "lng": 27.628330000000002
+                                },
+                                {
+                                    "lat": 47.11952,
+                                    "lng": 27.628860000000003
+                                },
+                                {
+                                    "lat": 47.119350000000004,
+                                    "lng": 27.629220000000004
+                                },
+                                {
+                                    "lat": 47.11918000000001,
+                                    "lng": 27.62957
+                                },
+                                {
+                                    "lat": 47.119060000000005,
+                                    "lng": 27.629800000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.121390000000005,
+                                    "lng": 27.62525
+                                },
+                                {
+                                    "lat": 47.12122,
+                                    "lng": 27.625480000000003
+                                },
+                                {
+                                    "lat": 47.12068000000001,
+                                    "lng": 27.626210000000004
+                                },
+                                {
+                                    "lat": 47.12064,
+                                    "lng": 27.626260000000002
+                                },
+                                {
+                                    "lat": 47.12050000000001,
+                                    "lng": 27.62655
+                                },
+                                {
+                                    "lat": 47.120340000000006,
+                                    "lng": 27.62693
+                                },
+                                {
+                                    "lat": 47.119870000000006,
+                                    "lng": 27.62807
+                                },
+                                {
+                                    "lat": 47.11975,
+                                    "lng": 27.628330000000002
+                                },
+                                {
+                                    "lat": 47.11952,
+                                    "lng": 27.628860000000003
+                                },
+                                {
+                                    "lat": 47.119350000000004,
+                                    "lng": 27.629220000000004
+                                },
+                                {
+                                    "lat": 47.11918000000001,
+                                    "lng": 27.62957
+                                },
+                                {
+                                    "lat": 47.119060000000005,
+                                    "lng": 27.629800000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>\u0218oseaua Bucium</b>/<wbr/><b>DN24</b> c\u0103tre <b>Stradela B\u00e2rnova</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1213874,
+                                "lng": 27.6252538
+                            },
+                            "end_point": {
+                                "lat": 47.1190575,
+                                "lng": 27.6297996
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "ukr~GyprgDlC_Eb@cA|BoHdA}CzA{D",
+            "summary": "\u0218oseaua Bucium/DN24",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.121390000000005,
+                    "lng": 27.62525
+                },
+                {
+                    "lat": 47.12068000000001,
+                    "lng": 27.626210000000004
+                },
+                {
+                    "lat": 47.12050000000001,
+                    "lng": 27.62655
+                },
+                {
+                    "lat": 47.119870000000006,
+                    "lng": 27.62807
+                },
+                {
+                    "lat": 47.11952,
+                    "lng": 27.628860000000003
+                },
+                {
+                    "lat": 47.119060000000005,
+                    "lng": 27.629800000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.1213336,
+                "lng": 27.62516737
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.11901483,
+                "lng": 27.62975425
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "63",
+    "stop_id": "64"
+}

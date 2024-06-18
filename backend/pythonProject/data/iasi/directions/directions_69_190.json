@@ -1,0 +1,434 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ3-Nqs5j7ykARPsPSBnkZU4w",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJAfRYIQD7ykARjQ7OA-CL12s",
+            "types": [
+                "beauty_salon",
+                "establishment",
+                "point_of_interest"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.15209,
+                "west": 27.583470000000002,
+                "north": 47.15384,
+                "east": 27.58687
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,6 km",
+                        "value": 586
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 89
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 56
+                    },
+                    "end_address": "\u0218oseaua Na\u021bional\u0103 55, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1520884,
+                        "lng": 27.5864181
+                    },
+                    "start_address": "Biserica Lipoveneasca, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1525928,
+                        "lng": 27.5868677
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,2 km",
+                                "value": 243
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 38
+                            },
+                            "end_location": {
+                                "lat": 47.1537877,
+                                "lng": 27.5841702
+                            },
+                            "polyline": {
+                                "points": "unx~G}`kgDOb@_@hAwAfEQj@c@lAg@tAIT"
+                            },
+                            "start_location": {
+                                "lat": 47.1525928,
+                                "lng": 27.5868677
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "unx~G}`kgDOb@_@hAwAfEQj@c@lAg@tAIT",
+                            "path": [
+                                {
+                                    "lat": 47.152590000000004,
+                                    "lng": 27.58687
+                                },
+                                {
+                                    "lat": 47.15267,
+                                    "lng": 27.58669
+                                },
+                                {
+                                    "lat": 47.15283,
+                                    "lng": 27.58632
+                                },
+                                {
+                                    "lat": 47.153270000000006,
+                                    "lng": 27.585320000000003
+                                },
+                                {
+                                    "lat": 47.153360000000006,
+                                    "lng": 27.5851
+                                },
+                                {
+                                    "lat": 47.15354000000001,
+                                    "lng": 27.58471
+                                },
+                                {
+                                    "lat": 47.153740000000006,
+                                    "lng": 27.584280000000003
+                                },
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.584170000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.152590000000004,
+                                    "lng": 27.58687
+                                },
+                                {
+                                    "lat": 47.15267,
+                                    "lng": 27.58669
+                                },
+                                {
+                                    "lat": 47.15283,
+                                    "lng": 27.58632
+                                },
+                                {
+                                    "lat": 47.153270000000006,
+                                    "lng": 27.585320000000003
+                                },
+                                {
+                                    "lat": 47.153360000000006,
+                                    "lng": 27.5851
+                                },
+                                {
+                                    "lat": 47.15354000000001,
+                                    "lng": 27.58471
+                                },
+                                {
+                                    "lat": 47.153740000000006,
+                                    "lng": 27.584280000000003
+                                },
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.584170000000004
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord-vest</b> pe <b>Bulevardul Regele Ferdinand I al Rom\u00e2niei</b> c\u0103tre <b>Strada Traian</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1525928,
+                                "lng": 27.5868677
+                            },
+                            "end_point": {
+                                "lat": 47.1537877,
+                                "lng": 27.5841702
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "76 m",
+                                "value": 76
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 17
+                            },
+                            "end_location": {
+                                "lat": 47.1534145,
+                                "lng": 27.5834695
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "evx~GapjgDIXHN~@rAJL"
+                            },
+                            "start_location": {
+                                "lat": 47.1537877,
+                                "lng": 27.5841702
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "evx~GapjgDIXHN~@rAJL",
+                            "path": [
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.584170000000004
+                                },
+                                {
+                                    "lat": 47.15384,
+                                    "lng": 27.58404
+                                },
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.58396
+                                },
+                                {
+                                    "lat": 47.153470000000006,
+                                    "lng": 27.583540000000003
+                                },
+                                {
+                                    "lat": 47.15341,
+                                    "lng": 27.583470000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.584170000000004
+                                },
+                                {
+                                    "lat": 47.15384,
+                                    "lng": 27.58404
+                                },
+                                {
+                                    "lat": 47.15379,
+                                    "lng": 27.58396
+                                },
+                                {
+                                    "lat": 47.153470000000006,
+                                    "lng": 27.583540000000003
+                                },
+                                {
+                                    "lat": 47.15341,
+                                    "lng": 27.583470000000002
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pe <b>Bulevardul Dimitrie Cantemir</b>",
+                            "start_point": {
+                                "lat": 47.1537877,
+                                "lng": 27.5841702
+                            },
+                            "end_point": {
+                                "lat": 47.1534145,
+                                "lng": 27.5834695
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 267
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 34
+                            },
+                            "end_location": {
+                                "lat": 47.1520884,
+                                "lng": 27.5864181
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "ysx~GukjgDJ[HORq@n@gBVu@Xy@Pk@HSr@uBj@aB"
+                            },
+                            "start_location": {
+                                "lat": 47.1534145,
+                                "lng": 27.5834695
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "ysx~GukjgDJ[HORq@n@gBVu@Xy@Pk@HSr@uBj@aB",
+                            "path": [
+                                {
+                                    "lat": 47.15341,
+                                    "lng": 27.583470000000002
+                                },
+                                {
+                                    "lat": 47.15335,
+                                    "lng": 27.583610000000004
+                                },
+                                {
+                                    "lat": 47.1533,
+                                    "lng": 27.58369
+                                },
+                                {
+                                    "lat": 47.153200000000005,
+                                    "lng": 27.583940000000002
+                                },
+                                {
+                                    "lat": 47.15296000000001,
+                                    "lng": 27.584460000000004
+                                },
+                                {
+                                    "lat": 47.152840000000005,
+                                    "lng": 27.584730000000004
+                                },
+                                {
+                                    "lat": 47.152710000000006,
+                                    "lng": 27.585020000000004
+                                },
+                                {
+                                    "lat": 47.152620000000006,
+                                    "lng": 27.585240000000002
+                                },
+                                {
+                                    "lat": 47.152570000000004,
+                                    "lng": 27.585340000000002
+                                },
+                                {
+                                    "lat": 47.15231000000001,
+                                    "lng": 27.58593
+                                },
+                                {
+                                    "lat": 47.15209,
+                                    "lng": 27.586420000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.15341,
+                                    "lng": 27.583470000000002
+                                },
+                                {
+                                    "lat": 47.15335,
+                                    "lng": 27.583610000000004
+                                },
+                                {
+                                    "lat": 47.1533,
+                                    "lng": 27.58369
+                                },
+                                {
+                                    "lat": 47.153200000000005,
+                                    "lng": 27.583940000000002
+                                },
+                                {
+                                    "lat": 47.15296000000001,
+                                    "lng": 27.584460000000004
+                                },
+                                {
+                                    "lat": 47.152840000000005,
+                                    "lng": 27.584730000000004
+                                },
+                                {
+                                    "lat": 47.152710000000006,
+                                    "lng": 27.585020000000004
+                                },
+                                {
+                                    "lat": 47.152620000000006,
+                                    "lng": 27.585240000000002
+                                },
+                                {
+                                    "lat": 47.152570000000004,
+                                    "lng": 27.585340000000002
+                                },
+                                {
+                                    "lat": 47.15231000000001,
+                                    "lng": 27.58593
+                                },
+                                {
+                                    "lat": 47.15209,
+                                    "lng": 27.586420000000004
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pe <b>Bulevardul Regele Mihai I al Rom\u00e2niei</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "start_point": {
+                                "lat": 47.1534145,
+                                "lng": 27.5834695
+                            },
+                            "end_point": {
+                                "lat": 47.1520884,
+                                "lng": 27.5864181
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "unx~G}`kgDyC`J_BrEhAbBJLJ[\\aAfA}ChBoFj@aB",
+            "summary": "Bulevardul Regele Ferdinand I al Rom\u00e2niei \u0219i Bulevardul Regele Mihai I al Rom\u00e2niei",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.152590000000004,
+                    "lng": 27.58687
+                },
+                {
+                    "lat": 47.153360000000006,
+                    "lng": 27.5851
+                },
+                {
+                    "lat": 47.15384,
+                    "lng": 27.58404
+                },
+                {
+                    "lat": 47.153470000000006,
+                    "lng": 27.583540000000003
+                },
+                {
+                    "lat": 47.15341,
+                    "lng": 27.583470000000002
+                },
+                {
+                    "lat": 47.15335,
+                    "lng": 27.583610000000004
+                },
+                {
+                    "lat": 47.153200000000005,
+                    "lng": 27.583940000000002
+                },
+                {
+                    "lat": 47.152840000000005,
+                    "lng": 27.584730000000004
+                },
+                {
+                    "lat": 47.15231000000001,
+                    "lng": 27.58593
+                },
+                {
+                    "lat": 47.15209,
+                    "lng": 27.586420000000004
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15262542,
+                "lng": 27.58689803
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.15204,
+                "lng": 27.58637
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "69",
+    "stop_id": "190"
+}

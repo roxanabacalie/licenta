@@ -1,0 +1,346 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJfSbb6YD7ykARQpGUSYtQwww",
+            "types": [
+                "premise"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ8QzF_YD7ykARcgttYxx0e3I",
+            "types": [
+                "street_address"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16711,
+                "west": 27.5984,
+                "north": 47.16763,
+                "east": 27.599950000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,2 km",
+                        "value": 167
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 37
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 31
+                    },
+                    "end_address": "Strada Spital Pa\u0219canu 24, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1671088,
+                        "lng": 27.5983966
+                    },
+                    "start_address": "Strada Spital Pa\u0219canu 25, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1675174,
+                        "lng": 27.5999471
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "7 m",
+                                "value": 7
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 1
+                            },
+                            "end_location": {
+                                "lat": 47.1675774,
+                                "lng": 27.5999418
+                            },
+                            "polyline": {
+                                "points": "_l{~GurmgDK@"
+                            },
+                            "start_location": {
+                                "lat": 47.1675174,
+                                "lng": 27.5999471
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "_l{~GurmgDK@",
+                            "path": [
+                                {
+                                    "lat": 47.16752,
+                                    "lng": 27.599950000000003
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599940000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16752,
+                                    "lng": 27.599950000000003
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599940000000004
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord</b> pe <b>Str. Beldiceanu</b> c\u0103tre <b>Strada Spital Pa\u0219canu</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1675174,
+                                "lng": 27.5999471
+                            },
+                            "end_point": {
+                                "lat": 47.1675774,
+                                "lng": 27.5999418
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,1 km",
+                                "value": 99
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 25
+                            },
+                            "end_location": {
+                                "lat": 47.1676282,
+                                "lng": 27.5986359
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "kl{~GsrmgD?dD?PANARAPCT"
+                            },
+                            "start_location": {
+                                "lat": 47.1675774,
+                                "lng": 27.5999418
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "kl{~GsrmgD?dD?PANARAPCT",
+                            "path": [
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599940000000004
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599110000000003
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599020000000003
+                                },
+                                {
+                                    "lat": 47.167590000000004,
+                                    "lng": 27.598940000000002
+                                },
+                                {
+                                    "lat": 47.16760000000001,
+                                    "lng": 27.598840000000003
+                                },
+                                {
+                                    "lat": 47.16761,
+                                    "lng": 27.598750000000003
+                                },
+                                {
+                                    "lat": 47.16763,
+                                    "lng": 27.598640000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599940000000004
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599110000000003
+                                },
+                                {
+                                    "lat": 47.16758,
+                                    "lng": 27.599020000000003
+                                },
+                                {
+                                    "lat": 47.167590000000004,
+                                    "lng": 27.598940000000002
+                                },
+                                {
+                                    "lat": 47.16760000000001,
+                                    "lng": 27.598840000000003
+                                },
+                                {
+                                    "lat": 47.16761,
+                                    "lng": 27.598750000000003
+                                },
+                                {
+                                    "lat": 47.16763,
+                                    "lng": 27.598640000000003
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> la prima intersec\u021bie pe <b>Strada Spital Pa\u0219canu</b>",
+                            "start_point": {
+                                "lat": 47.1675774,
+                                "lng": 27.5999418
+                            },
+                            "end_point": {
+                                "lat": 47.1676282,
+                                "lng": 27.5986359
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "61 m",
+                                "value": 61
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 11
+                            },
+                            "end_location": {
+                                "lat": 47.1671088,
+                                "lng": 27.5983966
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "ul{~GojmgDb@L^N`@P@?"
+                            },
+                            "start_location": {
+                                "lat": 47.1676282,
+                                "lng": 27.5986359
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "ul{~GojmgDb@L^N`@P@?",
+                            "path": [
+                                {
+                                    "lat": 47.16763,
+                                    "lng": 27.598640000000003
+                                },
+                                {
+                                    "lat": 47.16745,
+                                    "lng": 27.598570000000002
+                                },
+                                {
+                                    "lat": 47.16729,
+                                    "lng": 27.59849
+                                },
+                                {
+                                    "lat": 47.167120000000004,
+                                    "lng": 27.5984
+                                },
+                                {
+                                    "lat": 47.16711,
+                                    "lng": 27.5984
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16763,
+                                    "lng": 27.598640000000003
+                                },
+                                {
+                                    "lat": 47.16745,
+                                    "lng": 27.598570000000002
+                                },
+                                {
+                                    "lat": 47.16729,
+                                    "lng": 27.59849
+                                },
+                                {
+                                    "lat": 47.167120000000004,
+                                    "lng": 27.5984
+                                },
+                                {
+                                    "lat": 47.16711,
+                                    "lng": 27.5984
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pentru a r\u0103m\u00e2ne pe <b>Strada Spital Pa\u0219canu</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "start_point": {
+                                "lat": 47.1676282,
+                                "lng": 27.5986359
+                            },
+                            "end_point": {
+                                "lat": 47.1671088,
+                                "lng": 27.5983966
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "_l{~GurmgDK@?dDA`@Cd@CTb@L`A`@@?",
+            "summary": "Strada Spital Pa\u0219canu",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16752,
+                    "lng": 27.599950000000003
+                },
+                {
+                    "lat": 47.16758,
+                    "lng": 27.599940000000004
+                },
+                {
+                    "lat": 47.16758,
+                    "lng": 27.599110000000003
+                },
+                {
+                    "lat": 47.167590000000004,
+                    "lng": 27.598940000000002
+                },
+                {
+                    "lat": 47.16761,
+                    "lng": 27.598750000000003
+                },
+                {
+                    "lat": 47.16763,
+                    "lng": 27.598640000000003
+                },
+                {
+                    "lat": 47.16745,
+                    "lng": 27.598570000000002
+                },
+                {
+                    "lat": 47.167120000000004,
+                    "lng": 27.5984
+                },
+                {
+                    "lat": 47.16711,
+                    "lng": 27.5984
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16752,
+                "lng": 27.60001
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16712,
+                "lng": 27.59835
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "135",
+    "stop_id": "137"
+}

@@ -1,0 +1,176 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJjXUu9VX5ykARtUIqFjvGKGg",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJR77nf1T5ykARHpBw0pMzDm8",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.15238,
+                "west": 27.648480000000003,
+                "north": 47.15297,
+                "east": 27.65501
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,5 km",
+                        "value": 498
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 32
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 27
+                    },
+                    "end_address": "Blocuri Dancu, 707252 Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1523791,
+                        "lng": 27.6550078
+                    },
+                    "start_address": "Rond vechi Dancu, 707252 Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1529684,
+                        "lng": 27.6484841
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,5 km",
+                                "value": 498
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 32
+                            },
+                            "end_location": {
+                                "lat": 47.1523791,
+                                "lng": 27.6550078
+                            },
+                            "polyline": {
+                                "points": "aqx~G_bwgD\\eIZmHf@aMRcF"
+                            },
+                            "start_location": {
+                                "lat": 47.1529684,
+                                "lng": 27.6484841
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "aqx~G_bwgD\\eIZmHf@aMRcF",
+                            "path": [
+                                {
+                                    "lat": 47.15297,
+                                    "lng": 27.648480000000003
+                                },
+                                {
+                                    "lat": 47.152820000000006,
+                                    "lng": 27.65011
+                                },
+                                {
+                                    "lat": 47.152680000000004,
+                                    "lng": 27.65162
+                                },
+                                {
+                                    "lat": 47.152480000000004,
+                                    "lng": 27.65387
+                                },
+                                {
+                                    "lat": 47.15238,
+                                    "lng": 27.65501
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.15297,
+                                    "lng": 27.648480000000003
+                                },
+                                {
+                                    "lat": 47.152820000000006,
+                                    "lng": 27.65011
+                                },
+                                {
+                                    "lat": 47.152680000000004,
+                                    "lng": 27.65162
+                                },
+                                {
+                                    "lat": 47.152480000000004,
+                                    "lng": 27.65387
+                                },
+                                {
+                                    "lat": 47.15238,
+                                    "lng": 27.65501
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>est</b> pe <b>Calea Dacilor</b>/<wbr/><b>DJ249A</b> c\u0103tre <b>Strada Dasc\u0103lilor</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1529684,
+                                "lng": 27.6484841
+                            },
+                            "end_point": {
+                                "lat": 47.1523791,
+                                "lng": 27.6550078
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "aqx~G_bwgDtByg@",
+            "summary": "Calea Dacilor/DJ249A",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.15297,
+                    "lng": 27.648480000000003
+                },
+                {
+                    "lat": 47.15238,
+                    "lng": 27.65501
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15293514,
+                "lng": 27.64847761
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.15238728,
+                "lng": 27.65500939
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "44",
+    "stop_id": "43"
+}

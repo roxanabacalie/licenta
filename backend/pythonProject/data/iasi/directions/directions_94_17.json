@@ -1,0 +1,245 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJW56GKen7ykARhSUmt3Y_6Tk",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJSVq82u77ykARYzXNHSQ2KaU",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.14793,
+                "west": 27.62027,
+                "north": 47.148920000000004,
+                "east": 27.62057
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,1 km",
+                        "value": 112
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 9
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 7
+                    },
+                    "end_address": "C.F.S. II, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.14891739999999,
+                        "lng": 27.6205697
+                    },
+                    "start_address": "C.F.S. II, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1479341,
+                        "lng": 27.6202683
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "55 m",
+                                "value": 55
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 4
+                            },
+                            "end_location": {
+                                "lat": 47.1484181,
+                                "lng": 27.6204184
+                            },
+                            "polyline": {
+                                "points": "qqw~GuqqgDy@SSESC"
+                            },
+                            "start_location": {
+                                "lat": 47.1479341,
+                                "lng": 27.6202683
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "qqw~GuqqgDy@SSESC",
+                            "path": [
+                                {
+                                    "lat": 47.14793,
+                                    "lng": 27.62027
+                                },
+                                {
+                                    "lat": 47.14822,
+                                    "lng": 27.62037
+                                },
+                                {
+                                    "lat": 47.148320000000005,
+                                    "lng": 27.620400000000004
+                                },
+                                {
+                                    "lat": 47.14842,
+                                    "lng": 27.620420000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.14793,
+                                    "lng": 27.62027
+                                },
+                                {
+                                    "lat": 47.14822,
+                                    "lng": 27.62037
+                                },
+                                {
+                                    "lat": 47.148320000000005,
+                                    "lng": 27.620400000000004
+                                },
+                                {
+                                    "lat": 47.14842,
+                                    "lng": 27.620420000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord</b> pe <b>Bulevardul Metalurgiei</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1479341,
+                                "lng": 27.6202683
+                            },
+                            "end_point": {
+                                "lat": 47.1484181,
+                                "lng": 27.6204184
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "57 m",
+                                "value": 57
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 5
+                            },
+                            "end_location": {
+                                "lat": 47.14891739999999,
+                                "lng": 27.6205697
+                            },
+                            "maneuver": "straight",
+                            "polyline": {
+                                "points": "stw~GsrqgDo@MQEa@I"
+                            },
+                            "start_location": {
+                                "lat": 47.1484181,
+                                "lng": 27.6204184
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "stw~GsrqgDo@MQEa@I",
+                            "path": [
+                                {
+                                    "lat": 47.14842,
+                                    "lng": 27.620420000000003
+                                },
+                                {
+                                    "lat": 47.14866000000001,
+                                    "lng": 27.620490000000004
+                                },
+                                {
+                                    "lat": 47.14875000000001,
+                                    "lng": 27.620520000000003
+                                },
+                                {
+                                    "lat": 47.148920000000004,
+                                    "lng": 27.62057
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.14842,
+                                    "lng": 27.620420000000003
+                                },
+                                {
+                                    "lat": 47.14866000000001,
+                                    "lng": 27.620490000000004
+                                },
+                                {
+                                    "lat": 47.14875000000001,
+                                    "lng": 27.620520000000003
+                                },
+                                {
+                                    "lat": 47.148920000000004,
+                                    "lng": 27.62057
+                                }
+                            ],
+                            "instructions": "Continu\u0103 drept \u00eenainte pentru a r\u0103m\u00e2ne pe <b>Bulevardul Metalurgiei</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "start_point": {
+                                "lat": 47.1484181,
+                                "lng": 27.6204184
+                            },
+                            "end_point": {
+                                "lat": 47.14891739999999,
+                                "lng": 27.6205697
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "qqw~GuqqgDmAYcAQs@O",
+            "summary": "Bulevardul Metalurgiei",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.14793,
+                    "lng": 27.62027
+                },
+                {
+                    "lat": 47.148320000000005,
+                    "lng": 27.620400000000004
+                },
+                {
+                    "lat": 47.14866000000001,
+                    "lng": 27.620490000000004
+                },
+                {
+                    "lat": 47.148920000000004,
+                    "lng": 27.62057
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.14794008,
+                "lng": 27.62023163
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.14892326,
+                "lng": 27.62052766
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "94",
+    "stop_id": "17"
+}

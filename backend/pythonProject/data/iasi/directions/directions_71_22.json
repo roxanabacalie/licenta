@@ -1,0 +1,152 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJgXUZL5_7ykAR-NcaBuFdzMQ",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJS-8zKZ_7ykAR0jkFkBxt4_g",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.153830000000006,
+                "west": 27.58724,
+                "north": 47.15388,
+                "east": 27.587280000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "6 m",
+                        "value": 6
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 1
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "end_address": "Sala Polivalent\u0103, Strada Palat, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1538346,
+                        "lng": 27.5872823
+                    },
+                    "start_address": "Sala Polivalenta, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1538777,
+                        "lng": 27.5872365
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "6 m",
+                                "value": 6
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 1
+                            },
+                            "end_location": {
+                                "lat": 47.1538346,
+                                "lng": 27.5872823
+                            },
+                            "polyline": {
+                                "points": "wvx~GgckgDHG"
+                            },
+                            "start_location": {
+                                "lat": 47.1538777,
+                                "lng": 27.5872365
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "wvx~GgckgDHG",
+                            "path": [
+                                {
+                                    "lat": 47.15388,
+                                    "lng": 27.58724
+                                },
+                                {
+                                    "lat": 47.153830000000006,
+                                    "lng": 27.587280000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.15388,
+                                    "lng": 27.58724
+                                },
+                                {
+                                    "lat": 47.153830000000006,
+                                    "lng": 27.587280000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1538777,
+                                "lng": 27.5872365
+                            },
+                            "end_point": {
+                                "lat": 47.1538346,
+                                "lng": 27.5872823
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "wvx~GgckgDHG",
+            "summary": "",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.15388,
+                    "lng": 27.58724
+                },
+                {
+                    "lat": 47.153830000000006,
+                    "lng": 27.587280000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15384709,
+                "lng": 27.58717431
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.15386617,
+                "lng": 27.58734652
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "71",
+    "stop_id": "22"
+}

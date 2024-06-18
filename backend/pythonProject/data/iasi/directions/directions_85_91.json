@@ -1,0 +1,306 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJBVZ0D277ykARnTbTmIiJIb8",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJFc871237ykARG9QQuwaACog",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16147,
+                "west": 27.567010000000003,
+                "north": 47.16207000000001,
+                "east": 27.569670000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,3 km",
+                        "value": 258
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 58
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 42
+                    },
+                    "end_address": "Familial, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1619368,
+                        "lng": 27.5671745
+                    },
+                    "start_address": "Piata Alexandru cel Bun II, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.16192969999999,
+                        "lng": 27.5696654
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "67 m",
+                                "value": 67
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 12
+                            },
+                            "end_location": {
+                                "lat": 47.1614653,
+                                "lng": 27.5690985
+                            },
+                            "polyline": {
+                                "points": "aiz~GmuggD~@lAZb@"
+                            },
+                            "start_location": {
+                                "lat": 47.16192969999999,
+                                "lng": 27.5696654
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "aiz~GmuggD~@lAZb@",
+                            "path": [
+                                {
+                                    "lat": 47.161930000000005,
+                                    "lng": 27.569670000000002
+                                },
+                                {
+                                    "lat": 47.16161,
+                                    "lng": 27.569280000000003
+                                },
+                                {
+                                    "lat": 47.16147,
+                                    "lng": 27.569100000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.161930000000005,
+                                    "lng": 27.569670000000002
+                                },
+                                {
+                                    "lat": 47.16161,
+                                    "lng": 27.569280000000003
+                                },
+                                {
+                                    "lat": 47.16147,
+                                    "lng": 27.569100000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-vest</b> pe <b>Strada Jijia</b> c\u0103tre <b>Bulevardul Alexandru cel Bun</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.16192969999999,
+                                "lng": 27.5696654
+                            },
+                            "end_point": {
+                                "lat": 47.1614653,
+                                "lng": 27.5690985
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,2 km",
+                                "value": 166
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 25
+                            },
+                            "end_location": {
+                                "lat": 47.1620693,
+                                "lng": 27.5670889
+                            },
+                            "polyline": {
+                                "points": "efz~G{qggDeAdFOt@a@tB"
+                            },
+                            "start_location": {
+                                "lat": 47.1614653,
+                                "lng": 27.5690985
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "efz~G{qggDeAdFOt@a@tB",
+                            "path": [
+                                {
+                                    "lat": 47.16147,
+                                    "lng": 27.569100000000002
+                                },
+                                {
+                                    "lat": 47.161820000000006,
+                                    "lng": 27.567950000000003
+                                },
+                                {
+                                    "lat": 47.1619,
+                                    "lng": 27.567680000000003
+                                },
+                                {
+                                    "lat": 47.16207000000001,
+                                    "lng": 27.567090000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16147,
+                                    "lng": 27.569100000000002
+                                },
+                                {
+                                    "lat": 47.161820000000006,
+                                    "lng": 27.567950000000003
+                                },
+                                {
+                                    "lat": 47.1619,
+                                    "lng": 27.567680000000003
+                                },
+                                {
+                                    "lat": 47.16207000000001,
+                                    "lng": 27.567090000000004
+                                }
+                            ],
+                            "instructions": "<b>Strada Jijia</b> vireaz\u0103 <b>dreapta</b> \u0219i devine <b>Bulevardul Alexandru cel Bun</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1614653,
+                                "lng": 27.5690985
+                            },
+                            "end_point": {
+                                "lat": 47.1620693,
+                                "lng": 27.5670889
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "25 m",
+                                "value": 25
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 21
+                            },
+                            "end_location": {
+                                "lat": 47.1619368,
+                                "lng": 27.5671745
+                            },
+                            "maneuver": "turn-sharp-left",
+                            "polyline": {
+                                "points": "}iz~GieggDNNH_@"
+                            },
+                            "start_location": {
+                                "lat": 47.1620693,
+                                "lng": 27.5670889
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "}iz~GieggDNNH_@",
+                            "path": [
+                                {
+                                    "lat": 47.16207000000001,
+                                    "lng": 27.567090000000004
+                                },
+                                {
+                                    "lat": 47.16199,
+                                    "lng": 27.567010000000003
+                                },
+                                {
+                                    "lat": 47.16194,
+                                    "lng": 27.56717
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16207000000001,
+                                    "lng": 27.567090000000004
+                                },
+                                {
+                                    "lat": 47.16199,
+                                    "lng": 27.567010000000003
+                                },
+                                {
+                                    "lat": 47.16194,
+                                    "lng": 27.56717
+                                }
+                            ],
+                            "instructions": "Unghi str\u00e2ns <b>st\u00e2nga</b> pentru a r\u0103m\u00e2ne pe <b>Bulevardul Alexandru cel Bun</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "start_point": {
+                                "lat": 47.1620693,
+                                "lng": 27.5670889
+                            },
+                            "end_point": {
+                                "lat": 47.1619368,
+                                "lng": 27.5671745
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "aiz~GmuggDzApBuAzGa@tBNNH_@",
+            "summary": "Strada Jijia \u0219i Bulevardul Alexandru cel Bun",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.161930000000005,
+                    "lng": 27.569670000000002
+                },
+                {
+                    "lat": 47.16147,
+                    "lng": 27.569100000000002
+                },
+                {
+                    "lat": 47.1619,
+                    "lng": 27.567680000000003
+                },
+                {
+                    "lat": 47.16207000000001,
+                    "lng": 27.567090000000004
+                },
+                {
+                    "lat": 47.16199,
+                    "lng": 27.567010000000003
+                },
+                {
+                    "lat": 47.16194,
+                    "lng": 27.56717
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16196497,
+                "lng": 27.56960285
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.1618644,
+                "lng": 27.56712555
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "85",
+    "stop_id": "91"
+}

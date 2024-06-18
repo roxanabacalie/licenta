@@ -44,11 +44,13 @@ export class HomepageComponent implements OnInit {
     });
 
     this.directionsService = new google.maps.DirectionsService();
-    this.getRouteDataAndDraw();
+    //this.getDirectionsFromCSV();
+    //this.getRouteDataAndDraw();
 
   }
 
-
+  // methods for saving the directions from Google API
+  
   saveDirectionsToFile(response: any) {
     console.log("saveDirectionsToFile");
     const xhr = new XMLHttpRequest();
@@ -64,8 +66,8 @@ export class HomepageComponent implements OnInit {
     xhr.send(JSON.stringify(response));
   }
 
-
-  saveRoute(start: any, end: any, color: string) {
+ 
+  saveRoute(start: any, end: any, startId: string, stopId: string) {
     const departureTime = new Date();
     departureTime.setDate(departureTime.getDate() + 1);
     departureTime.setHours(3);
@@ -84,11 +86,41 @@ export class HomepageComponent implements OnInit {
 
     this.directionsService.route(request, (result: any, status: string) => {
       if (status === 'OK') {
-        this.saveDirectionsToFile(result);
+        const response = {
+          ...result,
+          start_id: startId,
+          stop_id: stopId
+        }
+        this.saveDirectionsToFile(response);
       } else {
         console.error('Could not display directions due to: ' + status);
       }
     });
+  }
+  
+  parseCSV(data: string) {
+    const rows = data.split('\n').slice(1);
+    return rows.map(row => {
+      const [stop_id, stop_name, stop_lat, stop_lon] = row.split(',');
+      return { id: stop_id, name: stop_name, lat: parseFloat(stop_lat), lng: parseFloat(stop_lon) };
+    });
+  }
+
+  async getDirectionsFromCSV() {
+    const response = await fetch('../assets/iasi_filtered_stops_data.csv');
+    const data = await response.text();
+    const stops = this.parseCSV(data);
+    if (stops.length >= 2) {
+      for (let i = 146; i <=150; i++) {
+        for(let j=1; j<=191; j++) {
+          if(i!=j) {
+            const start = new google.maps.LatLng(stops[i-1].lat, stops[i-1].lng);
+            const end = new google.maps.LatLng(stops[j-1].lat, stops[j-1].lng);
+            this.saveRoute(start, end, stops[i-1].id, stops[j-1].id);
+          }
+        }
+      }
+    }
   }
 
 
@@ -120,7 +152,7 @@ export class HomepageComponent implements OnInit {
 
   async getRouteDataAndDraw() {
     console.log("getRouteDataAndDraw");
-    const routeId = "6660a679c1653b524b6e73cb";
+    const routeId = "666b6d5cf679e008bc51100a";
     try {
         console.log('Salut');
         const xhr = new XMLHttpRequest();
@@ -132,9 +164,11 @@ export class HomepageComponent implements OnInit {
                 if (xhr.status === 200) {
                     const routeData = JSON.parse(xhr.responseText);
                     delete routeData._id;
+                    delete routeData.directions.start_id;
+                    delete routeData.directions.stop_id;
                     console.log('Ruta găsită:', routeData);
                     const color = this.getRandomColor(); 
-                    this.drawRoute(routeData, color); 
+                    this.drawRoute(routeData.directions, color); 
                 } else {
                     console.error('Eroare la obținerea datelor rutei:', xhr.status);
                 }
@@ -148,7 +182,6 @@ export class HomepageComponent implements OnInit {
         console.error('Eroare:', error);
     }
   }
-
 
   
 }

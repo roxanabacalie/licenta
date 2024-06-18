@@ -1,0 +1,335 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJGXjxCmb7ykARGLJpY1OkXx4",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJRe1Zfm_7ykARuc4v5lNiuz4",
+            "types": [
+                "street_address"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16635,
+                "west": 27.56791,
+                "north": 47.16828,
+                "east": 27.570580000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,3 km",
+                        "value": 326
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 80
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 43
+                    },
+                    "end_address": "Str\u0103pungerea Silvestru 289, Ia\u0219i 700259, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1663491,
+                        "lng": 27.5705828
+                    },
+                    "start_address": "Str. Bacinschi, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1682801,
+                        "lng": 27.5684349
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "70 m",
+                                "value": 70
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 22
+                            },
+                            "end_location": {
+                                "lat": 47.1677587,
+                                "lng": 27.5679122
+                            },
+                            "polyline": {
+                                "points": "wp{~GumggDPNXXJHPP\\`@"
+                            },
+                            "start_location": {
+                                "lat": 47.1682801,
+                                "lng": 27.5684349
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "wp{~GumggDPNXXJHPP\\`@",
+                            "path": [
+                                {
+                                    "lat": 47.16828,
+                                    "lng": 27.568430000000003
+                                },
+                                {
+                                    "lat": 47.16819,
+                                    "lng": 27.568350000000002
+                                },
+                                {
+                                    "lat": 47.168060000000004,
+                                    "lng": 27.568220000000004
+                                },
+                                {
+                                    "lat": 47.168000000000006,
+                                    "lng": 27.568170000000002
+                                },
+                                {
+                                    "lat": 47.167910000000006,
+                                    "lng": 27.568080000000002
+                                },
+                                {
+                                    "lat": 47.16776,
+                                    "lng": 27.56791
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16828,
+                                    "lng": 27.568430000000003
+                                },
+                                {
+                                    "lat": 47.16819,
+                                    "lng": 27.568350000000002
+                                },
+                                {
+                                    "lat": 47.168060000000004,
+                                    "lng": 27.568220000000004
+                                },
+                                {
+                                    "lat": 47.168000000000006,
+                                    "lng": 27.568170000000002
+                                },
+                                {
+                                    "lat": 47.167910000000006,
+                                    "lng": 27.568080000000002
+                                },
+                                {
+                                    "lat": 47.16776,
+                                    "lng": 27.56791
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-vest</b> pe <b>Strada Bacinschi</b> c\u0103tre <b>Str\u0103pungerea Silvestru</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1682801,
+                                "lng": 27.5684349
+                            },
+                            "end_point": {
+                                "lat": 47.1677587,
+                                "lng": 27.5679122
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 256
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 58
+                            },
+                            "end_location": {
+                                "lat": 47.1663491,
+                                "lng": 27.5705828
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "om{~GmjggDVm@Vm@P_@j@qA|@sBRe@Tk@Zs@Pa@?ATi@"
+                            },
+                            "start_location": {
+                                "lat": 47.1677587,
+                                "lng": 27.5679122
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "om{~GmjggDVm@Vm@P_@j@qA|@sBRe@Tk@Zs@Pa@?ATi@",
+                            "path": [
+                                {
+                                    "lat": 47.16776,
+                                    "lng": 27.56791
+                                },
+                                {
+                                    "lat": 47.167640000000006,
+                                    "lng": 27.568140000000003
+                                },
+                                {
+                                    "lat": 47.16752,
+                                    "lng": 27.56837
+                                },
+                                {
+                                    "lat": 47.16743,
+                                    "lng": 27.568530000000003
+                                },
+                                {
+                                    "lat": 47.167210000000004,
+                                    "lng": 27.56894
+                                },
+                                {
+                                    "lat": 47.166900000000005,
+                                    "lng": 27.56952
+                                },
+                                {
+                                    "lat": 47.1668,
+                                    "lng": 27.56971
+                                },
+                                {
+                                    "lat": 47.16669,
+                                    "lng": 27.569930000000003
+                                },
+                                {
+                                    "lat": 47.16655,
+                                    "lng": 27.570190000000004
+                                },
+                                {
+                                    "lat": 47.16646,
+                                    "lng": 27.57036
+                                },
+                                {
+                                    "lat": 47.16646,
+                                    "lng": 27.57037
+                                },
+                                {
+                                    "lat": 47.16635,
+                                    "lng": 27.570580000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16776,
+                                    "lng": 27.56791
+                                },
+                                {
+                                    "lat": 47.167640000000006,
+                                    "lng": 27.568140000000003
+                                },
+                                {
+                                    "lat": 47.16752,
+                                    "lng": 27.56837
+                                },
+                                {
+                                    "lat": 47.16743,
+                                    "lng": 27.568530000000003
+                                },
+                                {
+                                    "lat": 47.167210000000004,
+                                    "lng": 27.56894
+                                },
+                                {
+                                    "lat": 47.166900000000005,
+                                    "lng": 27.56952
+                                },
+                                {
+                                    "lat": 47.1668,
+                                    "lng": 27.56971
+                                },
+                                {
+                                    "lat": 47.16669,
+                                    "lng": 27.569930000000003
+                                },
+                                {
+                                    "lat": 47.16655,
+                                    "lng": 27.570190000000004
+                                },
+                                {
+                                    "lat": 47.16646,
+                                    "lng": 27.57036
+                                },
+                                {
+                                    "lat": 47.16646,
+                                    "lng": 27.57037
+                                },
+                                {
+                                    "lat": 47.16635,
+                                    "lng": 27.570580000000003
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pe <b>Str\u0103pungerea Silvestru</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "start_point": {
+                                "lat": 47.1677587,
+                                "lng": 27.5679122
+                            },
+                            "end_point": {
+                                "lat": 47.1663491,
+                                "lng": 27.5705828
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "wp{~GumggDhAdA\\`@Vm@h@mArCwGbAaC",
+            "summary": "Str\u0103pungerea Silvestru/DN28/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16828,
+                    "lng": 27.568430000000003
+                },
+                {
+                    "lat": 47.167910000000006,
+                    "lng": 27.568080000000002
+                },
+                {
+                    "lat": 47.16776,
+                    "lng": 27.56791
+                },
+                {
+                    "lat": 47.167640000000006,
+                    "lng": 27.568140000000003
+                },
+                {
+                    "lat": 47.16743,
+                    "lng": 27.568530000000003
+                },
+                {
+                    "lat": 47.16669,
+                    "lng": 27.569930000000003
+                },
+                {
+                    "lat": 47.16635,
+                    "lng": 27.570580000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16825281,
+                "lng": 27.56849347
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16629,
+                "lng": 27.57052
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "49",
+    "stop_id": "50"
+}

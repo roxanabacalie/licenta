@@ -1,0 +1,152 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ6QyNx2T7ykAResoXvrOJc1c",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJTZxgyGT7ykARPSvPfFhVwPg",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16864,
+                "west": 27.576700000000002,
+                "north": 47.16886,
+                "east": 27.576780000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "25 m",
+                        "value": 25
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 4
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 2
+                    },
+                    "end_address": "Piata Mihai Eminescu, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.16864349999999,
+                        "lng": 27.5767846
+                    },
+                    "start_address": "Piata Mihai Eminescu, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.168864,
+                        "lng": 27.5766999
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "25 m",
+                                "value": 25
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 4
+                            },
+                            "end_location": {
+                                "lat": 47.16864349999999,
+                                "lng": 27.5767846
+                            },
+                            "polyline": {
+                                "points": "kt{~GkaigDj@O"
+                            },
+                            "start_location": {
+                                "lat": 47.168864,
+                                "lng": 27.5766999
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "kt{~GkaigDj@O",
+                            "path": [
+                                {
+                                    "lat": 47.16886,
+                                    "lng": 27.576700000000002
+                                },
+                                {
+                                    "lat": 47.16864,
+                                    "lng": 27.576780000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16886,
+                                    "lng": 27.576700000000002
+                                },
+                                {
+                                    "lat": 47.16864,
+                                    "lng": 27.576780000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud</b> pe <b>Strada Gavriil Musicescu</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.168864,
+                                "lng": 27.5766999
+                            },
+                            "end_point": {
+                                "lat": 47.16864349999999,
+                                "lng": 27.5767846
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "kt{~GkaigDj@O",
+            "summary": "Strada Gavriil Musicescu",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16886,
+                    "lng": 27.576700000000002
+                },
+                {
+                    "lat": 47.16864,
+                    "lng": 27.576780000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16888,
+                "lng": 27.57679
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16865733,
+                "lng": 27.57686234
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-18T00:30:00.000Z"
+        }
+    },
+    "start_id": "6",
+    "stop_id": "25"
+}

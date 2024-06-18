@@ -1,0 +1,160 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJF_kGkXH7ykAR2nCgFa0AJcM",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJhWO2mnH7ykARy5-UHXRu0TU",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.161280000000005,
+                "west": 27.573220000000003,
+                "north": 47.16142000000001,
+                "east": 27.573240000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "16 m",
+                        "value": 16
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 2
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "end_address": "Pasaj Alexandru cel Bun, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1612815,
+                        "lng": 27.5732181
+                    },
+                    "start_address": "Pasaj Alexandru cel Bun, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.16142,
+                        "lng": 27.573242
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "16 m",
+                                "value": 16
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 2
+                            },
+                            "end_location": {
+                                "lat": 47.1612815,
+                                "lng": 27.5732181
+                            },
+                            "polyline": {
+                                "points": "{ez~GwkhgDRBF?"
+                            },
+                            "start_location": {
+                                "lat": 47.16142,
+                                "lng": 27.573242
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "{ez~GwkhgDRBF?",
+                            "path": [
+                                {
+                                    "lat": 47.16142000000001,
+                                    "lng": 27.573240000000002
+                                },
+                                {
+                                    "lat": 47.16132,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.161280000000005,
+                                    "lng": 27.573220000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16142000000001,
+                                    "lng": 27.573240000000002
+                                },
+                                {
+                                    "lat": 47.16132,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.161280000000005,
+                                    "lng": 27.573220000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud</b> pe <b>Strada Silvestru</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.16142,
+                                "lng": 27.573242
+                            },
+                            "end_point": {
+                                "lat": 47.1612815,
+                                "lng": 27.5732181
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "{ez~GwkhgDZB",
+            "summary": "Strada Silvestru/DN28/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16142000000001,
+                    "lng": 27.573240000000002
+                },
+                {
+                    "lat": 47.161280000000005,
+                    "lng": 27.573220000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16143,
+                "lng": 27.57312
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16127,
+                "lng": 27.57337
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "54",
+    "stop_id": "66"
+}

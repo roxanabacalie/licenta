@@ -1,0 +1,212 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJp0xrkLbkykARaRv7R35V_c4",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ0QOxE7TkykAR0PYZLkT9f24",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.172410000000006,
+                "west": 27.520190000000003,
+                "north": 47.17251,
+                "east": 27.523650000000004
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,3 km",
+                        "value": 263
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 15
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 14
+                    },
+                    "end_address": "Ideo, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1725122,
+                        "lng": 27.5236511
+                    },
+                    "start_address": "Popas Pacurari, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1724148,
+                        "lng": 27.5201859
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 263
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 15
+                            },
+                            "end_location": {
+                                "lat": 47.1725122,
+                                "lng": 27.5236511
+                            },
+                            "polyline": {
+                                "points": "qj|~Ge`~fDAO?gBAwCASIm@?uBCkF"
+                            },
+                            "start_location": {
+                                "lat": 47.1724148,
+                                "lng": 27.5201859
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "qj|~Ge`~fDAO?gBAwCASIm@?uBCkF",
+                            "path": [
+                                {
+                                    "lat": 47.172410000000006,
+                                    "lng": 27.520190000000003
+                                },
+                                {
+                                    "lat": 47.17242,
+                                    "lng": 27.520270000000004
+                                },
+                                {
+                                    "lat": 47.17242,
+                                    "lng": 27.52079
+                                },
+                                {
+                                    "lat": 47.172430000000006,
+                                    "lng": 27.52155
+                                },
+                                {
+                                    "lat": 47.17244,
+                                    "lng": 27.52165
+                                },
+                                {
+                                    "lat": 47.17249,
+                                    "lng": 27.521880000000003
+                                },
+                                {
+                                    "lat": 47.17249,
+                                    "lng": 27.522470000000002
+                                },
+                                {
+                                    "lat": 47.17251,
+                                    "lng": 27.523650000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.172410000000006,
+                                    "lng": 27.520190000000003
+                                },
+                                {
+                                    "lat": 47.17242,
+                                    "lng": 27.520270000000004
+                                },
+                                {
+                                    "lat": 47.17242,
+                                    "lng": 27.52079
+                                },
+                                {
+                                    "lat": 47.172430000000006,
+                                    "lng": 27.52155
+                                },
+                                {
+                                    "lat": 47.17244,
+                                    "lng": 27.52165
+                                },
+                                {
+                                    "lat": 47.17249,
+                                    "lng": 27.521880000000003
+                                },
+                                {
+                                    "lat": 47.17249,
+                                    "lng": 27.522470000000002
+                                },
+                                {
+                                    "lat": 47.17251,
+                                    "lng": 27.523650000000004
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>est</b> pe <b>\u0218oseaua P\u0103curari</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1724148,
+                                "lng": 27.5201859
+                            },
+                            "end_point": {
+                                "lat": 47.1725122,
+                                "lng": 27.5236511
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "qj|~Ge`~fDEcHIm@?uBCkF",
+            "summary": "\u0218oseaua P\u0103curari/DN28/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.172410000000006,
+                    "lng": 27.520190000000003
+                },
+                {
+                    "lat": 47.17244,
+                    "lng": 27.52165
+                },
+                {
+                    "lat": 47.17249,
+                    "lng": 27.521880000000003
+                },
+                {
+                    "lat": 47.17249,
+                    "lng": 27.522470000000002
+                },
+                {
+                    "lat": 47.17251,
+                    "lng": 27.523650000000004
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.1724089,
+                "lng": 27.52018607
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.17258089,
+                "lng": 27.52364856
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "79",
+    "stop_id": "80"
+}

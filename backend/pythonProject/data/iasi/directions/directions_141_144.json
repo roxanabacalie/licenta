@@ -1,0 +1,318 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJmSX0Dvb7ykAR_ZH8C9drS6s",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJzT1vtvX7ykARu4rR_T0f-Oo",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.16008,
+                "west": 27.62665,
+                "north": 47.160700000000006,
+                "east": 27.63023
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,3 km",
+                        "value": 305
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 85
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 85
+                    },
+                    "end_address": "Str. A. Obreja, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1602038,
+                        "lng": 27.6266452
+                    },
+                    "start_address": "Str. Motilor, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1605703,
+                        "lng": 27.6302289
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "14 m",
+                                "value": 14
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 2
+                            },
+                            "end_location": {
+                                "lat": 47.1607005,
+                                "lng": 27.6302204
+                            },
+                            "polyline": {
+                                "points": "q`z~G}osgDY@"
+                            },
+                            "start_location": {
+                                "lat": 47.1605703,
+                                "lng": 27.6302289
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "q`z~G}osgDY@",
+                            "path": [
+                                {
+                                    "lat": 47.16057000000001,
+                                    "lng": 27.63023
+                                },
+                                {
+                                    "lat": 47.160700000000006,
+                                    "lng": 27.63022
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16057000000001,
+                                    "lng": 27.63023
+                                },
+                                {
+                                    "lat": 47.160700000000006,
+                                    "lng": 27.63022
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord</b> pe <b>Strada Mo\u021bilor</b> c\u0103tre <b>Strada A. Obreja</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1605703,
+                                "lng": 27.6302289
+                            },
+                            "end_point": {
+                                "lat": 47.1607005,
+                                "lng": 27.6302204
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 278
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 76
+                            },
+                            "end_location": {
+                                "lat": 47.160084,
+                                "lng": 27.6266732
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "kaz~G{osgDLx@TlATzAFd@RnCd@jH"
+                            },
+                            "start_location": {
+                                "lat": 47.1607005,
+                                "lng": 27.6302204
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "kaz~G{osgDLx@TlATzAFd@RnCd@jH",
+                            "path": [
+                                {
+                                    "lat": 47.160700000000006,
+                                    "lng": 27.63022
+                                },
+                                {
+                                    "lat": 47.160630000000005,
+                                    "lng": 27.62993
+                                },
+                                {
+                                    "lat": 47.160520000000005,
+                                    "lng": 27.629540000000002
+                                },
+                                {
+                                    "lat": 47.160410000000006,
+                                    "lng": 27.629080000000002
+                                },
+                                {
+                                    "lat": 47.16037,
+                                    "lng": 27.628890000000002
+                                },
+                                {
+                                    "lat": 47.160270000000004,
+                                    "lng": 27.62817
+                                },
+                                {
+                                    "lat": 47.16008,
+                                    "lng": 27.62667
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.160700000000006,
+                                    "lng": 27.63022
+                                },
+                                {
+                                    "lat": 47.160630000000005,
+                                    "lng": 27.62993
+                                },
+                                {
+                                    "lat": 47.160520000000005,
+                                    "lng": 27.629540000000002
+                                },
+                                {
+                                    "lat": 47.160410000000006,
+                                    "lng": 27.629080000000002
+                                },
+                                {
+                                    "lat": 47.16037,
+                                    "lng": 27.628890000000002
+                                },
+                                {
+                                    "lat": 47.160270000000004,
+                                    "lng": 27.62817
+                                },
+                                {
+                                    "lat": 47.16008,
+                                    "lng": 27.62667
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pe <b>Strada A. Obreja</b>",
+                            "start_point": {
+                                "lat": 47.1607005,
+                                "lng": 27.6302204
+                            },
+                            "end_point": {
+                                "lat": 47.160084,
+                                "lng": 27.6266732
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "13 m",
+                                "value": 13
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 7
+                            },
+                            "end_location": {
+                                "lat": 47.1602038,
+                                "lng": 27.6266452
+                            },
+                            "maneuver": "turn-right",
+                            "polyline": {
+                                "points": "o}y~GuyrgDWB"
+                            },
+                            "start_location": {
+                                "lat": 47.160084,
+                                "lng": 27.6266732
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "o}y~GuyrgDWB",
+                            "path": [
+                                {
+                                    "lat": 47.16008,
+                                    "lng": 27.62667
+                                },
+                                {
+                                    "lat": 47.1602,
+                                    "lng": 27.62665
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16008,
+                                    "lng": 27.62667
+                                },
+                                {
+                                    "lat": 47.1602,
+                                    "lng": 27.62665
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la dreapta</b> pe <b>Strada Aeroportului</b>/<wbr/><b>DJ249C</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "start_point": {
+                                "lat": 47.160084,
+                                "lng": 27.6266732
+                            },
+                            "end_point": {
+                                "lat": 47.1602038,
+                                "lng": 27.6266452
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "q`z~G}osgDY@Lx@j@hDZtDd@jHWB",
+            "summary": "Strada A. Obreja",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16057000000001,
+                    "lng": 27.63023
+                },
+                {
+                    "lat": 47.160700000000006,
+                    "lng": 27.63022
+                },
+                {
+                    "lat": 47.160630000000005,
+                    "lng": 27.62993
+                },
+                {
+                    "lat": 47.160410000000006,
+                    "lng": 27.629080000000002
+                },
+                {
+                    "lat": 47.160270000000004,
+                    "lng": 27.62817
+                },
+                {
+                    "lat": 47.16008,
+                    "lng": 27.62667
+                },
+                {
+                    "lat": 47.1602,
+                    "lng": 27.62665
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16057,
+                "lng": 27.63022
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.1602,
+                "lng": 27.62661
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "141",
+    "stop_id": "144"
+}

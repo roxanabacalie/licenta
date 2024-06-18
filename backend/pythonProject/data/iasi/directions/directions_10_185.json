@@ -1,0 +1,183 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJibNN6IH7ykARyNUHIEk1M8k",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ0bY42IH7ykARNqV3VX1x9Ik",
+            "types": [
+                "establishment",
+                "point_of_interest"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.166540000000005,
+                "west": 27.59428,
+                "north": 47.16709,
+                "east": 27.59466
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "68 m",
+                        "value": 68
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 21
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 9
+                    },
+                    "end_address": "Bd. Rosetti C. A., 5, Iasi, Iasi, 700141, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1670945,
+                        "lng": 27.5942801
+                    },
+                    "start_address": "Podu de Fier, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1665447,
+                        "lng": 27.5946646
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "68 m",
+                                "value": 68
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 21
+                            },
+                            "end_location": {
+                                "lat": 47.1670945,
+                                "lng": 27.5942801
+                            },
+                            "polyline": {
+                                "points": "{e{~GsqlgDQHUPc@XULKF"
+                            },
+                            "start_location": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "{e{~GsqlgDQHUPc@XULKF",
+                            "path": [
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                },
+                                {
+                                    "lat": 47.166630000000005,
+                                    "lng": 27.594610000000003
+                                },
+                                {
+                                    "lat": 47.166740000000004,
+                                    "lng": 27.594520000000003
+                                },
+                                {
+                                    "lat": 47.166920000000005,
+                                    "lng": 27.59439
+                                },
+                                {
+                                    "lat": 47.167030000000004,
+                                    "lng": 27.594320000000003
+                                },
+                                {
+                                    "lat": 47.16709,
+                                    "lng": 27.59428
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                },
+                                {
+                                    "lat": 47.166630000000005,
+                                    "lng": 27.594610000000003
+                                },
+                                {
+                                    "lat": 47.166740000000004,
+                                    "lng": 27.594520000000003
+                                },
+                                {
+                                    "lat": 47.166920000000005,
+                                    "lng": 27.59439
+                                },
+                                {
+                                    "lat": 47.167030000000004,
+                                    "lng": 27.594320000000003
+                                },
+                                {
+                                    "lat": 47.16709,
+                                    "lng": 27.59428
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord-vest</b> pe <b>Bulevardul Tudor Vladimirescu</b>/<wbr/><b>DN24</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b> c\u0103tre <b>Strada Eternitate</b>/<wbr/><b>DJ282G</b><div style=\"font-size:0.9em\">\u021aine pe DN24/<wbr/>E58/<wbr/>E583</div><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            },
+                            "end_point": {
+                                "lat": 47.1670945,
+                                "lng": 27.5942801
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "{e{~GsqlgDmBjA",
+            "summary": "DN24/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.166540000000005,
+                    "lng": 27.59466
+                },
+                {
+                    "lat": 47.16709,
+                    "lng": 27.59428
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16654,
+                "lng": 27.59465
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16712735,
+                "lng": 27.59440362
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-18T00:30:00.000Z"
+        }
+    },
+    "start_id": "10",
+    "stop_id": "185"
+}

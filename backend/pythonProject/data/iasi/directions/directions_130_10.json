@@ -1,0 +1,184 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJw9zq2oP7ykAR2qLx5JL3JAc",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJibNN6IH7ykARyNUHIEk1M8k",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.164530000000006,
+                "west": 27.59466,
+                "north": 47.166540000000005,
+                "east": 27.596130000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,2 km",
+                        "value": 250
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 50
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 25
+                    },
+                    "end_address": "Podu de Fier, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1665447,
+                        "lng": 27.5946646
+                    },
+                    "start_address": "Str. Conductelor, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1645264,
+                        "lng": 27.5961348
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,2 km",
+                                "value": 250
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 50
+                            },
+                            "end_location": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            },
+                            "polyline": {
+                                "points": "iyz~GyzlgDcAn@y@j@mD~By@h@k@^"
+                            },
+                            "start_location": {
+                                "lat": 47.1645264,
+                                "lng": 27.5961348
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "iyz~GyzlgDcAn@y@j@mD~By@h@k@^",
+                            "path": [
+                                {
+                                    "lat": 47.164530000000006,
+                                    "lng": 27.596130000000002
+                                },
+                                {
+                                    "lat": 47.16487,
+                                    "lng": 27.59589
+                                },
+                                {
+                                    "lat": 47.16516000000001,
+                                    "lng": 27.595670000000002
+                                },
+                                {
+                                    "lat": 47.166030000000006,
+                                    "lng": 27.59503
+                                },
+                                {
+                                    "lat": 47.166320000000006,
+                                    "lng": 27.594820000000002
+                                },
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.164530000000006,
+                                    "lng": 27.596130000000002
+                                },
+                                {
+                                    "lat": 47.16487,
+                                    "lng": 27.59589
+                                },
+                                {
+                                    "lat": 47.16516000000001,
+                                    "lng": 27.595670000000002
+                                },
+                                {
+                                    "lat": 47.166030000000006,
+                                    "lng": 27.59503
+                                },
+                                {
+                                    "lat": 47.166320000000006,
+                                    "lng": 27.594820000000002
+                                },
+                                {
+                                    "lat": 47.166540000000005,
+                                    "lng": 27.59466
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord-vest</b> pe <b>Bulevardul Tudor Vladimirescu</b>/<wbr/><b>DN24</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b> c\u0103tre <b>Strada Misai</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1645264,
+                                "lng": 27.5961348
+                            },
+                            "end_point": {
+                                "lat": 47.1665447,
+                                "lng": 27.5946646
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "iyz~GyzlgDqKdH",
+            "summary": "Bulevardul Tudor Vladimirescu/DN24/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.164530000000006,
+                    "lng": 27.596130000000002
+                },
+                {
+                    "lat": 47.166540000000005,
+                    "lng": 27.59466
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16453204,
+                "lng": 27.59615153
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16654,
+                "lng": 27.59465
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "130",
+    "stop_id": "10"
+}

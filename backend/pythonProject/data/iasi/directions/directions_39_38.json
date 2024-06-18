@@ -1,0 +1,329 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJC-liBLT7ykAR7ppL4X8hgZw",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJJ2rcNrb7ykARbpOeGQg8480",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.13546,
+                "west": 27.58677,
+                "north": 47.136390000000006,
+                "east": 27.593840000000004
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,5 km",
+                        "value": 545
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 64
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 54
+                    },
+                    "end_address": "Liceul C.U.G., Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1363883,
+                        "lng": 27.593841
+                    },
+                    "start_address": "Blocuri Cetatuia, Bulevardul Poitiers, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1354604,
+                        "lng": 27.5867739
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "54 m",
+                                "value": 54
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 10
+                            },
+                            "end_location": {
+                                "lat": 47.1355511,
+                                "lng": 27.5874733
+                            },
+                            "polyline": {
+                                "points": "scu~Gi`kgDImAEa@A["
+                            },
+                            "start_location": {
+                                "lat": 47.1354604,
+                                "lng": 27.5867739
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "scu~Gi`kgDImAEa@A[",
+                            "path": [
+                                {
+                                    "lat": 47.13546,
+                                    "lng": 27.58677
+                                },
+                                {
+                                    "lat": 47.135510000000004,
+                                    "lng": 27.58716
+                                },
+                                {
+                                    "lat": 47.135540000000006,
+                                    "lng": 27.58733
+                                },
+                                {
+                                    "lat": 47.13555,
+                                    "lng": 27.587470000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.13546,
+                                    "lng": 27.58677
+                                },
+                                {
+                                    "lat": 47.135510000000004,
+                                    "lng": 27.58716
+                                },
+                                {
+                                    "lat": 47.135540000000006,
+                                    "lng": 27.58733
+                                },
+                                {
+                                    "lat": 47.13555,
+                                    "lng": 27.587470000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>est</b> pe <b>Bulevardul Poitiers</b> c\u0103tre <b>Str. Cet\u0103\u021buia</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1354604,
+                                "lng": 27.5867739
+                            },
+                            "end_point": {
+                                "lat": 47.1355511,
+                                "lng": 27.5874733
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,5 km",
+                                "value": 491
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 54
+                            },
+                            "end_location": {
+                                "lat": 47.1363883,
+                                "lng": 27.593841
+                            },
+                            "maneuver": "straight",
+                            "polyline": {
+                                "points": "edu~GudkgD[uDUuDg@yGMiBa@wFK_BC_@C[Ca@?E?ECi@A]"
+                            },
+                            "start_location": {
+                                "lat": 47.1355511,
+                                "lng": 27.5874733
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "edu~GudkgD[uDUuDg@yGMiBa@wFK_BC_@C[Ca@?E?ECi@A]",
+                            "path": [
+                                {
+                                    "lat": 47.13555,
+                                    "lng": 27.587470000000003
+                                },
+                                {
+                                    "lat": 47.135690000000004,
+                                    "lng": 27.58838
+                                },
+                                {
+                                    "lat": 47.1358,
+                                    "lng": 27.589290000000002
+                                },
+                                {
+                                    "lat": 47.136,
+                                    "lng": 27.590700000000002
+                                },
+                                {
+                                    "lat": 47.136070000000004,
+                                    "lng": 27.591230000000003
+                                },
+                                {
+                                    "lat": 47.13624,
+                                    "lng": 27.592470000000002
+                                },
+                                {
+                                    "lat": 47.136300000000006,
+                                    "lng": 27.592950000000002
+                                },
+                                {
+                                    "lat": 47.136320000000005,
+                                    "lng": 27.593110000000003
+                                },
+                                {
+                                    "lat": 47.136340000000004,
+                                    "lng": 27.59325
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.593420000000002
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.59345
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.593480000000003
+                                },
+                                {
+                                    "lat": 47.13638,
+                                    "lng": 27.593690000000002
+                                },
+                                {
+                                    "lat": 47.136390000000006,
+                                    "lng": 27.593840000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.13555,
+                                    "lng": 27.587470000000003
+                                },
+                                {
+                                    "lat": 47.135690000000004,
+                                    "lng": 27.58838
+                                },
+                                {
+                                    "lat": 47.1358,
+                                    "lng": 27.589290000000002
+                                },
+                                {
+                                    "lat": 47.136,
+                                    "lng": 27.590700000000002
+                                },
+                                {
+                                    "lat": 47.136070000000004,
+                                    "lng": 27.591230000000003
+                                },
+                                {
+                                    "lat": 47.13624,
+                                    "lng": 27.592470000000002
+                                },
+                                {
+                                    "lat": 47.136300000000006,
+                                    "lng": 27.592950000000002
+                                },
+                                {
+                                    "lat": 47.136320000000005,
+                                    "lng": 27.593110000000003
+                                },
+                                {
+                                    "lat": 47.136340000000004,
+                                    "lng": 27.59325
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.593420000000002
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.59345
+                                },
+                                {
+                                    "lat": 47.13636,
+                                    "lng": 27.593480000000003
+                                },
+                                {
+                                    "lat": 47.13638,
+                                    "lng": 27.593690000000002
+                                },
+                                {
+                                    "lat": 47.136390000000006,
+                                    "lng": 27.593840000000004
+                                }
+                            ],
+                            "instructions": "Continu\u0103 drept \u00eenainte pentru a r\u0103m\u00e2ne pe <b>Bulevardul Poitiers</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "start_point": {
+                                "lat": 47.1355511,
+                                "lng": 27.5874733
+                            },
+                            "end_point": {
+                                "lat": 47.1363883,
+                                "lng": 27.593841
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "scu~Gi`kgD{Csb@W}DCu@A]",
+            "summary": "Bulevardul Poitiers",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.13546,
+                    "lng": 27.58677
+                },
+                {
+                    "lat": 47.13624,
+                    "lng": 27.592470000000002
+                },
+                {
+                    "lat": 47.13636,
+                    "lng": 27.593420000000002
+                },
+                {
+                    "lat": 47.13638,
+                    "lng": 27.593690000000002
+                },
+                {
+                    "lat": 47.136390000000006,
+                    "lng": 27.593840000000004
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.13550826,
+                "lng": 27.58675972
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.13634296,
+                "lng": 27.59384766
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-19T00:30:00.000Z"
+        }
+    },
+    "start_id": "39",
+    "stop_id": "38"
+}

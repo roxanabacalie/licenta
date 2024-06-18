@@ -1,0 +1,200 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJsz_AiKX8ykARUQyT51AYuhA",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJHXY4K6T8ykARDjoUHkHbmDg",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.1846,
+                "west": 27.56238,
+                "north": 47.18647000000001,
+                "east": 27.563950000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,2 km",
+                        "value": 240
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 37
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 21
+                    },
+                    "end_address": "George Co\u015fbuc, Bulevardul Carol I, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1845955,
+                        "lng": 27.5639468
+                    },
+                    "start_address": "Stadion, Bulevardul Carol I, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1864709,
+                        "lng": 27.5623782
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,2 km",
+                                "value": 240
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 37
+                            },
+                            "end_location": {
+                                "lat": 47.1845955,
+                                "lng": 27.5639468
+                            },
+                            "polyline": {
+                                "points": "mb__H{gfgDf@_@JKXSb@]fBuAjCuBNO"
+                            },
+                            "start_location": {
+                                "lat": 47.1864709,
+                                "lng": 27.5623782
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "mb__H{gfgDf@_@JKXSb@]fBuAjCuBNO",
+                            "path": [
+                                {
+                                    "lat": 47.18647000000001,
+                                    "lng": 27.56238
+                                },
+                                {
+                                    "lat": 47.18627,
+                                    "lng": 27.562540000000002
+                                },
+                                {
+                                    "lat": 47.18621,
+                                    "lng": 27.562600000000003
+                                },
+                                {
+                                    "lat": 47.186080000000004,
+                                    "lng": 27.562700000000003
+                                },
+                                {
+                                    "lat": 47.185900000000004,
+                                    "lng": 27.56285
+                                },
+                                {
+                                    "lat": 47.18538,
+                                    "lng": 27.563280000000002
+                                },
+                                {
+                                    "lat": 47.18468000000001,
+                                    "lng": 27.56387
+                                },
+                                {
+                                    "lat": 47.1846,
+                                    "lng": 27.563950000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.18647000000001,
+                                    "lng": 27.56238
+                                },
+                                {
+                                    "lat": 47.18627,
+                                    "lng": 27.562540000000002
+                                },
+                                {
+                                    "lat": 47.18621,
+                                    "lng": 27.562600000000003
+                                },
+                                {
+                                    "lat": 47.186080000000004,
+                                    "lng": 27.562700000000003
+                                },
+                                {
+                                    "lat": 47.185900000000004,
+                                    "lng": 27.56285
+                                },
+                                {
+                                    "lat": 47.18538,
+                                    "lng": 27.563280000000002
+                                },
+                                {
+                                    "lat": 47.18468000000001,
+                                    "lng": 27.56387
+                                },
+                                {
+                                    "lat": 47.1846,
+                                    "lng": 27.563950000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>Aleea Grigore Ghica Vod\u0103</b>/<wbr/><b>Bulevardul Carol I</b>/<wbr/><b>DJ282</b> c\u0103tre <b>\u0218oseaua \u0218tefan cel Mare \u0219i Sf\u00e2nt</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe dreapta</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1864709,
+                                "lng": 27.5623782
+                            },
+                            "end_point": {
+                                "lat": 47.1845955,
+                                "lng": 27.5639468
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "mb__H{gfgDtJyH",
+            "summary": "Aleea Grigore Ghica Vod\u0103/Bulevardul Carol I/DJ282",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.18647000000001,
+                    "lng": 27.56238
+                },
+                {
+                    "lat": 47.1846,
+                    "lng": 27.563950000000002
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.18646,
+                "lng": 27.56235
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.18458,
+                "lng": 27.56391
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-15T00:30:00.000Z"
+        }
+    },
+    "start_id": "2",
+    "stop_id": "3"
+}
