@@ -11,10 +11,16 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link active" aria-current="page" href="/edit-routes">Editare rute</a>
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isLoggedIn">
             <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+          </li>
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a>
           </li>
         </ul>
       </div>

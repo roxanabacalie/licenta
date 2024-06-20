@@ -1,0 +1,152 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJv51PQ337ykARhuxeRW_hKXo",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJ83a5RH37ykARFc2N8nRemiA",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.1728,
+                "west": 27.58377,
+                "north": 47.172900000000006,
+                "east": 27.583920000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "16 m",
+                        "value": 16
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 2
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 1
+                    },
+                    "end_address": "Str. Nicolae Balcescu, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.17289599999999,
+                        "lng": 27.5837701
+                    },
+                    "start_address": "Str. Nicolae Balcescu, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1727972,
+                        "lng": 27.5839199
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "16 m",
+                                "value": 16
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 2
+                            },
+                            "end_location": {
+                                "lat": 47.17289599999999,
+                                "lng": 27.5837701
+                            },
+                            "polyline": {
+                                "points": "_m|~GonjgDS\\"
+                            },
+                            "start_location": {
+                                "lat": 47.1727972,
+                                "lng": 27.5839199
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "_m|~GonjgDS\\",
+                            "path": [
+                                {
+                                    "lat": 47.1728,
+                                    "lng": 27.583920000000003
+                                },
+                                {
+                                    "lat": 47.172900000000006,
+                                    "lng": 27.58377
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.1728,
+                                    "lng": 27.583920000000003
+                                },
+                                {
+                                    "lat": 47.172900000000006,
+                                    "lng": 27.58377
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord-vest</b> pe <b>Strada S\u0103r\u0103rie</b> c\u0103tre <b>Strada Nicolae B\u0103lcescu</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1727972,
+                                "lng": 27.5839199
+                            },
+                            "end_point": {
+                                "lat": 47.17289599999999,
+                                "lng": 27.5837701
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "_m|~GonjgDS\\",
+            "summary": "Strada S\u0103r\u0103rie",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.1728,
+                    "lng": 27.583920000000003
+                },
+                {
+                    "lat": 47.172900000000006,
+                    "lng": 27.58377
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.172812,
+                "lng": 27.583941
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.17291,
+                "lng": 27.58379
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "158",
+    "stop_id": "174"
+}

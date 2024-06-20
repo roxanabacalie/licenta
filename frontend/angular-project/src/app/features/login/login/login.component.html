@@ -1,19 +1,29 @@
 <div class="container d-flex justify-content-center">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title">Welcome</h5>
-        <form [formGroup]="form" (ngSubmit)="login()">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="username" name="username" formControlName="username" placeholder="Username">
-            <label for="username">Username</label>
+  <div class="card">
+    <div class="card-body text-center">
+      <h5 class="card-title">Bine ați venit</h5>
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="username" name="username" formControlName="username" placeholder="Username">
+          <label for="username">Username</label>
+          <div *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)"
+               class="text-danger">
+            <div *ngIf="form.get('username')?.errors?.['required']">Username is required.</div>
           </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
-            <label for="password">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+          <label for="password">Password</label>
+          <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)"
+               class="text-danger">
+            <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
           </div>
-          <button type="submit" class="btn custom-login-btn">Login</button>
-        </form>
-      </div>
+        </div>
+        <button type="submit" class="btn custom-login-btn">Login</button>
+        <div *ngIf="errorMessage" class="text-danger mt-3">
+          {{ errorMessage }}
+        </div>
+      </form>
     </div>
   </div>
-  
+</div>

@@ -1,0 +1,293 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJByCtDrH8ykAR9cm1hkxv-wo",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJi4GU9qT8ykAR2Hpb2fIcjb8",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.18600000000001,
+                "west": 27.56257,
+                "north": 47.1925,
+                "east": 27.56736
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,8 km",
+                        "value": 813
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 85
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 74
+                    },
+                    "end_address": "Exclusive Residence, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1859983,
+                        "lng": 27.5673581
+                    },
+                    "start_address": "Str. Caprelor, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.19250479999999,
+                        "lng": 27.5625708
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,5 km",
+                                "value": 485
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 44
+                            },
+                            "end_location": {
+                                "lat": 47.1884616,
+                                "lng": 27.5649687
+                            },
+                            "polyline": {
+                                "points": "ch`_HaifgDpCqA|E_ChFgClEeC"
+                            },
+                            "start_location": {
+                                "lat": 47.19250479999999,
+                                "lng": 27.5625708
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "ch`_HaifgDpCqA|E_ChFgClEeC",
+                            "path": [
+                                {
+                                    "lat": 47.1925,
+                                    "lng": 27.56257
+                                },
+                                {
+                                    "lat": 47.191770000000005,
+                                    "lng": 27.562980000000003
+                                },
+                                {
+                                    "lat": 47.19066,
+                                    "lng": 27.563620000000004
+                                },
+                                {
+                                    "lat": 47.189490000000006,
+                                    "lng": 27.564300000000003
+                                },
+                                {
+                                    "lat": 47.188460000000006,
+                                    "lng": 27.564970000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.1925,
+                                    "lng": 27.56257
+                                },
+                                {
+                                    "lat": 47.191770000000005,
+                                    "lng": 27.562980000000003
+                                },
+                                {
+                                    "lat": 47.19066,
+                                    "lng": 27.563620000000004
+                                },
+                                {
+                                    "lat": 47.189490000000006,
+                                    "lng": 27.564300000000003
+                                },
+                                {
+                                    "lat": 47.188460000000006,
+                                    "lng": 27.564970000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud</b> pe <b>\u0218oseaua \u0218tefan cel Mare \u0219i Sf\u00e2nt</b> c\u0103tre <b>Strada Copou</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.19250479999999,
+                                "lng": 27.5625708
+                            },
+                            "end_point": {
+                                "lat": 47.1884616,
+                                "lng": 27.5649687
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 328
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 41
+                            },
+                            "end_location": {
+                                "lat": 47.1859983,
+                                "lng": 27.5673581
+                            },
+                            "maneuver": "straight",
+                            "polyline": {
+                                "points": "{n__HaxfgDlAcAfBgBnCuCb@_@t@s@jAgA"
+                            },
+                            "start_location": {
+                                "lat": 47.1884616,
+                                "lng": 27.5649687
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "{n__HaxfgDlAcAfBgBnCuCb@_@t@s@jAgA",
+                            "path": [
+                                {
+                                    "lat": 47.188460000000006,
+                                    "lng": 27.564970000000002
+                                },
+                                {
+                                    "lat": 47.18807,
+                                    "lng": 27.565310000000004
+                                },
+                                {
+                                    "lat": 47.18755,
+                                    "lng": 27.565830000000002
+                                },
+                                {
+                                    "lat": 47.18683,
+                                    "lng": 27.566580000000002
+                                },
+                                {
+                                    "lat": 47.18665000000001,
+                                    "lng": 27.566740000000003
+                                },
+                                {
+                                    "lat": 47.18638000000001,
+                                    "lng": 27.567000000000004
+                                },
+                                {
+                                    "lat": 47.18600000000001,
+                                    "lng": 27.56736
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.188460000000006,
+                                    "lng": 27.564970000000002
+                                },
+                                {
+                                    "lat": 47.18807,
+                                    "lng": 27.565310000000004
+                                },
+                                {
+                                    "lat": 47.18755,
+                                    "lng": 27.565830000000002
+                                },
+                                {
+                                    "lat": 47.18683,
+                                    "lng": 27.566580000000002
+                                },
+                                {
+                                    "lat": 47.18665000000001,
+                                    "lng": 27.566740000000003
+                                },
+                                {
+                                    "lat": 47.18638000000001,
+                                    "lng": 27.567000000000004
+                                },
+                                {
+                                    "lat": 47.18600000000001,
+                                    "lng": 27.56736
+                                }
+                            ],
+                            "instructions": "Continu\u0103 drept \u00eenainte pe <b>\u0218oseaua S\u0103r\u0103rie</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "start_point": {
+                                "lat": 47.1884616,
+                                "lng": 27.5649687
+                            },
+                            "end_point": {
+                                "lat": 47.1859983,
+                                "lng": 27.5673581
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "ch`_HaifgDnJqEhFgClEeClAcAfBgBrDuD`C{B",
+            "summary": "\u0218oseaua \u0218tefan cel Mare \u0219i Sf\u00e2nt \u0219i \u0218oseaua S\u0103r\u0103rie",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.1925,
+                    "lng": 27.56257
+                },
+                {
+                    "lat": 47.19066,
+                    "lng": 27.563620000000004
+                },
+                {
+                    "lat": 47.189490000000006,
+                    "lng": 27.564300000000003
+                },
+                {
+                    "lat": 47.188460000000006,
+                    "lng": 27.564970000000002
+                },
+                {
+                    "lat": 47.18807,
+                    "lng": 27.565310000000004
+                },
+                {
+                    "lat": 47.18755,
+                    "lng": 27.565830000000002
+                },
+                {
+                    "lat": 47.18665000000001,
+                    "lng": 27.566740000000003
+                },
+                {
+                    "lat": 47.18600000000001,
+                    "lng": 27.56736
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.192518,
+                "lng": 27.562622
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.186037,
+                "lng": 27.567398
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "165",
+    "stop_id": "163"
+}

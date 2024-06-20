@@ -1,8 +1,7 @@
 import sys
 from math import inf
 import numpy as np
-
-from src.visual_representation import draw_routes_mandl_network
+from src.algorithms.visual_representation import draw_routes_mandl_network
 
 class TransitNetwork:
     def __init__(self, vertices, links_file_path, demand_file_path):
@@ -137,7 +136,7 @@ class TransitNetwork:
         return Y
 
 
-Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
+Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
 print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
 draw_routes_mandl_network(Mandl_transit_network.find_initial_route_sets(8))
 
@@ -157,5 +156,5 @@ for route in individual:
     print(route)
 
 
-Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../data/iasi/Iasi_demand.txt")
+Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
 print("Initial route sets: " + str(Iasi_transit_network.find_initial_route_sets(20)))

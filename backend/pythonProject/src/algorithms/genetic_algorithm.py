@@ -1,22 +1,22 @@
 import random
 from copy import deepcopy
 from math import inf
-
 from src.algorithms.initial_solution import TransitNetwork
-from src.visual_representation import draw_routes_mandl_network
+from src.algorithms.visual_representation import draw_routes_mandl_network
 
 pop_size = 16  # desired population size
 elite_size = 4  # desired number of elite individuals
-route_set_size = 8  # number of routes in the individual
-t = 12  # tournament size for fitness
-p_swap = 0.15  # probability of swapping an index in Uniform Crossover
+route_set_size = 20  # number of routes in the individual
+t = 10  # tournament size for fitness
+p_swap = 0.125  # probability of swapping an index in Uniform Crossover
 p_ms = 0.7  # probability of doing small modification in Mutation
-p_delete = 0.5  # probability of deleting the selected terminal in small modification
-max_gen = 500  # maximum number of generations
+p_delete = 0.4  # probability of deleting the selected terminal in small modification
+max_gen = 200  # maximum number of generations
 P = []
 
-Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../data/mandl/mandl1_demand.txt")
-Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../data/iasi/Iasi_demand.txt")
+Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
+Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
+
 
 def calculate_fitness(individual, transit_network):
 	fitness = 0
@@ -64,8 +64,8 @@ def is_subsequence(subsequence, individual):
 	for route in individual:
 		if route != subsequence:
 			len_sub = len(subsequence)
-			for i in range(len(route) - len_sub + 1):
-				if route[i:i + len_sub] == subsequence:
+			for idx in range(len(route) - len_sub + 1):
+				if route[idx:idx + len_sub] == subsequence:
 					return True
 	return False
 
@@ -155,7 +155,7 @@ def genetic_algorithm(population, max_generations, tournament_size, transit_netw
 	best = deepcopy(population[0])
 
 	while max_generations > 0:
-
+		print(max_generations)
 		current_best = deepcopy(max(population, key=lambda individ: calculate_fitness(individ, transit_network)))
 
 		if calculate_fitness(current_best, transit_network) > calculate_fitness(best, transit_network):
@@ -163,17 +163,22 @@ def genetic_algorithm(population, max_generations, tournament_size, transit_netw
 
 		print("Generation:", max_generations, best, "Best Fitness:", calculate_fitness(best, transit_network))
 
-		sorted_population = [deepcopy(individual) for individual in
-							 sorted(population, key=lambda individ: calculate_fitness(individ, transit_network), reverse=True)]
-		Q = [deepcopy(individual) for individual in sorted_population[:elite_size]]
+		sorted_population = [
+			deepcopy(individual) for individual in sorted(
+				population,
+				key=lambda individ: calculate_fitness(individ, transit_network),
+				reverse=True
+			)
+		]
+		q = [deepcopy(individual) for individual in sorted_population[:elite_size]]
 
 		for idx in range(int((pop_size - elite_size) / 2)):
 			parent1, parent2 = tournament_selection(population, tournament_size, transit_network)
 			child1, child2 = uniform_crossover(parent1[:], parent2[:])
-			Q.append(deepcopy(mutation(child1, transit_network)))
-			Q.append(deepcopy(mutation(child2, transit_network)))
+			q.append(deepcopy(mutation(child1, transit_network)))
+			q.append(deepcopy(mutation(child2, transit_network)))
 
-		population = [deepcopy(individual) for individual in Q]
+		population = [deepcopy(individual) for individual in q]
 		max_generations = max_generations - 1
 
 	print("Best", best)
@@ -184,30 +189,33 @@ def genetic_algorithm(population, max_generations, tournament_size, transit_netw
 	print("Fitness final " + str(calculate_fitness(best, transit_network)))
 
 
+'''
 for i in range(pop_size):
 	P.append(Mandl_transit_network.find_initial_route_sets(8))
 genetic_algorithm(P, max_gen, t, Mandl_transit_network)
+'''
 
+'''
+route_set = Mandl_transit_network.find_initial_route_sets(8);
+route_set[0]=[0,1,2]
+route_set[1]=[1,2,3]
+route_set[2]=[2,3,4]
+route_set[3]=[3,4,5]
+route_set[4]=[6,7,8]
+route_set[5]=[9,10,11]
+route_set[6]=[12,13,14]
+route_set[7]=[0,12,14]
+for i in range(pop_size):
+	P.append(route_set)
+genetic_algorithm(P, max_gen, t, Mandl_transit_network)
+'''
 
-#route_set = Mandl_transit_network.find_initial_route_sets(8);
-#route_set[0]=[0,1,2]
-#route_set[1]=[1,2,3]
-#route_set[2]=[2,3,4]
-#route_set[3]=[3,4,5]
-#route_set[4]=[6,7,8]
-#route_set[5]=[9,10,11]
-#route_set[6]=[12,13,14]
-#route_set[7]=[0,12,14]
-#for i in range(pop_size):
-#	P.append(route_set)
-#genetic_algorithm(P, max_gen, t, Mandl_transit_network)
-
-#print("sal")
-#x = Iasi_transit_network.find_initial_route_sets(20)
-#print("sal")
-#P_Iasi=[]
-#print("sal")
-#for i in range(pop_size):
-#	P_Iasi.append(x)
-#	print("adaug")
-#genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)
+print("sal")
+x = Iasi_transit_network.find_initial_route_sets(20)
+print("sal")
+P_Iasi = []
+print("sal")
+for i in range(pop_size):
+	P_Iasi.append(x)
+	print("adaug")
+genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)

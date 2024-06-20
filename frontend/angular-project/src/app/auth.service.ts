@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 
@@ -10,6 +11,8 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private jwtHelper = new JwtHelperService();
+  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +23,7 @@ export class AuthService {
         tap(response => {
           if (response.access_token) {
             localStorage.setItem('token', response.access_token);
+            this.loggedIn.next(true);
           }
         })
       );
@@ -27,6 +31,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.loggedIn.next(false);
   }
 
   isLoggedIn(): boolean {

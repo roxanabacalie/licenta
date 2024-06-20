@@ -1,0 +1,352 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJYxscEbL7ykARmVa5DZ1JOMg",
+            "types": [
+                "establishment",
+                "point_of_interest"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJhWO2mnH7ykARy5-UHXRu0TU",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.161280000000005,
+                "west": 27.572290000000002,
+                "north": 47.16407,
+                "east": 27.573300000000003
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "0,3 km",
+                        "value": 343
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 61
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 50
+                    },
+                    "end_address": "Pasaj Alexandru cel Bun, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1612815,
+                        "lng": 27.5732181
+                    },
+                    "start_address": "Strada Silvestru 1, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1640708,
+                        "lng": 27.5726723
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "32 m",
+                                "value": 32
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 9
+                            },
+                            "end_location": {
+                                "lat": 47.16395290000001,
+                                "lng": 27.5722876
+                            },
+                            "polyline": {
+                                "points": "mvz~GehhgDLj@H^"
+                            },
+                            "start_location": {
+                                "lat": 47.1640708,
+                                "lng": 27.5726723
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "mvz~GehhgDLj@H^",
+                            "path": [
+                                {
+                                    "lat": 47.16407,
+                                    "lng": 27.572670000000002
+                                },
+                                {
+                                    "lat": 47.164,
+                                    "lng": 27.572450000000003
+                                },
+                                {
+                                    "lat": 47.16395000000001,
+                                    "lng": 27.572290000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16407,
+                                    "lng": 27.572670000000002
+                                },
+                                {
+                                    "lat": 47.164,
+                                    "lng": 27.572450000000003
+                                },
+                                {
+                                    "lat": 47.16395000000001,
+                                    "lng": 27.572290000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-vest</b> c\u0103tre <b>Strada Silvestru</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1640708,
+                                "lng": 27.5726723
+                            },
+                            "end_point": {
+                                "lat": 47.16395290000001,
+                                "lng": 27.5722876
+                            }
+                        },
+                        {
+                            "distance": {
+                                "text": "0,3 km",
+                                "value": 311
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 52
+                            },
+                            "end_location": {
+                                "lat": 47.1612815,
+                                "lng": 27.5732181
+                            },
+                            "maneuver": "turn-left",
+                            "polyline": {
+                                "points": "uuz~GyehgDdCkAl@Y~@e@\\QPIRIPGRENCRCTAP?L?tANF?"
+                            },
+                            "start_location": {
+                                "lat": 47.16395290000001,
+                                "lng": 27.5722876
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "uuz~GyehgDdCkAl@Y~@e@\\QPIRIPGRENCRCTAP?L?tANF?",
+                            "path": [
+                                {
+                                    "lat": 47.16395000000001,
+                                    "lng": 27.572290000000002
+                                },
+                                {
+                                    "lat": 47.16328,
+                                    "lng": 27.572670000000002
+                                },
+                                {
+                                    "lat": 47.163050000000005,
+                                    "lng": 27.5728
+                                },
+                                {
+                                    "lat": 47.16273,
+                                    "lng": 27.57299
+                                },
+                                {
+                                    "lat": 47.162580000000005,
+                                    "lng": 27.57308
+                                },
+                                {
+                                    "lat": 47.162490000000005,
+                                    "lng": 27.573130000000003
+                                },
+                                {
+                                    "lat": 47.16239,
+                                    "lng": 27.57318
+                                },
+                                {
+                                    "lat": 47.1623,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.162200000000006,
+                                    "lng": 27.57325
+                                },
+                                {
+                                    "lat": 47.16212,
+                                    "lng": 27.57327
+                                },
+                                {
+                                    "lat": 47.162020000000005,
+                                    "lng": 27.573290000000004
+                                },
+                                {
+                                    "lat": 47.161910000000006,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.161820000000006,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.161750000000005,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.16132,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.161280000000005,
+                                    "lng": 27.573220000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.16395000000001,
+                                    "lng": 27.572290000000002
+                                },
+                                {
+                                    "lat": 47.16328,
+                                    "lng": 27.572670000000002
+                                },
+                                {
+                                    "lat": 47.163050000000005,
+                                    "lng": 27.5728
+                                },
+                                {
+                                    "lat": 47.16273,
+                                    "lng": 27.57299
+                                },
+                                {
+                                    "lat": 47.162580000000005,
+                                    "lng": 27.57308
+                                },
+                                {
+                                    "lat": 47.162490000000005,
+                                    "lng": 27.573130000000003
+                                },
+                                {
+                                    "lat": 47.16239,
+                                    "lng": 27.57318
+                                },
+                                {
+                                    "lat": 47.1623,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.162200000000006,
+                                    "lng": 27.57325
+                                },
+                                {
+                                    "lat": 47.16212,
+                                    "lng": 27.57327
+                                },
+                                {
+                                    "lat": 47.162020000000005,
+                                    "lng": 27.573290000000004
+                                },
+                                {
+                                    "lat": 47.161910000000006,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.161820000000006,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.161750000000005,
+                                    "lng": 27.573300000000003
+                                },
+                                {
+                                    "lat": 47.16132,
+                                    "lng": 27.573220000000003
+                                },
+                                {
+                                    "lat": 47.161280000000005,
+                                    "lng": 27.573220000000003
+                                }
+                            ],
+                            "instructions": "Vireaz\u0103 <b>la st\u00e2nga</b> pe <b>Strada Silvestru</b>/<wbr/><b>DN28</b>/<wbr/><b>E58</b>/<wbr/><b>E583</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "start_point": {
+                                "lat": 47.16395290000001,
+                                "lng": 27.5722876
+                            },
+                            "end_point": {
+                                "lat": 47.1612815,
+                                "lng": 27.5732181
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "mvz~GehhgDVjArDeBbCkAd@Mb@Gf@AbBNF?",
+            "summary": "Strada Silvestru/DN28/E58/E583",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.16407,
+                    "lng": 27.572670000000002
+                },
+                {
+                    "lat": 47.16395000000001,
+                    "lng": 27.572290000000002
+                },
+                {
+                    "lat": 47.163050000000005,
+                    "lng": 27.5728
+                },
+                {
+                    "lat": 47.16239,
+                    "lng": 27.57318
+                },
+                {
+                    "lat": 47.162200000000006,
+                    "lng": 27.57325
+                },
+                {
+                    "lat": 47.162020000000005,
+                    "lng": 27.573290000000004
+                },
+                {
+                    "lat": 47.161820000000006,
+                    "lng": 27.573300000000003
+                },
+                {
+                    "lat": 47.16132,
+                    "lng": 27.573220000000003
+                },
+                {
+                    "lat": 47.161280000000005,
+                    "lng": 27.573220000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.16406,
+                "lng": 27.57268
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.16127,
+                "lng": 27.57337
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "155",
+    "stop_id": "66"
+}

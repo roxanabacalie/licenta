@@ -1,0 +1,152 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJAfRYIQD7ykARjQ7OA-CL12s",
+            "types": [
+                "beauty_salon",
+                "establishment",
+                "point_of_interest"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJAfRYIQD7ykARjQ7OA-CL12s",
+            "types": [
+                "beauty_salon",
+                "establishment",
+                "point_of_interest"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.15209,
+                "west": 27.5864,
+                "north": 47.152100000000004,
+                "east": 27.586420000000004
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "2 m",
+                        "value": 2
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "end_address": "\u0218oseaua Na\u021bional\u0103 55, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1520884,
+                        "lng": 27.5864181
+                    },
+                    "start_address": "\u0218oseaua Na\u021bional\u0103 55, Ia\u0219i, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1520978,
+                        "lng": 27.5863976
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "2 m",
+                                "value": 2
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 0
+                            },
+                            "end_location": {
+                                "lat": 47.1520884,
+                                "lng": 27.5864181
+                            },
+                            "polyline": {
+                                "points": "skx~G_~jgD@C"
+                            },
+                            "start_location": {
+                                "lat": 47.1520978,
+                                "lng": 27.5863976
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "skx~G_~jgD@C",
+                            "path": [
+                                {
+                                    "lat": 47.152100000000004,
+                                    "lng": 27.5864
+                                },
+                                {
+                                    "lat": 47.15209,
+                                    "lng": 27.586420000000004
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.152100000000004,
+                                    "lng": 27.5864
+                                },
+                                {
+                                    "lat": 47.15209,
+                                    "lng": 27.586420000000004
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>Bulevardul Regele Mihai I al Rom\u00e2niei</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1520978,
+                                "lng": 27.5863976
+                            },
+                            "end_point": {
+                                "lat": 47.1520884,
+                                "lng": 27.5864181
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "skx~G_~jgD@C",
+            "summary": "Bulevardul Regele Mihai I al Rom\u00e2niei",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.152100000000004,
+                    "lng": 27.5864
+                },
+                {
+                    "lat": 47.15209,
+                    "lng": 27.586420000000004
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.15205,
+                "lng": 27.58635
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.15204,
+                "lng": 27.58637
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "191",
+    "stop_id": "190"
+}

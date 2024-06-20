@@ -44,6 +44,7 @@ export class HomepageComponent implements OnInit {
     });
 
     this.directionsService = new google.maps.DirectionsService();
+    this.getLocalRoutesAndDraw();
     //this.getDirectionsFromCSV();
     //this.getRouteDataAndDraw();
 
@@ -111,7 +112,7 @@ export class HomepageComponent implements OnInit {
     const data = await response.text();
     const stops = this.parseCSV(data);
     if (stops.length >= 2) {
-      for (let i = 146; i <=150; i++) {
+      for (let i = 186; i <=191; i++) {
         for(let j=1; j<=191; j++) {
           if(i!=j) {
             const start = new google.maps.LatLng(stops[i-1].lat, stops[i-1].lng);
@@ -150,38 +151,52 @@ export class HomepageComponent implements OnInit {
   }
 
 
-  async getRouteDataAndDraw() {
+  async getRouteDataAndDraw(startId: string, stopId: string, color: string) {
     console.log("getRouteDataAndDraw");
-    const routeId = "666b6d5cf679e008bc51100a";
     try {
-        console.log('Salut');
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", 'http://localhost:8000/api/routes/' + routeId, true);
-        xhr.onreadystatechange = () => { 
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log("xhr.readyState:", xhr.readyState);
-                console.log("xhr.status:", xhr.status);
-                if (xhr.status === 200) {
-                    const routeData = JSON.parse(xhr.responseText);
-                    delete routeData._id;
-                    delete routeData.directions.start_id;
-                    delete routeData.directions.stop_id;
-                    console.log('Ruta găsită:', routeData);
-                    const color = this.getRandomColor(); 
-                    this.drawRoute(routeData.directions, color); 
-                } else {
-                    console.error('Eroare la obținerea datelor rutei:', xhr.status);
-                }
-            }
-        };
-
-        console.log("here");
-        xhr.send();
-       
+      const response = await fetch(`http://localhost:8000/api/routes?start_id=${startId}&stop_id=${stopId}`);
+      if (response.ok) {
+        const routeData = await response.json();
+        if (routeData) {
+          delete routeData.start_id;
+          delete routeData.stop_id;
+          console.log('Ruta găsită:', routeData);
+          this.drawRoute(routeData, color);
+        } else {
+          console.error('Empty route data received');
+        }
+      } else {
+        console.error('Eroare la obținerea datelor rutei:', response.status);
+      }
     } catch (error) {
-        console.error('Eroare:', error);
+      console.error('Eroare:', error);
     }
   }
+  
+  
 
+  async getLocalRoutesAndDraw() {
+    console.log("getLocalRoutesAndDraw");
+    try {
+      const response = await fetch('http://localhost:8000/api/routes');
+      if (response.ok) {
+        const routes = await response.json();
+        routes.forEach((route: number[]) => {
+          const color = this.getRandomColor();
+          for (let i = 0; i < route.length - 1; i++) {
+            const startId = route[i];
+            const stopId = route[i + 1];
+            this.getRouteDataAndDraw(startId.toString(), stopId.toString(), color);
+          }
+        });
+      } else {
+        console.error('Error fetching routes:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching routes:', error);
+    }
+  }
+  
+  
   
 }

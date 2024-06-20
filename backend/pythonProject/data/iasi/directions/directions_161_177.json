@@ -1,0 +1,150 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJD9P6_Z78ykARtK-Zao4y2fc",
+            "types": [
+                "street_address"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJmUBrAp_8ykARQmg2hodTrq8",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.17875,
+                "west": 27.575380000000003,
+                "north": 47.178760000000004,
+                "east": 27.575400000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "2 m",
+                        "value": 2
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 0
+                    },
+                    "end_address": "Str. Lascar Catargi, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1787647,
+                        "lng": 27.575378
+                    },
+                    "start_address": "Strada S\u0103r\u0103rie 184, Ia\u0219i 707023, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.17875129999999,
+                        "lng": 27.5753955
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "2 m",
+                                "value": 2
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 0
+                            },
+                            "end_location": {
+                                "lat": 47.1787647,
+                                "lng": 27.575378
+                            },
+                            "polyline": {
+                                "points": "er}~GgyhgDAB"
+                            },
+                            "start_location": {
+                                "lat": 47.17875129999999,
+                                "lng": 27.5753955
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "er}~GgyhgDAB",
+                            "path": [
+                                {
+                                    "lat": 47.17875,
+                                    "lng": 27.575400000000002
+                                },
+                                {
+                                    "lat": 47.178760000000004,
+                                    "lng": 27.575380000000003
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.17875,
+                                    "lng": 27.575400000000002
+                                },
+                                {
+                                    "lat": 47.178760000000004,
+                                    "lng": 27.575380000000003
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>nord-vest</b> pe <b>Strada S\u0103r\u0103rie</b> c\u0103tre <b>Strada Lasc\u0103r Catargi</b>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.17875129999999,
+                                "lng": 27.5753955
+                            },
+                            "end_point": {
+                                "lat": 47.1787647,
+                                "lng": 27.575378
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "er}~GgyhgDAB",
+            "summary": "Strada S\u0103r\u0103rie",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.17875,
+                    "lng": 27.575400000000002
+                },
+                {
+                    "lat": 47.178760000000004,
+                    "lng": 27.575380000000003
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.178781,
+                "lng": 27.575445
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.17879,
+                "lng": 27.57542
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "161",
+    "stop_id": "177"
+}

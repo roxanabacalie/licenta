@@ -1,0 +1,158 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJYcIKxZ38ykARMBjiPEfpUok",
+            "types": [
+                "street_address"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJZ7nHxZ38ykARmZPyAQCm8yU",
+            "types": [
+                "establishment",
+                "point_of_interest",
+                "transit_station"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "south": 47.17658,
+                "west": 27.578920000000004,
+                "north": 47.176660000000005,
+                "east": 27.579150000000002
+            },
+            "copyrights": "Map data \u00a92024",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "19 m",
+                        "value": 19
+                    },
+                    "duration": {
+                        "text": "1 min",
+                        "value": 2
+                    },
+                    "duration_in_traffic": {
+                        "text": "1 min",
+                        "value": 1
+                    },
+                    "end_address": "Centrul Rezidential pentru Mame si Copii, Ia\u0219i, Rom\u00e2nia",
+                    "end_location": {
+                        "lat": 47.1765835,
+                        "lng": 27.5791532
+                    },
+                    "start_address": "Stradela S\u0103r\u0103rie 145, Ia\u0219i 707023, Rom\u00e2nia",
+                    "start_location": {
+                        "lat": 47.1766583,
+                        "lng": 27.5789229
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "19 m",
+                                "value": 19
+                            },
+                            "duration": {
+                                "text": "1 min",
+                                "value": 2
+                            },
+                            "end_location": {
+                                "lat": 47.1765835,
+                                "lng": 27.5791532
+                            },
+                            "polyline": {
+                                "points": "ce}~GgoigDHa@DK"
+                            },
+                            "start_location": {
+                                "lat": 47.1766583,
+                                "lng": 27.5789229
+                            },
+                            "travel_mode": "DRIVING",
+                            "encoded_lat_lngs": "ce}~GgoigDHa@DK",
+                            "path": [
+                                {
+                                    "lat": 47.176660000000005,
+                                    "lng": 27.578920000000004
+                                },
+                                {
+                                    "lat": 47.176610000000004,
+                                    "lng": 27.57909
+                                },
+                                {
+                                    "lat": 47.17658,
+                                    "lng": 27.579150000000002
+                                }
+                            ],
+                            "lat_lngs": [
+                                {
+                                    "lat": 47.176660000000005,
+                                    "lng": 27.578920000000004
+                                },
+                                {
+                                    "lat": 47.176610000000004,
+                                    "lng": 27.57909
+                                },
+                                {
+                                    "lat": 47.17658,
+                                    "lng": 27.579150000000002
+                                }
+                            ],
+                            "instructions": "Mergi spre <b>sud-est</b> pe <b>Strada S\u0103r\u0103rie</b> c\u0103tre <b>Stradela S\u0103r\u0103rie</b><div style=\"font-size:0.9em\">Destina\u021bia va fi pe st\u00e2nga</div>",
+                            "maneuver": "",
+                            "start_point": {
+                                "lat": 47.1766583,
+                                "lng": 27.5789229
+                            },
+                            "end_point": {
+                                "lat": 47.1765835,
+                                "lng": 27.5791532
+                            }
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": [],
+                    "via_waypoints": []
+                }
+            ],
+            "overview_polyline": "ce}~GgoigDNm@",
+            "summary": "Strada S\u0103r\u0103rie",
+            "warnings": [],
+            "waypoint_order": [],
+            "overview_path": [
+                {
+                    "lat": 47.176660000000005,
+                    "lng": 27.578920000000004
+                },
+                {
+                    "lat": 47.17658,
+                    "lng": 27.579150000000002
+                }
+            ]
+        }
+    ],
+    "status": "OK",
+    "request": {
+        "origin": {
+            "location": {
+                "lat": 47.1767,
+                "lng": 27.57895
+            }
+        },
+        "destination": {
+            "location": {
+                "lat": 47.176618,
+                "lng": 27.579182
+            }
+        },
+        "travelMode": "DRIVING",
+        "drivingOptions": {
+            "departureTime": "2024-06-20T00:30:00.000Z"
+        }
+    },
+    "start_id": "176",
+    "stop_id": "160"
+}
