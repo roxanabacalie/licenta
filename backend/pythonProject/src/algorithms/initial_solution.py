@@ -8,7 +8,7 @@ class TransitNetwork:
         self.number_of_vertices = vertices
         self.graph = self.create_adjacency_matrix(links_file_path)
         self.demand = self.create_demand_matrix(demand_file_path)
-        self.total_demand = sum(sum(row) for row in self.demand)
+        self.total_demand = np.sum(self.demand)
         self.shortest_paths_matrix = self.precompute_all_pairs_shortest_paths()
 
     def print_graph(self):
@@ -25,14 +25,12 @@ class TransitNetwork:
         return all_pairs_shortest_paths
 
     def calculate_ds_matrix(self):
-        ds = [[0 for _ in range(self.number_of_vertices)] for _ in range(self.number_of_vertices)]
+        ds = np.zeros((self.number_of_vertices, self.number_of_vertices))
         for i in range(self.number_of_vertices):
             for j in range(self.number_of_vertices):
-                total_demand = 0
-                for m in self.shortest_paths_matrix[i][j]:
-                    for n in self.shortest_paths_matrix[i][j]:
-                        total_demand += self.demand[m][n]
-                ds[i][j] = total_demand
+                if i != j:
+                    total_demand = sum(self.demand[m][n] for m in self.shortest_paths_matrix[i][j] for n in self.shortest_paths_matrix[i][j])
+                    ds[i][j] = total_demand
         return ds
 
     def min_distance_vertex(self, distances, spt_set):
@@ -47,7 +45,7 @@ class TransitNetwork:
     def dijkstra_algorithm(self, source):
         shortest_paths = [[] for _ in range(self.number_of_vertices)]
         spt_set = []
-        distances = [inf] * self.number_of_vertices
+        distances = np.full(self.number_of_vertices, np.inf)
         distances[source] = 0
 
         for neighbor in range(self.number_of_vertices):
@@ -86,7 +84,7 @@ class TransitNetwork:
     def create_adjacency_matrix(self, file_path):
         adjacency_matrix = np.zeros((self.number_of_vertices, self.number_of_vertices))
         with open(file_path, 'r') as file:
-            next(file)  # Skip the header
+            next(file)
             for line in file:
                 parts = line.strip().split(',')
                 from_node = int(parts[0]) - 1
@@ -118,43 +116,46 @@ class TransitNetwork:
             shortest_path = self.shortest_paths_matrix[max_nodes[0]][max_nodes[1]]
             Y.append(shortest_path)
 
+            # Update ds matrix after satisfying demands of the added route
+            for i in shortest_path:
+                for j in shortest_path:
+                    if i != j:
+                        for k in range(self.number_of_vertices):
+                            for l in range(self.number_of_vertices):
+                                if k != l:
+                                    if (i in self.shortest_paths_matrix[k][l]
+                                            and j in self.shortest_paths_matrix[k][l]
+                                            and ds[k][l] > 0 and (i, j) not in already_deleted_paths[k][l]):
+                                        already_deleted_paths[k][l].append((i, j))
+                                        ds[k][l] -= self.demand[i][j]
             m += 1
             if m == N:
                 break
 
-            # Update ds matrix after satisfying demands of the added route
-            for i in range(self.number_of_vertices):
-                for j in range(self.number_of_vertices):
-                    if i in shortest_path and j in shortest_path and i != j:
-                        for k in range(self.number_of_vertices):
-                            for l in range(self.number_of_vertices):
-                                if k != l:
-                                    if (i in self.shortest_paths_matrix[k][l] and j in self.shortest_paths_matrix[k][l]
-                                            and ds[k][l] > 0 and (i, j) not in already_deleted_paths[k][l]):
-                                        already_deleted_paths[k][l].append((i, j))
-                                        ds[k][l] -= self.demand[i][j]
+        # Identify unused nodes
+        used_nodes = set()
+        for route in Y:
+            for node in route:
+                used_nodes.add(node)
+        unused_nodes = [node for node in range(self.number_of_vertices) if node not in used_nodes]
+
+        # Add unused nodes to existing routes
+        for unused_node in unused_nodes:
+            best_route_index = -1
+            best_demand = 0
+            best_position = None
+            for i, route in enumerate(Y):
+                if self.demand[unused_node][route[0]] > best_demand:
+                    best_route_index = i
+                    best_demand = self.demand[unused_node][route[0]]
+                    best_position = 0  # Insert at the beginning
+                if self.demand[unused_node][route[-1]] > best_demand:
+                    best_route_index = i
+                    best_demand = self.demand[unused_node][route[-1]]
+                    best_position = len(route)  # Insert at the end
+
+            if best_position is not None:
+                Y[best_route_index].insert(best_position, unused_node)
+
+        print("Initial routes set:", Y)
         return Y
-
-
-Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
-print("Initial route sets: " + str(Mandl_transit_network.find_initial_route_sets(8)))
-draw_routes_mandl_network(Mandl_transit_network.find_initial_route_sets(8))
-
-individual = [[1, 3, 4], [2, 5, 7], [1, 2, 5, 7, 9, 0]]
-selected_route_index = 1
-
-def is_subsequence(subsequence, list):
-    len_sub = len(subsequence)
-    for i in range(len(list) - len_sub + 1):
-        if list[i:i + len_sub] == subsequence:
-            return True
-    return False
-
-for route in individual:
-    if route != individual[selected_route_index] and is_subsequence(individual[selected_route_index], route):
-        print("true")
-    print(route)
-
-
-Iasi_transit_network = TransitNetwork(207, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
-print("Initial route sets: " + str(Iasi_transit_network.find_initial_route_sets(20)))
