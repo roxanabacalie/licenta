@@ -3,12 +3,23 @@ from copy import deepcopy
 from math import inf
 import numpy as np
 from src.algorithms.initial_solution import TransitNetwork
-from src.algorithms.visual_representation import draw_routes_mandl_network
 
 
 class GeneticAlgorithm:
-	def __init__(self, pop_size, tournament_size, p_swap, p_ms, p_delete, max_generations, transit_network, elite_size,
-				 route_set_size):
+	def __init__(
+			self,
+			pop_size,
+			tournament_size,
+			p_swap, p_ms,
+			p_delete,
+			max_generations,
+			transit_network,
+			elite_size,
+			route_set_size,
+			time_unit_factor,
+			unsatisfied_factor
+
+	):
 		self.pop_size = pop_size
 		self.tournament_size = tournament_size
 		self.p_swap = p_swap
@@ -21,6 +32,8 @@ class GeneticAlgorithm:
 		self.population = []
 		self.best_individual = None
 		self.best_fitness = -inf
+		self.time_unit_factor = time_unit_factor # 1 for minutes, 60 for seconds
+		self.unsatisfied_factor = unsatisfied_factor
 
 	def initialize_population(self):
 		initial_individual = self.transit_network.find_initial_route_sets(self.route_set_size)
@@ -30,7 +43,6 @@ class GeneticAlgorithm:
 
 	def calculate_trl(self, route_set):
 		total_route_length = 0
-
 		for route in route_set:
 			route_length = 0
 			for i in range(len(route) - 1):
@@ -38,7 +50,6 @@ class GeneticAlgorithm:
 				node_to = route[i + 1]
 				route_length += self.transit_network.graph[node_from][node_to]
 			total_route_length += route_length
-
 		return total_route_length
 
 	def calculate_demands(self, individual):
@@ -117,10 +128,14 @@ class GeneticAlgorithm:
 						common_nodes = set(individual[route_i]) & set(individual[route_j])
 						for common_node in common_nodes:
 							travel_time = (
-									direct_travel_times.get((min(i, common_node), max(i, common_node)),
-															self.transit_network.graph[i][common_node]) +
-									direct_travel_times.get((min(common_node, j), max(common_node, j)),
-															self.transit_network.graph[common_node][j]) + 5
+									direct_travel_times.get(
+										(min(i, common_node), max(i, common_node)),
+										self.transit_network.graph[i][common_node]
+									) +
+									direct_travel_times.get(
+										(min(common_node, j), max(common_node, j)),
+										self.transit_network.graph[common_node][j]
+									) + 5 * self.time_unit_factor
 							)
 
 							if travel_time < min_one_change_time:
@@ -142,14 +157,15 @@ class GeneticAlgorithm:
 								common_nodes_mid = routes_mid & set(individual[route_j])
 								for common_node_mid in common_nodes_mid:
 									travel_time = (
-											direct_travel_times.get((min(i, node), max(i, node)),
-																	self.transit_network.graph[i][node]) +
+											direct_travel_times.get(
+												(min(i, node), max(i, node)),
+												self.transit_network.graph[i][node]) +
 											direct_travel_times.get(
 												(min(node, common_node_mid), max(node, common_node_mid)),
 												self.transit_network.graph[node][common_node_mid]) +
 											direct_travel_times.get(
 												(min(common_node_mid, j), max(common_node_mid, j)),
-												self.transit_network.graph[common_node_mid][j]) + 10
+												self.transit_network.graph[common_node_mid][j]) + 10 * self.time_unit_factor
 									)
 									# print("two-change", i, j, node, common_node_mid, travel_time)
 									if travel_time < min_two_change_time:
@@ -163,7 +179,7 @@ class GeneticAlgorithm:
 					# print("2 change", i, j, demand_ij, min_two_change_time)
 					else:
 						unsatisfied_pairs.append((i, j, demand_ij))
-						numitor += demand_ij * 50
+						numitor += demand_ij * self.unsatisfied_factor * self.time_unit_factor
 			# print("unsatisfied", i, j, demand_ij)
 
 		unsatisfied_demand = total_demand / 2 - (
@@ -197,26 +213,19 @@ class GeneticAlgorithm:
 					self.transit_network.graph[route[i]][route[i + 1]] for i in range(len(route) - 1))
 
 			# Calculate number of direct connections and connections with one change
-			(direct_connections_demand, one_change_connections_demand, two_changes_connections_demand,
-			 unsatisfied_demand,
-			 direct_connections_travel_time, one_change_connections_travel_time,
-			 two_change_connections_travel_time, numitor) = self.calculate_demands(individual)
-			# fitness -= (direct_connections_demand * 0.015)
-			# fitness -= (one_change_connections_demand * 0.0005)
-			# fitness -= (two_changes_connections_demand * 0.0001)
-			# fitness += unsatisfied_demand * 0.1
-			# if direct_connections_travel_time > 0:
-			#	fitness += 0.005 * direct_connections_demand / direct_connections_travel_time
-			# if one_change_connections_travel_time > 0:
-			#	fitness += 0.003 * one_change_connections_demand / one_change_connections_travel_time
-			# if two_change_connections_travel_time > 0:
-			#	fitness += 0.001 * two_changes_connections_demand / two_change_connections_travel_time
-			# print("suma",direct_connections_demand+one_change_connections_demand+two_changes_connections_demand+unsatisfied_demand)
-			# print("real",self.transit_network.total_demand)
+			(
+				direct_connections_demand,
+				one_change_connections_demand,
+				two_changes_connections_demand,
+				unsatisfied_demand,
+				direct_connections_travel_time,
+				one_change_connections_travel_time,
+				two_change_connections_travel_time,
+				numitor
+			) = self.calculate_demands(individual)
 			fitness = 2 * numitor / self.transit_network.total_demand
-			# print(fitness)
 			fitness += self.calculate_trl(individual) * 0.1
-		# print(fitness)
+
 		except IndexError as e:
 			print("IndexError ", e)
 			print("Problematic individual:", individual)
@@ -289,8 +298,10 @@ class GeneticAlgorithm:
 					del new_route[chosen_terminal]
 			# add a new node based on probability 1-p_delete
 			else:
-				neighbors = [node for node in range(self.transit_network.number_of_vertices)
-							 if self.transit_network.graph[chosen_terminal][node] > 0 and node not in new_route]
+				neighbors = [
+					node for node in range(self.transit_network.number_of_vertices)
+					if self.transit_network.graph[chosen_terminal][node] > 0 and node not in new_route
+				]
 				if neighbors:
 					new_route.append(random.choice(neighbors))
 
@@ -350,10 +361,16 @@ class GeneticAlgorithm:
 			included_nodes = set().union(*[set(route) for route in best_individual]) if best_individual else set()
 			missing_nodes = self.transit_network.number_of_vertices - len(included_nodes)
 			print(f"Number of nodes not included: {missing_nodes}")
-			(direct_connections_demand, one_change_connections_demand, two_changes_connections_demand,
-			 unsatisfied_demand,
-			 direct_connections_travel_time, one_change_connections_travel_time,
-			 two_change_connections_travel_time, numitor) = self.calculate_demands(best_individual)
+			(
+				direct_connections_demand,
+				one_change_connections_demand,
+				two_changes_connections_demand,
+				unsatisfied_demand,
+				direct_connections_travel_time,
+				one_change_connections_travel_time,
+				two_change_connections_travel_time,
+				numitor
+			) = self.calculate_demands(best_individual)
 			print("d0", direct_connections_demand * 100 / (self.transit_network.total_demand / 2), '%')
 			print("d1", one_change_connections_demand * 100 / (self.transit_network.total_demand / 2), '%')
 			print("d2", two_changes_connections_demand * 100 / (self.transit_network.total_demand / 2), '%')
@@ -388,30 +405,21 @@ class GeneticAlgorithm:
 				break
 
 		print("Best individual", best_individual)
-		print("Fitness initial",
-			  self.calculate_fitness(self.transit_network.find_initial_route_sets(self.route_set_size)))
+		print(
+			"Fitness initial",
+			self.calculate_fitness(self.transit_network.find_initial_route_sets(self.route_set_size))
+		)
 		print("Fitness final", best_fitness)
 
 
 Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
 Iasi_transit_network = TransitNetwork(191, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
-ga = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 400, Mandl_transit_network, 4, 8)
-ga.run_genetic_algorithm()
+#ga = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 400, Mandl_transit_network, 4, 8, 1, 50)
+#ga.run_genetic_algorithm()
 
-'''
-route_set = Mandl_transit_network.find_initial_route_sets(8);
-route_set[0]=[0,1,2]
-route_set[1]=[1,2,3]
-route_set[2]=[2,3,4]
-route_set[3]=[3,4,5]
-route_set[4]=[6,7,8]
-route_set[5]=[9,10,11]
-route_set[6]=[12,13,14]
-route_set[7]=[0,12,14]
-for i in range(pop_size):
-	P.append(route_set)
-genetic_algorithm(P, max_gen, t, Mandl_transit_network)
-'''
+ga_iasi = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 100, Iasi_transit_network, 4, 191, 60, 120)
+ga_iasi.run_genetic_algorithm()
+
 
 '''
 for i in range(50,100,5):
@@ -421,10 +429,13 @@ for i in range(50,100,5):
 	missing_nodes = 191 - len(included_nodes)
 	print("Number of nodes not included:", missing_nodes)
 '''
-# P_Iasi = []
-# for i in range(pop_size):
-#	P_Iasi.append(x)
-# genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)
+
+'''
+P_Iasi = []
+for i in range(pop_size):
+	P_Iasi.append(x)
+genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)
+'''
 
 
 example_individual = [
@@ -438,13 +449,21 @@ example_individual = [
 	[8, 14, 6, 9, 10, 11, 3, 1, 0]
 ]
 
+'''
 print()
 print("--------------------------------------------------------------------------")
 f = ga.calculate_fitness(example_individual)
 print("ATT", 1 / f)
-(direct_connections_demand2, one_change_connections_demand2, two_changes_connections_demand2,
- unsatisfied_demand2, direct_connections_travel_time2, one_change_connections_travel_time2,
- two_change_connections_travel_time2, numitor2) = ga.calculate_demands(example_individual)
+(
+	direct_connections_demand2,
+	one_change_connections_demand2,
+	two_changes_connections_demand2,
+	unsatisfied_demand2,
+	direct_connections_travel_time2,
+	one_change_connections_travel_time2,
+	two_change_connections_travel_time2,
+	numitor2
+) = ga.calculate_demands(example_individual)
 print("d0", direct_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
 print("d1", one_change_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
 print("d2", two_changes_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
@@ -456,3 +475,4 @@ print("direct connections travel time", direct_connections_travel_time2)
 print("one change connections travel time", one_change_connections_travel_time2)
 print("two change connections travel time", two_change_connections_travel_time2)
 print("numitor", numitor2)
+'''
