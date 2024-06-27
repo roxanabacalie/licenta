@@ -1,13 +1,11 @@
 import json
 import logging
-from bson import ObjectId
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
-
-from models import verify_account
+from db_management.users import verify_account
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'  # MySQL database URI

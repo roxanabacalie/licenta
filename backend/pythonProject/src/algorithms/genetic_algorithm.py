@@ -44,12 +44,9 @@ class GeneticAlgorithm:
 	def calculate_trl(self, route_set):
 		total_route_length = 0
 		for route in route_set:
-			route_length = 0
-			for i in range(len(route) - 1):
-				node_from = route[i]
-				node_to = route[i + 1]
-				route_length += self.transit_network.graph[node_from][node_to]
-			total_route_length += route_length
+			edges = [(route[i], route[i + 1]) for i in range(len(route) - 1)]
+			total_route_length += np.sum(
+				[self.transit_network.graph[node_from][node_to] for node_from, node_to in edges])
 		return total_route_length
 
 	def calculate_demands(self, individual):
@@ -184,12 +181,12 @@ class GeneticAlgorithm:
 
 		unsatisfied_demand = total_demand / 2 - (
 				direct_connections_demand + one_change_connections_demand + two_change_connections_demand)
-
+		ATT = (2 * numitor)/self.transit_network.total_demand
 		# print("Direct travel times:", direct_travel_times)
 		return (
 			direct_connections_demand, one_change_connections_demand, two_change_connections_demand, unsatisfied_demand,
 			direct_connections_travel_time, one_change_connections_travel_time, two_change_connections_travel_time,
-			numitor
+			numitor, ATT
 		)
 
 	# Maximizing the demand coverage by considering the total passenger demand satisfied by the routes.
@@ -221,10 +218,11 @@ class GeneticAlgorithm:
 				direct_connections_travel_time,
 				one_change_connections_travel_time,
 				two_change_connections_travel_time,
-				numitor
+				numitor,
+				ATT
 			) = self.calculate_demands(individual)
 			fitness = 2 * numitor / self.transit_network.total_demand
-			fitness += self.calculate_trl(individual) * 0.1
+			fitness += self.calculate_trl(individual) * 0.01
 
 		except IndexError as e:
 			print("IndexError ", e)
@@ -238,7 +236,6 @@ class GeneticAlgorithm:
 
 	# swap the routes of that position based on probability Pswap
 	def uniform_crossover(self, parent_a, parent_b):
-		# Create deep copies to avoid modifying the original parents
 		a, b = deepcopy(parent_a), deepcopy(parent_b)
 		for j in range(self.route_set_size):
 			if random.random() < self.p_swap:
@@ -327,9 +324,7 @@ class GeneticAlgorithm:
 	def tournament_selection(self):
 		tournament_population = random.sample(self.population, self.tournament_size)
 		fitness_scores = [(individual, self.calculate_fitness(individual)) for individual in tournament_population]
-		# Sort by fitness in descending order (higher fitness is better)
 		fitness_scores.sort(key=lambda x: x[1], reverse=True)
-		# Return the top two individuals
 		return fitness_scores[0][0], fitness_scores[1][0]
 
 	def run_genetic_algorithm(self):
@@ -369,7 +364,8 @@ class GeneticAlgorithm:
 				direct_connections_travel_time,
 				one_change_connections_travel_time,
 				two_change_connections_travel_time,
-				numitor
+				numitor,
+				ATT
 			) = self.calculate_demands(best_individual)
 			print("d0", direct_connections_demand * 100 / (self.transit_network.total_demand / 2), '%')
 			print("d1", one_change_connections_demand * 100 / (self.transit_network.total_demand / 2), '%')
@@ -382,7 +378,7 @@ class GeneticAlgorithm:
 			print("one change connections travel time", one_change_connections_travel_time)
 			print("two change connections travel time", two_change_connections_travel_time)
 			print("numitor", numitor)
-			print("ATT", 1 / best_fitness)
+			print("ATT", ATT)
 			print("TRL", self.calculate_trl(best_individual))
 
 			# Create the next generation
@@ -412,67 +408,25 @@ class GeneticAlgorithm:
 		print("Fitness final", best_fitness)
 
 
-Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
-Iasi_transit_network = TransitNetwork(191, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
-#ga = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 400, Mandl_transit_network, 4, 8, 1, 50)
-#ga.run_genetic_algorithm()
+def main():
+	Mandl_transit_network = TransitNetwork(15, "../../data/mandl/mandl1_links.txt", "../../data/mandl/mandl1_demand.txt")
+	Iasi_transit_network = TransitNetwork(191, "../../data/iasi/Iasi_links.txt", "../../data/iasi/Iasi_demand.txt")
+	#ga = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 400, Mandl_transit_network, 4, 8, 1, 50)
+	#ga.run_genetic_algorithm()
 
-ga_iasi = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 100, Iasi_transit_network, 4, 191, 60, 120)
-ga_iasi.run_genetic_algorithm()
+	ga_iasi = GeneticAlgorithm(16, 10, 0.125, 0.7, 0.4, 100, Iasi_transit_network, 4, 35, 60, 120)
+	ga_iasi.run_genetic_algorithm()
 
+	example_individual = [
+		[0, 1, 2, 5, 7, 9, 10, 12],
+		[2, 1, 4, 3, 5, 7, 9, 10, 12],
+		[8, 14, 5, 2, 1, 0],
+		[8, 14, 7, 5, 2, 1, 3, 11, 10, 9, 13, 12],
+		[11, 10, 12, 13, 9, 6, 14, 7, 5, 3, 4, 1, 0],
+		[0, 1, 2, 5, 14, 6, 9, 13, 12, 10, 11, 3, 4],
+		[8, 14, 5, 3, 11, 10, 12, 13, 9, 7],
+		[8, 14, 6, 9, 10, 11, 3, 1, 0]
+	]
 
-'''
-for i in range(50,100,5):
-	x = Iasi_transit_network.find_initial_route_sets(i)
-	print("Nr routes", i, "fitnesss", calculate_fitness(x, Iasi_transit_network))
-	included_nodes = set().union(*map(set, x)) if x else set()
-	missing_nodes = 191 - len(included_nodes)
-	print("Number of nodes not included:", missing_nodes)
-'''
-
-'''
-P_Iasi = []
-for i in range(pop_size):
-	P_Iasi.append(x)
-genetic_algorithm(P_Iasi, max_gen, t, Iasi_transit_network)
-'''
-
-
-example_individual = [
-	[0, 1, 2, 5, 7, 9, 10, 12],
-	[2, 1, 4, 3, 5, 7, 9, 10, 12],
-	[8, 14, 5, 2, 1, 0],
-	[8, 14, 7, 5, 2, 1, 3, 11, 10, 9, 13, 12],
-	[11, 10, 12, 13, 9, 6, 14, 7, 5, 3, 4, 1, 0],
-	[0, 1, 2, 5, 14, 6, 9, 13, 12, 10, 11, 3, 4],
-	[8, 14, 5, 3, 11, 10, 12, 13, 9, 7],
-	[8, 14, 6, 9, 10, 11, 3, 1, 0]
-]
-
-'''
-print()
-print("--------------------------------------------------------------------------")
-f = ga.calculate_fitness(example_individual)
-print("ATT", 1 / f)
-(
-	direct_connections_demand2,
-	one_change_connections_demand2,
-	two_changes_connections_demand2,
-	unsatisfied_demand2,
-	direct_connections_travel_time2,
-	one_change_connections_travel_time2,
-	two_change_connections_travel_time2,
-	numitor2
-) = ga.calculate_demands(example_individual)
-print("d0", direct_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
-print("d1", one_change_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
-print("d2", two_changes_connections_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
-print("dun", unsatisfied_demand2 * 100 / (Mandl_transit_network.total_demand / 2), '%')
-print("direct connections demand", direct_connections_demand2)
-print("one change connections demand", one_change_connections_demand2)
-print("two change connections demand", two_changes_connections_demand2)
-print("direct connections travel time", direct_connections_travel_time2)
-print("one change connections travel time", one_change_connections_travel_time2)
-print("two change connections travel time", two_change_connections_travel_time2)
-print("numitor", numitor2)
-'''
+if __name__ == "__main__":
+	main()

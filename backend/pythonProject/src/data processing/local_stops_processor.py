@@ -326,4 +326,11 @@ def process_stops(polygon_data, stops_data_file_path, output_file_path):
 		writer.writeheader()
 		writer.writerows(stops_with_consecutive_ids)
 
-process_stops(iasi_polygon_data, "../../data/iasi/iasi_all_stops_data.csv", "../../data/iasi/iasi_filtered_stops_data.csv")
+
+def main():
+	process_stops(iasi_polygon_data, "../../data/iasi/iasi_all_stops_data.csv",
+				  "../../data/iasi/iasi_filtered_stops_data.csv")
+
+
+if __name__ == "__main__":
+	main()

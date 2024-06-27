@@ -1,7 +1,7 @@
 import sys
 from math import inf
 import numpy as np
-from src.algorithms.visual_representation import draw_routes_mandl_network
+
 
 class TransitNetwork:
     def __init__(self, vertices, links_file_path, demand_file_path):
@@ -10,13 +10,6 @@ class TransitNetwork:
         self.demand = self.create_demand_matrix(demand_file_path)
         self.total_demand = np.sum(self.demand)
         self.shortest_paths_matrix = self.precompute_all_pairs_shortest_paths()
-
-    def print_graph(self):
-        for node in range(self.number_of_vertices):
-            print("\nThe neighbors of node " + str(node))
-            for other_node in range(self.number_of_vertices):
-                if self.graph[node][other_node] != 0 and self.graph[node][other_node] != inf:
-                    print(f"The node {other_node} at distance {self.graph[node][other_node]}")
 
     def precompute_all_pairs_shortest_paths(self):
         all_pairs_shortest_paths = []
@@ -82,7 +75,9 @@ class TransitNetwork:
         return demand_matrix
 
     def create_adjacency_matrix(self, file_path):
-        adjacency_matrix = np.zeros((self.number_of_vertices, self.number_of_vertices))
+        adjacency_matrix = np.full((self.number_of_vertices, self.number_of_vertices), np.inf)
+        np.fill_diagonal(adjacency_matrix, 0)
+
         with open(file_path, 'r') as file:
             next(file)
             for line in file:
@@ -91,18 +86,19 @@ class TransitNetwork:
                 to_node = int(parts[1]) - 1
                 travel_time = float(parts[2])
                 adjacency_matrix[from_node][to_node] = travel_time
+
         return adjacency_matrix
 
     def find_initial_route_sets(self, route_set_size):
         already_deleted_paths = [[[] for _ in range(self.number_of_vertices)] for _ in range(self.number_of_vertices)]
-        Y = []  # the set of routes
-        N = route_set_size  # total number of routes in the solution
+        routes_set = []  # the set of routes
+        routes_number = route_set_size  # total number of routes in the solution
 
         # Calculate DS matrix
         ds = self.calculate_ds_matrix()
 
         m = 0
-        while True:
+        while m < routes_number:
             # Find pair of nodes with highest ds value
             max_ds = -1
             max_nodes = (-1, -1)
@@ -112,9 +108,9 @@ class TransitNetwork:
                         max_ds = ds[i][j]
                         max_nodes = (i, j)
 
-            # Add shortest path between max_nodes to set Y
+            # Add shortest path between max_nodes to route set
             shortest_path = self.shortest_paths_matrix[max_nodes[0]][max_nodes[1]]
-            Y.append(shortest_path)
+            routes_set.append(shortest_path)
 
             # Update ds matrix after satisfying demands of the added route
             for i in shortest_path:
@@ -129,33 +125,104 @@ class TransitNetwork:
                                         already_deleted_paths[k][l].append((i, j))
                                         ds[k][l] -= self.demand[i][j]
             m += 1
-            if m == N:
-                break
+
 
         # Identify unused nodes
         used_nodes = set()
-        for route in Y:
+        for route in routes_set:
             for node in route:
                 used_nodes.add(node)
         unused_nodes = [node for node in range(self.number_of_vertices) if node not in used_nodes]
 
-        # Add unused nodes to existing routes
+        # Process each unused node
         for unused_node in unused_nodes:
-            best_route_index = -1
-            best_demand = 0
-            best_position = None
-            for i, route in enumerate(Y):
-                if self.demand[unused_node][route[0]] > best_demand:
-                    best_route_index = i
-                    best_demand = self.demand[unused_node][route[0]]
-                    best_position = 0  # Insert at the beginning
-                if self.demand[unused_node][route[-1]] > best_demand:
-                    best_route_index = i
-                    best_demand = self.demand[unused_node][route[-1]]
-                    best_position = len(route)  # Insert at the end
+            self.process_unused_node(unused_node, routes_set)
 
-            if best_position is not None:
-                Y[best_route_index].insert(best_position, unused_node)
+        used_nodes = set()
+        for route in routes_set:
+            for node in route:
+                used_nodes.add(node)
+        unused_nodes = [node for node in range(self.number_of_vertices) if node not in used_nodes]
+        print(unused_nodes)
 
-        print("Initial routes set:", Y)
-        return Y
+        print("Initial routes set:", routes_set)
+
+        return routes_set
+
+    def process_unused_node(self, unused_node, routes_set):
+        routes_with_demand = []
+        for route in routes_set:
+            route_demand = sum(self.demand[unused_node][route[i]] for i in range(len(route)))
+            routes_with_demand.append((route, route_demand))
+        routes_with_demand_sorted = sorted(routes_with_demand, key=lambda x: x[1], reverse=True)
+        node_routes_number = 0
+        for route, demand in routes_with_demand_sorted:
+            if node_routes_number < 8:
+                best_position = None
+                best_travel_time = float('inf')
+
+                # Check insertion at the beginning of the route
+                if self.graph[unused_node][route[0]] != float('inf'):
+                    best_position = 0
+                    best_travel_time = self.graph[unused_node][route[0]]
+
+                # Check insertion at the end of the route
+                if self.graph[unused_node][route[-1]] != float('inf'):
+                    if self.graph[unused_node][route[-1]] < best_travel_time:
+                        best_position = len(route)
+                        best_travel_time = self.graph[unused_node][route[-1]]
+
+                # Check insertion in the middle of the route
+                for k in range(1, len(route) - 1):
+                    if (self.graph[unused_node][route[k]] != float('inf')
+                            and self.graph[route[k - 1]][unused_node] != float('inf')):
+                        travel_time = self.graph[unused_node][route[k]] + self.graph[route[k - 1]][unused_node]
+                        if travel_time < best_travel_time:
+                            best_travel_time = travel_time
+                            best_position = k
+
+                # Insert node at the best position found
+                if best_position is not None:
+                    if best_position == 0:
+                        print(f"Am inserat {unused_node} la începutul rutei {route}")
+                    elif best_position == len(route):
+                        print(f"Am inserat {unused_node} la sfârșitul rutei {route}")
+                    else:
+                        print(f"Am inserat {unused_node} între {route[best_position - 1]} și {route[best_position]}")
+                    route.insert(best_position, unused_node)
+                    node_routes_number += 1
+
+'''
+            if not found_valid_pos:
+                routes_with_neighbors = []
+                for route in routes_set:
+                    for j in range(1, len(route)):
+                        if self.graph[route[j - 1]][unused_node] != np.inf:
+                            routes_with_neighbors.append(route)
+                            break
+
+                if len(routes_with_neighbors) >= 2:
+                    route1, route2 = routes_with_neighbors[:2]
+                    end_segment1 = []
+                    start_segment2 = []
+                    for j in range(1, len(route1)):
+                        if self.graph[route1[j - 1]][unused_node] != np.inf:
+                            end_segment1 = route1[j:]
+                            route1 = route1[:j] + [unused_node]
+                            print(unused_node, route1)
+                            break
+                    for j in range(0, len(route2)-1):
+                        if self.graph[route2[j+1]][unused_node] != np.inf:
+                            start_segment2 = route2[:j]
+                            route2 =  [unused_node] + route2[j:]
+                            print(unused_node, route2)
+                            break
+                    print(route1)
+                    print(start_segment2)
+                    print(start_segment2.reverse())
+                    route1 = route1 + start_segment2[::-1]
+                    route2 = end_segment1[::-1 + route2
+                    print(f"Reassigned nodes from the end of one route to another, inserting {unused_node} in between")
+                    print(route1)
+                    print(route2)
+            '''
