@@ -86,7 +86,6 @@ class TransitNetwork:
                 to_node = int(parts[1]) - 1
                 travel_time = float(parts[2])
                 adjacency_matrix[from_node][to_node] = travel_time
-
         return adjacency_matrix
 
     def find_initial_route_sets(self, route_set_size):
