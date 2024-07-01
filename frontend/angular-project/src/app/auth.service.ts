@@ -11,10 +11,14 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private jwtHelper = new JwtHelperService();
-  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    if (this.isLoggedIn()) {
+      this.loggedIn.next(true);
+    }
+  }
 
   login(username: string, password: string): Observable<any> {
     console.log('auth service login')

@@ -1,7 +1,9 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as io from 'socket.io-client';
 declare var google: any;
 
 
@@ -28,8 +30,9 @@ export class EditRoutesComponent {
     '#33FF57', '#3357FF', '#F333FF', '#FF33A8'
   ]; formDatele: FormGroup;
   formParametrii: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  private socket: any;
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.socket = io('http://localhost:8000');
     this.formDatele = this.fb.group({
       stationSelect1: ['', Validators.required],
       stationSelect2: ['', Validators.required],
@@ -82,11 +85,37 @@ export class EditRoutesComponent {
       // Aici poți adăuga logica pentru procesarea formularului
     }
   }
-
   submitParametriiForm(): void {
     if (this.formParametrii.valid) {
       console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
-      // Aici poți adăuga logica pentru procesarea formularului
+  
+      // Extrage parametrii din formular
+      const algorithmParams = {
+        populationSize: this.formParametrii.value.populationSizeInput,
+        tournamentSize: this.formParametrii.value.tournamentSizeInput,
+        crossoverProbability: this.formParametrii.value.crossoverProbabilityInput,
+        deletionProbability: this.formParametrii.value.deletionProbabilityInput,
+        smallMutationProbability: this.formParametrii.value.smallMutationProbabilityInput,
+        numberOfGenerations: this.formParametrii.value.numberOfGenerationsInput,
+        eliteSize: this.formParametrii.value.eliteSizeInput
+      };
+  
+      // Trimite cererea către backend-ul Flask
+      const xhr = new XMLHttpRequest();
+      const url = "http://localhost:8000/api/run-algorithm";
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            console.log("Response:", xhr.responseText);
+            // Poți trata răspunsul în funcție de necesitățile tale
+          } else {
+            console.error("Error starting algorithm:", xhr.status);
+          }
+        }
+      };
+      xhr.send(JSON.stringify(algorithmParams));
     }
   }
 }
