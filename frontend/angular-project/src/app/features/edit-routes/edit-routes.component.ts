@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as io from 'socket.io-client';
+import { io } from "socket.io-client";
 declare var google: any;
 
 
@@ -58,6 +58,11 @@ export class EditRoutesComponent {
   ngOnInit(): void {
     this.loadGoogleMapsScript().then(() => {
       this.initMap();
+    });
+
+    this.socket.on('algorithm_complete', (message: any) => {
+      console.log('Genetic algorithm finished:', message);
+      // Afișează mesajul în consolă sau poți face alte operații cu mesajul primit de la server
     });
   }
 
