@@ -1,5 +1,7 @@
+import json
 import random
 from copy import deepcopy
+from datetime import datetime
 from math import inf
 import numpy as np
 from matplotlib import pyplot as plt
@@ -8,6 +10,7 @@ from src.algorithms.initial_solution import TransitNetwork
 
 
 class GeneticAlgorithm:
+	# Initializarea parametrilor algoritmului genetic
 	def __init__(
 			self,
 			pop_size,
@@ -37,12 +40,14 @@ class GeneticAlgorithm:
 		self.time_unit_factor = time_unit_factor  # 1 for minutes, 60 for seconds
 		self.unsatisfied_factor = unsatisfied_factor
 
+	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
 		initial_individual = self.transit_network.find_initial_route_sets(self.route_set_size)
 		print("Initial individual: ", initial_individual)
 		for _ in range(self.pop_size):
 			self.population.append(deepcopy(initial_individual))
 
+	# Calcularea lungimii totale a rutelor
 	def calculate_trl(self, route_set):
 		total_route_length = 0
 		for route in route_set:
@@ -52,7 +57,7 @@ class GeneticAlgorithm:
 
 		return total_route_length
 
-
+	# Calcularea caracteristicilor pentru un individ (set de rute)
 	def calculate_characteristics(self, individual):
 		node_to_routes = {node: [] for node in range(self.transit_network.number_of_vertices)}
 
@@ -69,7 +74,7 @@ class GeneticAlgorithm:
 
 
 
-		# Step 1: Calculate direct travel times
+		# Pasul 1: Calcularea timpilor de calatorie directi
 		for i in range(self.transit_network.number_of_vertices):
 			for j in range(i + 1, self.transit_network.number_of_vertices):
 				demand_ij = self.transit_network.demand[i][j]
@@ -84,7 +89,7 @@ class GeneticAlgorithm:
 						direct_travel_times[(min(i, j), max(i, j))] = direct_travel_time
 						total_demand_time += demand_ij * direct_travel_time
 
-		# Step 2: Calculate one-change and two-change travel times using direct travel times
+		# Pasul 2: Calcularea timpilor de calatorie cu o schimbare si doua schimbari folosind timpii de calatorie directi
 		for i in range(self.transit_network.number_of_vertices):
 			for j in range(i + 1, self.transit_network.number_of_vertices):
 				demand_ij = self.transit_network.demand[i][j]
@@ -111,7 +116,6 @@ class GeneticAlgorithm:
 		unsatisfied_demand = (total_demand / 2 - (
 				direct_connections_demand + one_change_connections_demand + two_changes_connections_demand))
 		avg_travel_time = (2 * total_demand_time) / self.transit_network.total_demand
-		avg_travel_time /= 60;
 		d0 = direct_connections_demand * 100 / (self.transit_network.total_demand / 2)
 		d1 = one_change_connections_demand * 100 / (self.transit_network.total_demand / 2)
 		d2 = two_changes_connections_demand * 100 / (self.transit_network.total_demand / 2)
@@ -120,12 +124,14 @@ class GeneticAlgorithm:
 
 		return d0, d1, d2, dun, avg_travel_time
 
+	# Calcularea fitness-ului pentru un individ
 	def calculate_fitness(self, individual):
 		d0, d1, d2, dun, avg_travel_time = self.calculate_characteristics(individual)
 		total_route_length = self.calculate_trl(individual)
 		fitness = 1 / (0.01 * avg_travel_time)
 		return fitness
 
+	# Calcularea timpului de calatorie directa
 	def calculate_direct_travel_time(self, individual, i, j, common_routes):
 		min_travel_time = float('inf')
 		for route in common_routes:
@@ -139,6 +145,7 @@ class GeneticAlgorithm:
 				min_travel_time = min(min_travel_time, travel_time)
 		return min_travel_time
 
+	# Calcularea timpului de calatorie cu o schimbare
 	def calculate_one_change_time(self, individual, i, j, node_to_routes, direct_travel_times):
 		routes_i = set(node_to_routes[i])
 		routes_j = set(node_to_routes[j])
@@ -166,6 +173,7 @@ class GeneticAlgorithm:
 
 		return min_one_change_time, one_change_node
 
+	# Calcularea timpului de calatorie cu doua schimbari
 	def calculate_two_change_time(self, individual, i, j, node_to_routes, direct_travel_times):
 		routes_i = set(node_to_routes[i])
 		routes_j = set(node_to_routes[j])
@@ -196,7 +204,7 @@ class GeneticAlgorithm:
 
 		return min_two_change_time
 
-	# swap the routes of that position based on probability Pswap
+	# Interschimbarea rutelor bazat pe probabilitatea Pswap
 	def uniform_crossover(self, parent_a, parent_b):
 		a, b = deepcopy(parent_a), deepcopy(parent_b)
 		for j in range(self.route_set_size):
@@ -204,8 +212,9 @@ class GeneticAlgorithm:
 				a[j], b[j] = b[j], a[j]
 		return a, b
 
+	# Mutatia unui individ
 	def mutation(self, individual):
-		# calculate mutation probabilities
+		# Calcularea probabilitatilor de mutatie
 		ds = self.transit_network.calculate_ds_matrix()
 		mutation_probabilities = np.zeros(len(individual))
 		sum_ds = 0
@@ -223,21 +232,19 @@ class GeneticAlgorithm:
 			else:
 				mutation_probabilities[index] = (1 / ds[route_set[0]][route_set[len(route_set) - 1]]) / sum_ds
 
-		# select a route based on roulette wheel selection
+		# Selectarea unei rute pe baza selectiei de tip ruleta
 		selected_route_index = roulette_wheel_selection(mutation_probabilities)
-		# choose a terminal of the selected route randomly.
+		# Alegerea unui terminal din ruta la intamplare
 		chosen_terminal = random.choice([0, len(individual[selected_route_index]) - 1])
 
-		# small modification
+		# Modificare mica
 		if random.random() < self.p_ms:
-			# choose a terminal
-
 			new_route = deepcopy(individual[selected_route_index])
-			# delete the terminal based on a probability p_delete
+			# Stergerea terminalului pe baza probabilitatii p_delete
 			if random.random() < self.p_delete:
 				if len(new_route) > 2:
 					del new_route[chosen_terminal]
-			# add a new node based on probability 1-p_delete
+			# Adaugarea unui nod pe baza probabilitatii 1-p_delete
 			else:
 				neighbors = [
 					node for node in range(self.transit_network.number_of_vertices)
@@ -252,9 +259,8 @@ class GeneticAlgorithm:
 
 			if new_route not in individual and not is_subsequence(new_route, individual):
 				individual[selected_route_index] = new_route
-		# big modification
+		# Modificare mare
 		else:
-			# choose a new terminal using roulette wheel selection
 			sum_ds = 0
 			new_terminal_probabilities = [0 for _ in range(self.transit_network.number_of_vertices)]
 			for node in range(self.transit_network.number_of_vertices):
@@ -262,18 +268,20 @@ class GeneticAlgorithm:
 			for node in range(self.transit_network.number_of_vertices):
 				new_terminal_probabilities[node] = ds[individual[selected_route_index][chosen_terminal]][node] / sum_ds
 			new_terminal = roulette_wheel_selection(new_terminal_probabilities)
-			# the new route is the shortest path between the chosen terminal and the new terminal
+			# Noua ruta este cel mai scurt drum dintre terminalul ales si noul terminal
 			new_route = self.transit_network.shortest_paths_matrix[individual[selected_route_index][chosen_terminal]][new_terminal]
 			if new_route not in individual and not is_subsequence(new_route, individual):
 				individual[selected_route_index] = new_route
 		return individual
 
+	# Selectia de tip turneu
 	def tournament_selection(self):
 		tournament_population = random.sample(self.population, self.tournament_size)
 		fitness_scores = [(individual, self.calculate_fitness(individual)) for individual in tournament_population]
 		fitness_scores.sort(key=lambda x: x[1], reverse=True)
 		return fitness_scores[0][0], fitness_scores[1][0]
 
+	# Rularea algoritmului genetic
 	def run_genetic_algorithm(self):
 		fitness_history = []
 		self.initialize_population()
@@ -283,13 +291,13 @@ class GeneticAlgorithm:
 		convergence_threshold = 20
 
 		for generation in range(self.max_generations):
-			# Calculate fitness for the current population
+			# Calcularea fitness-ului pentru fiecare individ din populatia curenta
 			population_fitness = [self.calculate_fitness(individual) for individual in self.population]
 			current_best_index = max(range(len(self.population)), key=lambda i: population_fitness[i])
 			current_best = self.population[current_best_index]
 			current_best_fitness = population_fitness[current_best_index]
 
-			# Update the best individual if the current best is better
+			# Calcularea celui mai bun individ
 			if current_best_fitness > best_fitness:
 				best_individual = deepcopy(current_best)
 				best_fitness = current_best_fitness
@@ -301,7 +309,9 @@ class GeneticAlgorithm:
 			print()
 			print()
 			print(f"Generation: {generation}, Best Fitness: {best_fitness}")
-			print("Best Individual: ", best_individual)
+			print("Best Individual:")
+			for element in best_individual:
+				print(element)
 			included_nodes = set().union(*[set(route) for route in best_individual]) if best_individual else set()
 			missing_nodes = self.transit_network.number_of_vertices - len(included_nodes)
 			print(f"Number of nodes not included: {missing_nodes}")
@@ -313,7 +323,7 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
-			# Create the next generation
+			# Crearea noii generatii
 			elite_indices = sorted(range(len(self.population)), key=lambda i: population_fitness[i], reverse=True)[
 							:self.elite_size]
 			elite_population = [self.population[i] for i in elite_indices]
@@ -328,7 +338,7 @@ class GeneticAlgorithm:
 
 			self.population = deepcopy(new_population)
 
-			# Check for convergence
+			# Verificarea indeplinirii conditiei de convergenta
 			if generations_without_improvement >= convergence_threshold:
 				break
 		print(
@@ -345,7 +355,24 @@ class GeneticAlgorithm:
 		print("TRL", self.calculate_trl(best_individual))
 		print("Fitness final", best_fitness)
 
-		# Plot fitness
+		# Generare nume fișier cu data și ora curente
+		current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+		filename = f"ga_results_{current_time}.json"
+
+		results = {
+			"best_individual": best_individual,
+			"d0": d0,
+			"d1": d1,
+			"d2": d2,
+			"dun": dun,
+			"att": att,
+			"trl": self.calculate_trl(best_individual),
+			"final_fitness": best_fitness
+		}
+
+		with open(filename, 'w') as file:
+			json.dump(results, file, indent=4)
+		# Afisarea valorilor fitnessului pe un grafic
 		plt.plot(fitness_history)
 		plt.xlabel('Generații')
 		plt.ylabel('Fitness')

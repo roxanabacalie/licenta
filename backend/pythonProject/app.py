@@ -1,11 +1,15 @@
 import csv
 import json
 import logging
+import threading
+import time
+from concurrent.futures.thread import ThreadPoolExecutor
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from pymongo import MongoClient
+from flask_socketio import SocketIO
+
 from db_management.users import verify_account
 
 app = Flask(__name__)
@@ -17,16 +21,12 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
 current_dir = os.path.dirname(os.path.abspath(__file__))
 template_folder = os.path.join(current_dir, 'templates')
 app.template_folder = template_folder
-
+socketio = SocketIO(app)
 # Configuration
 app.config['SECRET_KEY'] = 'your_strong_secret_key'
 app.config["JWT_SECRET_KEY"] = 'your_jwt_secret_key'
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 
-# Conectarea la MongoDB
-client = MongoClient('mongodb+srv://ioanaroxanabacalie:XNZ9IwfAmyRjju3y@cluster0.ulbfdch.mongodb.net/')
-db = client['licenta']
-collection = db['routes']
 
 # JWT Initialization
 jwt = JWTManager(app)
@@ -38,7 +38,66 @@ users = {
 logging.basicConfig(level=logging.DEBUG)
 
 
-routes_data = [[160, 175, 159, 174, 173, 157, 172, 156, 155, 7, 8, 136, 143, 138, 134, 23, 135, 97, 99, 98, 20, 66, 86, 88, 89, 87, 90, 85, 68, 190, 189, 71, 73, 75, 74, 72, 80, 67, 17, 118, 18, 19, 40, 152, 91, 33, 34, 117, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [101, 102, 122, 121, 125, 123, 1, 2, 3, 4, 30, 8, 31, 32, 152, 99], [183, 182, 181, 180, 64, 63, 62, 61, 60, 59, 58, 34, 104, 103, 93, 16, 15, 94, 133, 132, 171], [143, 142, 141, 140, 139, 94, 15, 16, 93, 103, 104, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [77, 147, 146, 151, 145, 144, 135, 23, 130, 149, 131, 137], [170, 148, 186, 171, 137, 131, 149, 130, 168, 31, 32, 104, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [99, 66, 89, 50, 100, 101, 102, 122, 121, 125, 123, 0, 1, 2, 3, 48, 124, 109, 47, 6, 83, 82, 144, 145, 151, 146, 147, 126, 127, 128, 76], [147, 146, 151, 145, 144, 135, 23, 8, 155, 156, 172, 157, 173], [40, 119, 69, 32, 31, 168, 10, 129, 9, 7, 184, 170, 148, 166, 177, 165, 164, 163, 2], [134, 139, 17, 14, 13, 12, 95, 11, 184, 170, 148, 166, 177, 165, 164, 1, 0, 123, 125, 121, 122, 102, 101, 100, 50, 79], [128, 127, 126, 78, 79, 26, 116, 27, 28, 29, 30, 184, 169, 44, 43, 42, 178, 179], [164, 163, 162, 161, 176, 5, 150, 54, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [183, 182, 181, 180, 64, 63, 62, 61, 60, 59, 58, 34, 33, 67, 135, 23, 8, 155, 156, 172, 157, 173, 174, 158], [89, 88, 50, 153, 114, 48, 124, 87, 86, 85, 90, 109, 47, 6, 84, 66, 152, 68, 98, 99, 97, 71, 73, 75, 74, 72, 80, 189, 190, 67, 20, 134, 138, 143, 136, 18, 118, 19, 33, 91, 34, 117, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [176, 84, 47, 69, 189, 92, 74, 39, 56, 38, 37, 36, 35, 34, 104, 103, 93, 16, 167, 169, 44, 43, 42, 178, 179, 108, 107, 106, 105, 20, 66, 152], [20, 38, 56, 39, 120, 54, 47, 48, 5, 150, 4, 3, 2, 1, 0, 123, 125, 121, 122, 102, 101, 100, 41], [75, 74, 147, 146, 151, 145, 144, 17, 143, 138, 118, 19, 91, 152, 40, 18, 20, 98, 117, 99, 97, 66, 189, 190, 71, 73, 80, 72, 68, 86, 88, 89, 87, 90, 85, 135, 23, 134, 136, 8, 7, 155, 156, 172, 157, 173, 174, 159, 175, 160], [14, 13, 12, 115, 8, 7, 30, 150, 29, 48, 28, 27, 116, 26, 79, 77, 126, 127, 128], [188, 187, 58, 34, 33, 67, 135, 23, 8, 155, 156, 172, 157, 173], [33, 118, 92, 93, 16, 32, 31, 8, 7, 155, 156, 172, 157, 173, 174, 159, 175, 160, 176, 90, 89, 50], [160, 175, 159, 174, 173, 157, 172, 156, 155, 8, 23, 135, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181], [183, 182, 181, 180, 64, 63, 62, 61, 60, 59, 58, 34, 33, 67, 21, 70, 3, 2, 1, 123, 125, 121, 122, 102, 101], [6, 90, 5, 158, 150, 48, 47, 82, 110, 81, 111, 37, 36, 35, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [100, 101, 102, 122, 121, 125, 123, 1, 164, 165, 166, 170, 46, 45, 44, 43], [99, 71, 73, 34, 33, 119, 68, 86, 41, 26, 116, 27, 28, 29, 30, 8, 31, 32, 15, 94, 138, 118, 69, 190, 88], [119, 74, 83, 90, 72, 21, 70, 22, 23, 8, 155, 156, 172, 157, 173, 174, 158, 5, 30, 175, 114, 3, 161], [160, 175, 159, 174, 173, 157, 172, 156, 155, 8, 23, 135, 67, 33, 34], [128, 79, 51, 52, 49, 53, 65, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181], [55, 120, 57, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [172, 156, 155, 8, 23, 135, 71], [5, 150, 48, 47, 7, 9, 129, 10, 168, 31, 32, 104, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [128, 127, 126, 76, 79, 26, 116, 27, 28, 29, 30, 184, 149, 131, 137, 186, 171, 132, 133, 96], [79, 25, 50, 100, 101, 102, 122, 121, 125, 123, 0, 1, 2, 3, 4, 174, 173, 157, 172, 156, 155, 7, 40, 57, 20, 21, 32], [73, 74, 113, 112, 111, 135, 23, 8, 155, 156, 172, 157, 173, 174, 159, 175, 160], [99, 69, 65, 53, 154, 47, 6, 24, 5, 150, 4, 3, 2, 1, 0, 123, 125, 121, 122, 102, 101, 100, 25]]
+routes_data = [[100, 101, 102, 122, 121, 125, 123, 0, 1, 2, 3, 4, 150, 5, 24, 53, 65, 90, 85, 66, 68, 190, 189, 67, 72, 71, 55, 20, 33, 91, 40, 34, 117, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [148, 166, 170, 184, 23, 22, 66, 90, 189], [100, 101, 102, 122, 121, 125, 123, 1, 2, 3, 4, 5, 24, 53, 65, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182], [78, 79, 50, 41, 26, 116, 27, 28, 47, 48, 29, 150, 30, 8, 136, 134, 115, 12, 13, 14, 138, 143, 139, 46, 45, 44, 43, 42, 178, 179], [136, 134, 9, 129, 10, 168, 31, 32, 69, 40, 119, 20, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [183, 182, 181, 180, 64, 63, 62, 61, 60, 59, 58, 34, 104, 103, 40, 19, 93, 16, 118, 17, 15, 94, 14, 13, 12, 95, 138, 139, 140, 141, 142, 143], [89, 87, 86, 88, 114, 124, 109, 84, 54, 120, 57, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [100, 101, 102, 122, 121, 125, 123, 0, 1, 2, 3, 29, 150, 48, 47, 124, 109, 85, 87, 86, 83, 82, 144, 145, 151, 146, 147], [160, 175, 29, 28, 27, 116, 26, 79, 128, 127, 126], [183, 182, 181, 180, 64, 63, 62, 61, 60, 59, 58, 34, 33, 67, 135, 23, 8, 155, 156, 172, 157, 173, 174, 159, 175], [92, 118, 16, 32, 31, 8, 30, 29, 28, 27, 116, 26, 79, 126, 128, 127], [126, 79, 50, 114, 124, 109, 83, 82, 110, 81, 111, 37, 36], [147, 146, 151, 145, 144, 80, 119, 69, 15, 94, 46, 45], [163, 162, 161, 176, 5, 24, 53, 65, 90, 85, 66, 68, 190, 189, 67, 72, 71, 55, 20, 33, 91, 40, 34, 117, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [150, 48, 47, 7, 22, 70, 21, 55, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [143, 12, 95, 115, 135, 68, 120, 73, 39, 56, 38, 37, 36, 35, 34, 104, 103, 19, 93, 16, 99, 98, 97, 167, 169, 44, 43, 42, 178, 179], [164, 165, 166, 170, 184, 23, 135, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180], [100, 101, 102, 122, 121, 125, 123, 1, 2, 3, 29, 124, 109, 83, 82, 144, 145], [77, 79, 50, 41, 26, 116, 27, 28, 86, 29, 30, 8, 31, 32, 16, 93, 105, 106, 107, 108], [91, 19, 18, 103, 152, 32, 31, 168, 10, 129, 9, 184, 170, 185, 166, 177, 165, 164, 163, 162, 3, 161], [33, 57, 119, 71, 72, 38, 56, 39, 113, 112, 111, 81, 110, 82, 83, 109, 124, 114, 153, 89, 87, 85, 65, 22, 135, 190, 69, 16, 15, 94], [118, 17, 92, 93, 16, 32, 31, 8, 155, 156, 172, 157, 173, 174, 159, 175, 160, 176, 161, 2], [111, 21, 70, 22, 23, 8, 30, 4, 3, 2, 1, 123, 125, 121, 122, 102, 101, 100], [131, 149, 130, 168, 31, 32, 69, 119, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [78, 79, 50, 41, 51, 52, 47, 48, 49, 154, 53, 65, 90, 85, 66, 68, 190, 189, 67, 72, 71, 33, 91, 34, 117, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [108, 107, 106, 105, 99, 98, 97, 169, 45, 46, 14, 13, 12, 115, 8, 30, 5, 24, 6, 54, 71, 81], [76, 79, 26, 116, 27, 28, 86, 29, 30, 184, 149, 131, 137, 186, 171, 132, 133, 94], [188, 187, 58, 34, 104, 103, 93, 16, 167, 169, 44, 43, 42, 178, 179], [179, 178, 42, 43, 44, 45, 46, 14, 13, 12, 115, 8, 30, 29, 28, 27, 116, 26, 41, 51], [100, 101, 102, 122, 121, 125, 123, 0, 1, 164, 165, 177, 166, 185, 170, 184, 11, 95, 12, 13, 14, 138, 143, 139, 46, 45, 44, 43, 42, 178, 179], [50, 79, 25, 51, 52, 49, 53, 65, 67, 33, 34, 58, 59, 60, 61, 62, 63, 64, 180, 181, 182, 183], [179, 178, 42, 43, 44, 45, 46, 14, 13, 12, 115, 8, 155, 156, 172, 157, 173, 174, 159, 175, 160], [75, 74, 73, 113, 112, 111, 80, 135, 23, 8, 155, 156, 172, 157, 173, 174, 158, 5, 52, 28, 48], [78, 79, 50, 41, 26, 116, 27, 28, 4, 3, 2, 1, 123, 125, 121, 122, 102, 101, 100], [138, 133, 96, 132, 171, 186, 137, 131, 149, 130, 23, 135, 80, 144, 145, 151, 146, 147]]
+
+running_algorithms = {}
+# Executor pentru a gestiona cererile asincron
+executor = ThreadPoolExecutor()
+
+def run_genetic_algorithm(params):
+    print("Running genetic algorithm with params:", params)
+    time.sleep(10)  # Simulăm o execuție care durează câteva secunde
+    print("Running genetic algoritm finished")
+    return "Genetic algorithm finished."
+
+
+@app.route('/api/run-algorithm', methods=['POST'])
+def trigger_algorithm():
+    data = request.get_json()
+
+    # Pornește algoritmul genetic într-un thread nou pentru a gestiona cereri multiple simultane
+    future = executor.submit(run_genetic_algorithm, data)
+
+    # Salvează viitorul algoritmului în dicționarul de algoritmi în execuție
+    running_algorithms[future] = data
+
+    # Întoarce un răspuns clientului că algoritmul a început
+    return jsonify({"message": "Genetic algorithm started."}), 200
+
+
+def monitor_algorithm_completion(future):
+    try:
+        result = future.result()
+        params = running_algorithms.pop(future)  # Extrage parametrii pentru algoritmul finalizat
+        # Trimite răspuns clientului că algoritmul a terminat cu succes prin SocketIO
+        socketio.emit('algorithm_complete', {
+            "message": "Genetic algorithm finished successfully.",
+            "result": result,
+            "params": params
+        })
+
+    except Exception as e:
+        print(f"Algorithm execution error: {str(e)}")
+        # Poți gestiona erorile aici, dacă apare vreuna
+
+
+# Funcția care va monitoriza finalizarea algoritmilor
+def monitor_running_algorithms():
+    while True:
+        for future in list(running_algorithms.keys()):
+            if future.done():
+                monitor_algorithm_completion(future)
+
+        time.sleep(1)  # Poți ajusta intervalul de monitorizare
+
+
+# Thread separat pentru monitorizarea algoritmilor în execuție
+monitor_thread = threading.Thread(target=monitor_running_algorithms)
+monitor_thread.start()
+
+# Configurare și inițializare SocketIO
+socketio.init_app(app)
+
 
 @app.route('/directions', methods=['POST'])
 def save_directions():
@@ -81,9 +140,23 @@ def login():
     return jsonify({'message': 'Invalid credentials'}), 401
 
 
-
 @app.route('/api/routes', methods=['GET'])
-def get_route():
+def get_routes():
+    try:
+        routes = []
+        for idx, route in enumerate(routes_data):
+            route_dict = {'id': idx + 1, 'stops': route}
+            routes.append(route_dict)
+
+        return jsonify(routes), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
+
+@app.route('/api/directions', methods=['GET'])
+def get_direction():
     start_id = request.args.get('start_id')
     stop_id = request.args.get('stop_id')
 
@@ -112,7 +185,7 @@ def get_route():
         return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
 
 
-@app.route('/api/protected', methods=['GET'])
+@app.route('/api/edit-routes', methods=['GET'])
 @jwt_required()
 def protected():
     current_user = get_jwt_identity()
@@ -139,5 +212,7 @@ def get_stops():
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=8000, debug=True, use_reloader=True, allow_unsafe_werkzeug=True)
+
+

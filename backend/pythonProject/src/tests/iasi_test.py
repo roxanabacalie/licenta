@@ -8,16 +8,16 @@ iasi_transit_network = TransitNetwork(
 	)
 
 ga_iasi = GeneticAlgorithm(
-	20,
+	30,
 	10,
 	0.125,
 	0.7,
-						   0.4,
-						   100,
-						   iasi_transit_network,
-						   4,
-						   40,
-						   60,
-						   120)
+	0.4,
+	0,
+	iasi_transit_network,
+	8,
+	35,
+	60,
+	120)
 ga_iasi.run_genetic_algorithm()
 
