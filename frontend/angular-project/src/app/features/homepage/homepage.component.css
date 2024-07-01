@@ -9,10 +9,50 @@
     justify-content: center;
     align-items: center;
     height: 450px;
+    margin-bottom: 20px;
   }
   
   #map {
     height: 400px; /* Set the height for the map */
     width: 80%;
+  }
+  
+  .route-container {
+    background-color: #f2f2f2; /* Culoare de fundal pentru fiecare rută */
+    padding: 10px; /* Adăugăm puțin padding pentru a face elementul mai plăcut vizual */
+    border-radius: 5px; /* Rotunjim colțurile containerului */
+    transition: background-color 0.3s ease; /* Animăm tranziția culorii de fundal */
+    cursor: pointer; /* Cursor pointer pentru a indica interactivitate */
+    margin-bottom: 20px; /* Spațiu între fiecare rută */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Umbră subtilă */
+  }
+  
+  .route-container:hover {
+    background-color: #FFDF6C; /* Schimbăm culoarea de fundal la hover */
+    color: #f2f2f2; /* Schimbăm culoarea textului la hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Adăugăm o umbră ușoară pentru efect vizual */
+  }
+  
+  /* Selector pentru textul "Route X" */
+  .route-container h3 {
+    cursor: auto; /* Setăm cursorul implicit pentru textul "Route X" */
+  }
+  
+  /* Lista de stații */
+  .stops-list {
+    list-style-type: none; /* Elimină stilul implicit al listei */
+    padding-left: 0; /* Elimină padding-ul implicit al listei */
+    display: flex; /* Utilizăm flexbox pentru a afișa stațiile pe aceeași linie */
+    flex-wrap: wrap; /* Permiterea înfășurării pe mai multe linii dacă este necesar */
+  }
+  
+  .stops-list li {
+    margin-right: 10px; /* Spațiu între stații */
+    border-right: 1px solid #ccc; /* Liniuță între stații */
+    padding-right: 10px; /* Spațiu între text și liniuță */
+  }
+  
+  .stops-list li:last-child {
+    border-right: none; /* Eliminăm liniuța pentru ultima stație */
   }
   

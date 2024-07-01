@@ -1,35 +1,120 @@
-<div class="jumbotron text-center">
-    <div class="container">
-      <h1>Proiectarea Rețelelor de Transport Public</h1>
-    </div>
-  </div>
-  <br>
-  <div class="container">
-    <div class="mb-4 d-flex flex-row">
-      <select class="form-select me-4" id="transport-station-select" aria-label="Select a station">
-        <option selected disabled>Choose a station</option>
-        <option value="1">Station 1</option>
-        <option value="2">Station 2</option>
-        <option value="3">Station 3</option>
-        <option value="4">Station 4</option>
-        <option value="5">Station 5</option>
+<div class="container container-main text-center">
+  <h2>Datele din Iași</h2>
+  <form [formGroup]="formDatele" (ngSubmit)="submitDateleForm()">
+    <div class="mb-4 d-flex flex-row justify-content-center">
+      <select class="form-select me-4" formControlName="stationSelect1" aria-label="Select a station">
+        <option disabled selected>Alegeți o stație</option>
+        <option value="1">Stația 1</option>
+        <option value="2">Stația 2</option>
+        <option value="3">Stația 3</option>
+        <option value="4">Stația 4</option>
+        <option value="5">Stația 5</option>
       </select>
-  
-      <select class="form-select me-4" id="transport-station-select2" aria-label="Select a station">
-        <option selected disabled>Choose a station</option>
-        <option value="1">Station 1</option>
-        <option value="2">Station 2</option>
-        <option value="3">Station 3</option>
-        <option value="4">Station 4</option>
-        <option value="5">Station 5</option>
+
+      <select class="form-select me-4" formControlName="stationSelect2" aria-label="Select a station">
+        <option disabled selected>Alegeți o stație</option>
+        <option value="1">Stația 1</option>
+        <option value="2">Stația 2</option>
+        <option value="3">Stația 3</option>
+        <option value="4">Stația 4</option>
+        <option value="5">Stația 5</option>
       </select>
-  
-      <input type="text" class="form-control me-4" id="distance-input" placeholder="Introduceți distanța">
-      <input type="text" class="form-control" id="demand-input" placeholder="Introduceți cererea">
+
+      <input type="text" class="form-control me-4" id="distance-input" formControlName="distanceInput"
+        placeholder="Introduceți timpul">
+      <div class="invalid-feedback" *ngIf="formDatele.get('distanceInput')?.invalid && formDatele.get('distanceInput')?.touched">
+        Introduceți un timp valid.
+      </div>
+
+      <input type="text" class="form-control" id="demand-input" formControlName="demandInput"
+        placeholder="Introduceți cererea">
+      <div class="invalid-feedback" *ngIf="formDatele.get('demandInput')?.invalid && formDatele.get('demandInput')?.touched">
+        Introduceți o valoare pentru cerere.
+      </div>
     </div>
+    <button type="submit" class="btn btn-primary custom-button">Modifică datele</button>
+  </form>
+</div>
+
+<div class="container container-main text-center mt-5">
+  <h2>Parametrii Algoritmului</h2>
+  <form [formGroup]="formParametrii" (ngSubmit)="submitParametriiForm()">
+    <div class="row mb-4 justify-content-center">
+      <div class="col-md-3">
+        <label for="population-size-input">Dimensiunea Populației</label>
+        <input type="text" class="form-control" id="population-size-input" formControlName="populationSizeInput"
+          placeholder="Dimensiunea Populației">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('populationSizeInput')?.invalid && formParametrii.get('populationSizeInput')?.touched">
+          Dimensiunea Populației trebuie să fie un număr întreg mai mare sau egal cu 5.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="tournament-size-input">Dimensiunea Turneului</label>
+        <input type="text" class="form-control" id="tournament-size-input" formControlName="tournamentSizeInput"
+          placeholder="Dimensiunea Turneului">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('tournamentSizeInput')?.invalid && formParametrii.get('tournamentSizeInput')?.touched">
+          Dimensiunea Turneului trebuie să fie un număr întreg mai mare sau egal cu 2.
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="crossover-probability-input">Probabilitate Interschimbării</label>
+        <input type="text" class="form-control" id="crossover-probability-input" formControlName="crossoverProbabilityInput"
+          placeholder="Probabilitate Interschimbării">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('crossoverProbabilityInput')?.invalid && formParametrii.get('crossoverProbabilityInput')?.touched">
+          Probabilitate Interschimbării trebuie să fie un număr între 0 și 1.
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="deletion-probability-input">Probabilitatea Ștergerii</label>
+        <input type="text" class="form-control" id="deletion-probability-input" formControlName="deletionProbabilityInput"
+          placeholder="Probabilitatea Ștergerii">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('deletionProbabilityInput')?.invalid && formParametrii.get('deletionProbabilityInput')?.touched">
+          Probabilitatea Ștergerii trebuie să fie un număr între 0 și 1.
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4 justify-content-center">
+      <div class="col-md-3">
+        <label for="small-mutation-probability-input">Probabilitatea Mutației cu Modificare Mică</label>
+        <input type="text" class="form-control" id="small-mutation-probability-input"
+          formControlName="smallMutationProbabilityInput" placeholder="Probabilitatea Micilor Mutări">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('smallMutationProbabilityInput')?.invalid && formParametrii.get('smallMutationProbabilityInput')?.touched">
+          Probabilitatea Mutației trebuie să fie un număr între 0 și 1.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="number-of-generations-input">Numărul de Generații</label>
+        <input type="text" class="form-control" id="number-of-generations-input" formControlName="numberOfGenerationsInput"
+          placeholder="Numărul de Generații">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('numberOfGenerationsInput')?.invalid && formParametrii.get('numberOfGenerationsInput')?.touched">
+          Numărul de Generații trebuie să fie un număr întreg mai mare ca 1.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="elite-size-input">Dimensiunea Elitei</label>
+        <input type="text" class="form-control" id="elite-size-input" formControlName="eliteSizeInput"
+          placeholder="Dimensiunea Elitei">
+        <div class="invalid-feedback"
+          *ngIf="formParametrii.get('eliteSizeInput')?.invalid && formParametrii.get('eliteSizeInput')?.touched">
+          Dimensiunea Elitei trebuie să fie un număr mai mare sau egal cu 1.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary custom-button">Modifică Parametrii</button>
+  </form>
+</div>
+
+<div class="container container-main text-center mt-5">
+  <h2>Hartă</h2>
+  <div id="map-container" class="map-container">
+    <div id="map" style="height: 400px; width: 100%;"></div>
   </div>
-  
-  <div class="container-map">
-    <div id="map" style="height: 400px;"></div>
-  </div>
-  
+</div>

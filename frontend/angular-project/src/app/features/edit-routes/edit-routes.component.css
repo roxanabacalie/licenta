@@ -4,15 +4,65 @@
 
   }
   
+  body {
+    background-color: #f2f2f2;; 
+}
+  .container-main {
+    background-color: #ffffff; 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+}
   .container-map {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 450px;
+    background-color: #ffffff; /* Culoare de fundal pentru containerul hărții */
+    padding: 20px; /* Spațiere pentru a distanța conținutul de margine */
+    border-radius: 5px; /* Rotunjirea colțurilor */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Umbra pentru efect vizual */
   }
   
   #map {
     height: 400px; /* Set the height for the map */
     width: 80%;
   }
+  .container-main {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+  }
   
+  .map-container {
+    margin: 0 auto;
+    padding: 10px;
+    width: 80%;
+  }
+
+  .custom-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #FFD747;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 auto; /* Center align horizontally */
+}
+  
+  .custom-button:hover {
+    background-color: #FFE485; /* Culoarea de fundal la hover */
+  }
+
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 80%;
+  }

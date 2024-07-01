@@ -8,3 +8,14 @@
 <div class="container-map">
   <div id="map" style="height: 400px;"></div>
 </div>
+
+<div class="container">
+  <div *ngFor="let route of routes" class="route-container" (click)="displayRoute(route.id)">
+    <h3>Route {{ route.id }}</h3>
+    <ul class="stops-list">
+      <li *ngFor="let stop of route.stops">
+        {{ getStopName(stop) }}
+      </li>
+    </ul>
+  </div>
+</div>

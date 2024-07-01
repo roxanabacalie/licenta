@@ -1,26 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CommonModule, NgFor, NgIf } from '@angular/common'; 
 declare var google: any;
+
+type Stop = {
+  stop_id: string;
+  stop_lat: number;
+  stop_lon: number;
+  stop_name: string;
+};
+
+type Route = {
+  id: string;
+  stops: string[];
+};
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css'],
+  imports: [NgFor, NgIf]
 })
 
 export class HomepageComponent implements OnInit {
   
   private map: any;
   private directionsService: any;
+  private colorIndex: number = 0;
+  public routes: Route[] = [];
+  private stops: Stop[] = [];
+  private directionsRenderer: any; 
+  private directionsRenderers: any[] = []; // Array to store all DirectionsRenderer instances
+  private markers: any[] = []; // Array to store all markers
+  
 
+  // Predefined list of 40 distinct colors
+  private colors: string[] = [
+    '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A8', '#33FFF2', '#F2FF33', 
+    '#FF8F33', '#8F33FF', '#33FF8F', '#FF3333', '#33FF33', '#3333FF', '#8F8F33', 
+    '#FF5733', '#57FF33', '#5733FF', '#FF3357', '#33FF57', '#3357FF', '#F333FF', 
+    '#FF33A8', '#33FFF2', '#F2FF33', '#FF8F33', '#8F33FF', '#33FF8F', '#FF3333', 
+    '#33FF33', '#3333FF', '#8F8F33', '#FF5733', '#57FF33', '#5733FF', '#FF3357', 
+    '#33FF57', '#3357FF', '#F333FF', '#FF33A8'
+  ];
   constructor() { }
-
+  
   ngOnInit(): void {
     // load Google Maps API, initialize the map
     this.loadGoogleMapsScript().then(() => {
       this.initMap();
     });
+    this.fetchRoutes();
+    this.fetchStops();
   }
   
   
@@ -44,12 +75,65 @@ export class HomepageComponent implements OnInit {
     });
 
     this.directionsService = new google.maps.DirectionsService();
-    this.getLocalRoutesAndDraw();
+    this.directionsRenderer = new google.maps.DirectionsRenderer({ map: this.map }); 
+    //this.getStopsAndDraw();
+    //this.getLocalRoutesAndDraw();
     //this.getDirectionsFromCSV();
     //this.getRouteDataAndDraw();
 
   }
 
+
+  async getStopsAndDraw() {
+    try {
+      const response = await fetch('http://localhost:8000/api/stops'); // Endpoint-ul pentru stații din backend
+      if (response.ok) {
+        const stops = await response.json(); // Convertim răspunsul în format JSON
+        this.drawStops(stops); // Apelăm funcția pentru a desena stațiile pe hartă
+      } else {
+        console.error('Error fetching stops:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching stops:', error);
+    }
+  }
+
+  drawStops(stops: any[]) {
+    stops.forEach(stop => {
+      const position = { lat: parseFloat(stop.stop_lat), lng: parseFloat(stop.stop_lon) };
+  
+      // Creează un marker pentru fiecare stație
+      const marker = new google.maps.Marker({
+        position: position,
+        map: this.map,
+        title: stop.stop_name
+      });
+      
+      this.markers.push(marker);
+    
+  
+      // Creează un conținut pentru info window cu numele și coordonatele stației
+      const contentString = `
+        <div>
+          <h3>${stop.stop_name}</h3>
+          <p>Coordonate: ${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}</p>
+        </div>
+      `;
+  
+      // Creează un info window pentru markerul curent
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+  
+      // Adaugă un ascultător de eveniment pentru clic pe marker
+      marker.addListener('click', () => {
+        // Închide toate celelalte info windows deschise
+        infowindow.close();
+        // Deschide info window-ul pentru markerul curent
+        infowindow.open(this.map, marker);
+      });
+    });
+  }
   // methods for saving the directions from Google API
   
   saveDirectionsToFile(response: any) {
@@ -126,12 +210,9 @@ export class HomepageComponent implements OnInit {
 
 
   getRandomColor() {
-    console.log("getRandomColor")
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
+    console.log("getColor");
+    const color = this.colors[this.colorIndex];
+    this.colorIndex = (this.colorIndex + 1) % this.colors.length;
     return color;
   }
 
@@ -148,13 +229,14 @@ export class HomepageComponent implements OnInit {
     });
     renderer.setMap(this.map);
     renderer.setDirections(routeData);
+    this.directionsRenderers.push(renderer);
   }
 
 
   async getRouteDataAndDraw(startId: string, stopId: string, color: string) {
     console.log("getRouteDataAndDraw");
     try {
-      const response = await fetch(`http://localhost:8000/api/routes?start_id=${startId}&stop_id=${stopId}`);
+      const response = await fetch(`http://localhost:8000/api/directions?start_id=${startId}&stop_id=${stopId}`);
       if (response.ok) {
         const routeData = await response.json();
         if (routeData) {
@@ -178,7 +260,7 @@ export class HomepageComponent implements OnInit {
   async getLocalRoutesAndDraw() {
     console.log("getLocalRoutesAndDraw");
     try {
-      const response = await fetch('http://localhost:8000/api/routes');
+      const response = await fetch('http://localhost:8000/api/directions');
       if (response.ok) {
         const routes = await response.json();
         routes.forEach((route: number[]) => {
@@ -196,7 +278,72 @@ export class HomepageComponent implements OnInit {
       console.error('Error fetching routes:', error);
     }
   }
+
+  async fetchRoutes() {
+    const routesResponse = await fetch('http://localhost:8000/api/routes');
+    if (!routesResponse.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    const routes = await routesResponse.json();
+    this.routes = routes;
+    console.log('Routes:', this.routes);
+  } 
+
+
+  async fetchStops() {
+    const stopsResponse = await fetch('http://localhost:8000/api/stops');
+    if (!stopsResponse.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    const stops = await stopsResponse.json();
+    this.stops = stops;
+    console.log('Stops:', this.stops);
+  } 
+
+  getStopName(stopId: string): string {
+    const stop = this.stops.find(s => s.stop_id === (parseInt(stopId, 10) + 1).toString());
+    return stop ? stop.stop_name : 'Unknown';
+  }
+
+  clearPreviousRenderers() {
+    this.directionsRenderers.forEach(renderer => renderer.setMap(null));
+    this.directionsRenderers = [];
+  }
+
+  clearPreviousMarkers() {
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
+  }
   
+  async displayRoute(routeId: string): Promise<void> {
+    this.clearPreviousRenderers(); // Clear previous DirectionsRenderers
+    this.clearPreviousMarkers(); // Clear previous markers
+    // Clear previous markers
+   
+    console.log("Displaying route with ID:", routeId);
+    const route = this.routes.find(r => r.id === routeId);
+    if (!route) {
+      console.error('Route not found:', routeId);
+      return;
+    }
+    const color = this.getRandomColor();
+    for (let i = 0; i < route.stops.length - 1; i++) {
+      const startId = String(Number(route.stops[i]) + 1); 
+      const stopId = String(Number(route.stops[i + 1]) + 1); 
+      
+      await this.getRouteDataAndDraw(startId, stopId, color);
+    }
+    const routeStops: Stop[] = [];
+    for (let i = 0; i < route.stops.length; i++) {
+      const stopId = route.stops[i];
+      const stop = this.stops.find(s => s.stop_id === String(stopId+1));
+      if (stop) {
+        routeStops.push(stop);
+      } else {
+        console.warn('Stop not found for stop_id:', stopId);
+      }
+  }
+  this.drawStops(routeStops);
   
-  
+}
 }
