@@ -1,7 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def draw_routes_mandl_network():
+def draw_routes_mandl_network(routes):
     G = nx.Graph()
     node_positions = {}
     with open("../../data/mandl/mandl1_nodes.txt", "r") as file:
@@ -23,14 +23,6 @@ def draw_routes_mandl_network():
     nx.draw_networkx_edge_labels(G, pos=node_positions, edge_labels=labels)
     colors = ['#FF0000', 'green', 'blue', 'yellow', 'gray', 'pink', 'purple', 'orange']
     offset = 0.0
-
-
-
-    plt.savefig("img.png")
-    plt.show()
-
-draw_routes_mandl_network()
-'''
     for i, route in enumerate(routes):
         for j in range(len(route) - 1):
             u, v = route[j], route[j + 1]
@@ -45,4 +37,7 @@ draw_routes_mandl_network()
             )
 
             offset += 0.01
-            '''
+
+
+    plt.savefig("img.png")
+    plt.show()

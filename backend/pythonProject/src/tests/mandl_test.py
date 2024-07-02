@@ -152,15 +152,15 @@ print("dun", dun, '%')
 print("ATT", ATT)
 print("TRL", trl)
 
-#print("\nGA 4 rute")
-#ga4.run_genetic_algorithm()
+print("\nGA 4 rute")
+ga4.run_genetic_algorithm()
 
-#print("\nGA 6 rute")
-#ga6.run_genetic_algorithm()
+print("\nGA 6 rute")
+ga6.run_genetic_algorithm()
 
 
-#print("\nGA 7 rute")
-#ga7.run_genetic_algorithm()
+print("\nGA 7 rute")
+ga7.run_genetic_algorithm()
 
 print("\nGA 8 rute")
 ga8.run_genetic_algorithm()

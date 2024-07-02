@@ -95,14 +95,12 @@ def write_data_to_files():
                 routes.update_actual_time(i,j, routes.get_route_medium_time(i,j))
                 routes.update_actual_time(j,i, routes.get_route_medium_time(i,j))
 
-    # Open the files outside the loops in write mode initially to write the headers
     with open('../../data/iasi/Iasi_links.txt', 'w') as txtfile:
         txtfile.write("from, to, travel_time\n")
 
     with open('../../data/iasi/Iasi_demand.txt', 'w') as txtfile2:
         txtfile2.write("from, to, demand\n")
 
-    # Open the files in append mode inside the loops to write the data
     for i in range(1, 192):
         for j in range(1, 192):
             if i != j:

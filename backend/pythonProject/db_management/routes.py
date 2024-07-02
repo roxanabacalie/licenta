@@ -30,7 +30,7 @@ def get_route_time(start_id, stop_id):
     )
     try:
         cursor.execute(select_sql, (start_id, stop_id))
-        route = cursor.fetchone()  # Assuming we expect only one result
+        route = cursor.fetchone()
         if route:
             return route[0]
         else:
@@ -48,7 +48,7 @@ def get_route_demand(start_id, stop_id):
     )
     try:
         cursor.execute(select_sql, (start_id, stop_id))
-        route = cursor.fetchone()  # Assuming we expect only one result
+        route = cursor.fetchone()
         if route:
             return route[0]
         else:
@@ -66,7 +66,7 @@ def get_route_medium_time(start_id, stop_id):
     )
     try:
         cursor.execute(select_sql, (start_id, stop_id))
-        route = cursor.fetchone()  # Assuming we expect only one result
+        route = cursor.fetchone()
         if route:
             return route[0]
         else:

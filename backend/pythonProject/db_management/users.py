@@ -41,7 +41,7 @@ def create_user(username, password):
         db.commit()
         print(f"User '{username}' created successfully.")
     except mysql.connector.IntegrityError as e:
-        if e.errno == 1062:  # MySQL error code for duplicate entry
+        if e.errno == 1062:
             print(f"Error: Username '{username}' already exists.")
         else:
             print(f"Error: {e}")

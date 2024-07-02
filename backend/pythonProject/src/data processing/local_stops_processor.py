@@ -289,12 +289,12 @@ iasi_polygon_data = {
 def process_stops(polygon_data, stops_data_file_path, output_file_path):
 	iasi_polygon: Polygon = shape(polygon_data)
 
-	# read stops data
+
 	with open(stops_data_file_path, 'r', newline='', encoding='utf-8') as csvfile:
 		reader = csv.DictReader(csvfile)
 		stops_data = list(reader)
 
-	# filter stops within Iasi and remove duplicates
+
 	stops_within_iasi = {}
 	for row in stops_data:
 		lat = float(row['Stop Latitude'])
@@ -311,7 +311,6 @@ def process_stops(polygon_data, stops_data_file_path, output_file_path):
 					'Stop Longitude': lon
 				}
 
-	# assign new consecutive IDs
 	stops_with_consecutive_ids = []
 	new_id = 1
 	for stop in stops_within_iasi.values():
@@ -319,7 +318,7 @@ def process_stops(polygon_data, stops_data_file_path, output_file_path):
 		stops_with_consecutive_ids.append(stop)
 		new_id += 1
 
-	# write final stops data with consecutive IDs
+
 	with open(output_file_path, 'w', newline='', encoding='utf-8') as csvfile:
 		fieldnames = ['Stop ID', 'Stop Name', 'Stop Latitude', 'Stop Longitude']
 		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
