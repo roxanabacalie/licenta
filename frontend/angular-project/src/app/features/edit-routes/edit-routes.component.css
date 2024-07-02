@@ -66,3 +66,42 @@
     color: #dc3545;
     font-size: 80%;
   }
+
+  .route-container {
+    background-color: #f2f2f2; 
+    padding: 10px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+    cursor: pointer; 
+    margin-bottom: 20px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+  }
+  
+  .route-container:hover {
+    background-color: #FFDF6C; 
+    color: #f2f2f2; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+  }
+  
+  .route-container h3 {
+    cursor: auto; 
+  }
+  
+
+  .stops-list {
+    list-style-type: none; 
+    padding-left: 0; 
+    display: flex; 
+    flex-wrap: wrap; 
+  }
+  
+  .stops-list li {
+    margin-right: 10px; 
+    border-right: 1px solid #ccc; 
+    padding-right: 10px; 
+  }
+  
+  .stops-list li:last-child {
+    border-right: none; 
+  }
+  

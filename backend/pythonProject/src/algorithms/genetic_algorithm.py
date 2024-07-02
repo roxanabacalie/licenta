@@ -378,4 +378,5 @@ class GeneticAlgorithm:
 		plt.ylabel('Fitness')
 		plt.title('Evoluția  fitness-ului')
 		plt.show()
+		return filename
 

@@ -72,3 +72,13 @@ def verify_account(username, password):
     else:
         print("Invalid password")
         return False
+
+def get_userid_by_username(username):
+    select_sql = "SELECT user_id FROM account WHERE username = %s"
+    cursor.execute(select_sql, (username,))
+    result = cursor.fetchone()
+
+    if result:
+        return result[0]
+    else:
+        return None
