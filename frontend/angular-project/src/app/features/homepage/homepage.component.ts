@@ -30,11 +30,10 @@ export class HomepageComponent implements OnInit {
   public routes: Route[] = [];
   private stops: Stop[] = [];
   private directionsRenderer: any; 
-  private directionsRenderers: any[] = []; // Array to store all DirectionsRenderer instances
-  private markers: any[] = []; // Array to store all markers
+  private directionsRenderers: any[] = []; 
+  private markers: any[] = []; 
   
 
-  // Predefined list of 40 distinct colors
   private colors: string[] = [
     '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A8', '#33FFF2', '#F2FF33', 
     '#FF8F33', '#8F33FF', '#33FF8F', '#FF3333', '#33FF33', '#3333FF', '#8F8F33', 
@@ -46,7 +45,6 @@ export class HomepageComponent implements OnInit {
   constructor() { }
   
   ngOnInit(): void {
-    // load Google Maps API, initialize the map
     this.loadGoogleMapsScript().then(() => {
       this.initMap();
     });
@@ -76,20 +74,16 @@ export class HomepageComponent implements OnInit {
 
     this.directionsService = new google.maps.DirectionsService();
     this.directionsRenderer = new google.maps.DirectionsRenderer({ map: this.map }); 
-    //this.getStopsAndDraw();
-    //this.getLocalRoutesAndDraw();
-    //this.getDirectionsFromCSV();
-    //this.getRouteDataAndDraw();
 
   }
 
 
   async getStopsAndDraw() {
     try {
-      const response = await fetch('http://localhost:8000/api/stops'); // Endpoint-ul pentru stații din backend
+      const response = await fetch('http://localhost:8000/api/stops');
       if (response.ok) {
-        const stops = await response.json(); // Convertim răspunsul în format JSON
-        this.drawStops(stops); // Apelăm funcția pentru a desena stațiile pe hartă
+        const stops = await response.json(); 
+        this.drawStops(stops); 
       } else {
         console.error('Error fetching stops:', response.status);
       }
@@ -101,8 +95,6 @@ export class HomepageComponent implements OnInit {
   drawStops(stops: any[]) {
     stops.forEach(stop => {
       const position = { lat: parseFloat(stop.stop_lat), lng: parseFloat(stop.stop_lon) };
-  
-      // Creează un marker pentru fiecare stație
       const marker = new google.maps.Marker({
         position: position,
         map: this.map,
@@ -111,8 +103,6 @@ export class HomepageComponent implements OnInit {
       
       this.markers.push(marker);
     
-  
-      // Creează un conținut pentru info window cu numele și coordonatele stației
       const contentString = `
         <div>
           <h3>${stop.stop_name}</h3>
@@ -120,21 +110,17 @@ export class HomepageComponent implements OnInit {
         </div>
       `;
   
-      // Creează un info window pentru markerul curent
+
       const infowindow = new google.maps.InfoWindow({
         content: contentString
       });
   
-      // Adaugă un ascultător de eveniment pentru clic pe marker
       marker.addListener('click', () => {
-        // Închide toate celelalte info windows deschise
         infowindow.close();
-        // Deschide info window-ul pentru markerul curent
         infowindow.open(this.map, marker);
       });
     });
   }
-  // methods for saving the directions from Google API
   
   saveDirectionsToFile(response: any) {
     console.log("saveDirectionsToFile");
@@ -316,9 +302,8 @@ export class HomepageComponent implements OnInit {
   }
   
   async displayRoute(routeId: string): Promise<void> {
-    this.clearPreviousRenderers(); // Clear previous DirectionsRenderers
-    this.clearPreviousMarkers(); // Clear previous markers
-    // Clear previous markers
+    this.clearPreviousRenderers(); 
+    this.clearPreviousMarkers();
    
     console.log("Displaying route with ID:", routeId);
     const route = this.routes.find(r => r.id === routeId);

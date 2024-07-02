@@ -19,14 +19,14 @@
     justify-content: center;
     align-items: center;
     height: 450px;
-    background-color: #ffffff; /* Culoare de fundal pentru containerul hărții */
-    padding: 20px; /* Spațiere pentru a distanța conținutul de margine */
-    border-radius: 5px; /* Rotunjirea colțurilor */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Umbra pentru efect vizual */
+    background-color: #ffffff; 
+    padding: 20px; 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   
   #map {
-    height: 400px; /* Set the height for the map */
+    height: 400px; 
     width: 80%;
   }
   .container-main {
@@ -54,11 +54,11 @@
     font-weight: 500;
     cursor: pointer;
     border-radius: 4px;
-    margin: 0 auto; /* Center align horizontally */
+    margin: 0 auto; 
 }
   
   .custom-button:hover {
-    background-color: #FFE485; /* Culoarea de fundal la hover */
+    background-color: #FFE485; 
   }
 
   .invalid-feedback {

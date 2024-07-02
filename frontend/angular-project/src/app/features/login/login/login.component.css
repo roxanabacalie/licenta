@@ -14,7 +14,7 @@
     background-color: #FFDF6C;
     color: black;
     border: #707070;
-    width: 8rem; /* Schimbă lățimea butonului la nevoie */
+    width: 8rem; 
 }
 
 .custom-login-btn:hover {

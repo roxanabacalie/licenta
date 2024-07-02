@@ -19,8 +19,6 @@ export class EditRoutesComponent {
   private map: any;
   private directionsService: any;
   private colorIndex: number = 0;
-  
-  // Predefined list of 40 distinct colors
   private colors: string[] = [
     '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A8', '#33FFF2', '#F2FF33', 
     '#FF8F33', '#8F33FF', '#33FF8F', '#FF3333', '#33FF33', '#3333FF', '#8F8F33', 
@@ -43,7 +41,7 @@ export class EditRoutesComponent {
     this.formParametrii = this.fb.group({
       populationSizeInput: ['', [
         Validators.required,
-        Validators.pattern(/^[1-9]\d*$/), // Verificare pentru număr întreg pozitiv
+        Validators.pattern(/^[1-9]\d*$/), 
         Validators.min(5)
       ]],
       tournamentSizeInput: ['', [Validators.required, Validators.min(2)]],
@@ -62,7 +60,7 @@ export class EditRoutesComponent {
 
     this.socket.on('algorithm_complete', (message: any) => {
       console.log('Genetic algorithm finished:', message);
-      // Afișează mesajul în consolă sau poți face alte operații cu mesajul primit de la server
+      
     });
   }
 
@@ -87,14 +85,11 @@ export class EditRoutesComponent {
   submitDateleForm(): void {
     if (this.formDatele.valid) {
       console.log('Formular Datele din Iași submit:', this.formDatele.value);
-      // Aici poți adăuga logica pentru procesarea formularului
     }
   }
   submitParametriiForm(): void {
     if (this.formParametrii.valid) {
       console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
-  
-      // Extrage parametrii din formular
       const algorithmParams = {
         populationSize: this.formParametrii.value.populationSizeInput,
         tournamentSize: this.formParametrii.value.tournamentSizeInput,
@@ -105,7 +100,6 @@ export class EditRoutesComponent {
         eliteSize: this.formParametrii.value.eliteSizeInput
       };
   
-      // Trimite cererea către backend-ul Flask
       const xhr = new XMLHttpRequest();
       const url = "http://localhost:8000/api/run-algorithm";
       xhr.open("POST", url, true);
@@ -114,7 +108,6 @@ export class EditRoutesComponent {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
             console.log("Response:", xhr.responseText);
-            // Poți trata răspunsul în funcție de necesitățile tale
           } else {
             console.error("Error starting algorithm:", xhr.status);
           }

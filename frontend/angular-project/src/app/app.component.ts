@@ -6,17 +6,26 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { HomepageComponent } from './features/homepage/homepage.component';
 import { GoogleMapsService } from './google-maps.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { EditRoutesComponent } from './features/edit-routes/edit-routes.component';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FooterComponent, NavbarComponent, HomepageComponent, HttpClientModule],
+  imports: [CommonModule, RouterOutlet, FooterComponent, NavbarComponent, HomepageComponent, HttpClientModule, EditRoutesComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [GoogleMapsService] // Provide the GoogleMapsService here
+  providers: [GoogleMapsService] 
 })
 
 export class AppComponent {
   title = 'angular-project';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.authService.loggedIn.next(true);
+    }
+  }
 }
