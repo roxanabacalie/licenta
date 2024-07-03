@@ -1,11 +1,17 @@
+import concurrent
 import csv
 import json
 import logging
+import multiprocessing
 import signal
 import threading
 import time
+import traceback
+from concurrent.futures import ProcessPoolExecutor
 from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
+
+import psutil
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -38,10 +44,16 @@ iasi_transit_network = TransitNetwork(
 	)
 
 running_algorithms = {}
-executor = ThreadPoolExecutor()
+executor = ProcessPoolExecutor()
 
 def run_genetic_algorithm(params):
     try:
+        print("Running genetic algorithm with params:", params)
+        process_id = multiprocessing.current_process().pid
+        start_timestamp = datetime.now()
+        user_id = int(params['user_id'])
+        run_id = ga_runs.insert_ga_run(None, process_id, start_timestamp, None, 0, user_id)
+
         population_size = int(params['populationSize'])
         tournament_size = int(params['tournamentSize'])
         crossover_probability = float(params['crossoverProbability'])
@@ -49,13 +61,11 @@ def run_genetic_algorithm(params):
         small_mutation_probability = float(params['smallMutationProbability'])
         number_of_generations = int(params['numberOfGenerations'])
         elite_size = int(params['eliteSize'])
-        user_id = int(params['user_id'])
 
-        print("Running genetic algorithm with params:", params)
-        process_id = os.getpid()
-        start_timestamp = datetime.now()
 
-        run_id = ga_runs.insert_ga_run(None, process_id, start_timestamp, None, 0, user_id)
+
+
+
         ga_iasi = GeneticAlgorithm(
             population_size,
             tournament_size,
@@ -114,9 +124,14 @@ def monitor_algorithm_completion(future):
             "routes": result,  # Send the routes data to the frontend
             "params": params
         })
-
+    except concurrent.futures.CancelledError:
+        print("Algorithm execution was cancelled.")
+    except concurrent.futures.process.BrokenProcessPool as e:
+        print("Algorithm execution was cancelled by termination.")
+        traceback.print_exc()
     except Exception as e:
         print(f"Algorithm execution error: {str(e)}")
+        traceback.print_exc()
 
 def monitor_running_algorithms():
     while True:
@@ -139,13 +154,27 @@ def cancel_algorithm():
     pid = ga_runs.get_pid_by_userid(user_id)
     try:
         if pid:
-            os.kill(int(pid), signal.SIGTERM)
+            # Terminate the process using psutil
+            process = psutil.Process(int(pid))
+            process.terminate()
+            process.wait()  # Wait for the process to terminate
+
+            # Find and cancel the corresponding future
+            for future, params in list(running_algorithms.items()):
+                if params['user_id'] == user_id:
+                    future.cancel()
+                    running_algorithms.pop(future, None)
+                    break
             return jsonify({'message': f'Process with PID {pid} terminated.'}), 200
         else:
             return jsonify({'error': f'No PID found for user_id {user_id}.'}), 404
-    except OSError as e:
-        return jsonify({'error': str(e)}), 500
-
+    except psutil.NoSuchProcess:
+        return jsonify({'error': f'No process found with PID {pid}.'}), 404
+    except psutil.AccessDenied:
+        return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
 
 
 @app.route('/directions', methods=['POST'])

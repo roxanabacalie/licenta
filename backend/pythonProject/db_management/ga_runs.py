@@ -82,6 +82,7 @@ def get_last_filename():
 
 
 def get_pid_by_userid(user_id):
+    user_id = int(user_id)
     try:
         select_query = """
         SELECT process_id
@@ -90,10 +91,12 @@ def get_pid_by_userid(user_id):
         ORDER BY id DESC
         LIMIT 1
         """
+        print(f"Executing query for user_id: {user_id}")
         cursor.execute(select_query, (user_id,))
         result = cursor.fetchone()
 
         if result:
+            print(f"Found process_id {result[0]} for user_id {user_id}")
             return result[0]
         else:
             print(f"No running process found for user_id {user_id}")
