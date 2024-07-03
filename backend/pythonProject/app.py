@@ -1,6 +1,7 @@
 import csv
 import json
 import logging
+import signal
 import threading
 import time
 from concurrent.futures.thread import ThreadPoolExecutor
@@ -130,6 +131,21 @@ monitor_thread = threading.Thread(target=monitor_running_algorithms)
 monitor_thread.start()
 
 socketio.init_app(app)
+
+@app.route('/api/cancel-algorithm', methods=['POST'])
+@jwt_required()
+def cancel_algorithm():
+    user_id = get_jwt_identity()
+    pid = ga_runs.get_pid_by_userid(user_id)
+    try:
+        if pid:
+            os.kill(int(pid), signal.SIGTERM)
+            return jsonify({'message': f'Process with PID {pid} terminated.'}), 200
+        else:
+            return jsonify({'error': f'No PID found for user_id {user_id}.'}), 404
+    except OSError as e:
+        return jsonify({'error': str(e)}), 500
+
 
 
 @app.route('/directions', methods=['POST'])

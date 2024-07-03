@@ -80,3 +80,25 @@ def get_last_filename():
         print("Error: ", err)
         return None
 
+
+def get_pid_by_userid(user_id):
+    try:
+        select_query = """
+        SELECT process_id
+        FROM ga_runs
+        WHERE user_id = %s AND stop_timestamp IS NULL
+        ORDER BY id DESC
+        LIMIT 1
+        """
+        cursor.execute(select_query, (user_id,))
+        result = cursor.fetchone()
+
+        if result:
+            return result[0]
+        else:
+            print(f"No running process found for user_id {user_id}")
+            return None
+
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+        return None
