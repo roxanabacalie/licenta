@@ -3,27 +3,25 @@ import csv
 import json
 import logging
 import multiprocessing
-import signal
 import threading
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor
-from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
-
+from flask_socketio import SocketIO
 import psutil
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from flask_socketio import SocketIO
 from db_management import ga_runs, users
 from db_management.users import verify_account
 from src.algorithms.genetic_algorithm import GeneticAlgorithm
 from src.algorithms.initial_solution import TransitNetwork
+from src.data_processing.files_handler import read_travel_info, update_links_file, update_demands_file
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
@@ -36,24 +34,23 @@ app.config["JWT_SECRET_KEY"] = 'your_jwt_secret_key'
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 logging.basicConfig(level=logging.DEBUG)
-
 iasi_transit_network = TransitNetwork(
-		191,
-		"data/iasi/Iasi_links.txt",
-		"data/iasi/Iasi_demand.txt"
-	)
-
+    191,
+    "data/iasi/Iasi_links.txt",
+    "data/iasi/Iasi_demand.txt"
+)
+running_processes = {}
 running_algorithms = {}
 executor = ProcessPoolExecutor()
-
-def run_genetic_algorithm(params):
+last_sent_percent_complete = 0
+def run_genetic_algorithm(params, run_id):
     try:
+        print("rga", running_processes)
         print("Running genetic algorithm with params:", params)
         process_id = multiprocessing.current_process().pid
         start_timestamp = datetime.now()
         user_id = int(params['user_id'])
-        run_id = ga_runs.insert_ga_run(None, process_id, start_timestamp, None, 0, user_id)
-
+        ga_runs.update_process_id(run_id, process_id)
         population_size = int(params['populationSize'])
         tournament_size = int(params['tournamentSize'])
         crossover_probability = float(params['crossoverProbability'])
@@ -61,10 +58,6 @@ def run_genetic_algorithm(params):
         small_mutation_probability = float(params['smallMutationProbability'])
         number_of_generations = int(params['numberOfGenerations'])
         elite_size = int(params['eliteSize'])
-
-
-
-
 
         ga_iasi = GeneticAlgorithm(
             population_size,
@@ -77,7 +70,8 @@ def run_genetic_algorithm(params):
             elite_size,
             35,
             60,
-            120
+            120,
+            run_id
         )
         result_file = ga_iasi.run_genetic_algorithm()
         stop_timestamp = datetime.now()
@@ -96,24 +90,12 @@ def run_genetic_algorithm(params):
         for idx, route in enumerate(routes_data):
             route_dict = {'id': idx + 1, 'stops': route}
             routes.append(route_dict)
-
+        del running_processes[user_id]
         return routes
     except Exception as e:
         print("Error running genetic algorithm:", e)
+        traceback.print_exc()
         return str(e)
-
-
-@app.route('/api/run-algorithm', methods=['POST'])
-@jwt_required()
-def trigger_algorithm():
-    data = request.get_json()
-    user_id = get_jwt_identity()
-    print(user_id)
-    data['user_id'] = user_id
-    future = executor.submit(run_genetic_algorithm, data)
-    running_algorithms[future] = data
-    return jsonify({"message": "Genetic algorithm started."}), 200
-
 
 def monitor_algorithm_completion(future):
     try:
@@ -138,43 +120,110 @@ def monitor_running_algorithms():
         for future in list(running_algorithms.keys()):
             if future.done():
                 monitor_algorithm_completion(future)
-
         time.sleep(1)
 
 
-monitor_thread = threading.Thread(target=monitor_running_algorithms)
-monitor_thread.start()
+@app.route('/api/travel-info', methods=['GET'])
+def get_travel_info():
+    from_station = int(request.args.get('from'))
+    to_station = int(request.args.get('to'))
 
-socketio.init_app(app)
+    if from_station == to_station:
+        result = {
+            'travel_time': 0,
+            'demand': 0
+        }
+        return jsonify(result)
+    else:
+        travel_times, demands = read_travel_info()
+        travel_time = next(
+            (item['travel_time'] for item in travel_times if item['from'] == from_station and item['to'] == to_station),
+            None)
+        demand = next((item['demand'] for item in demands if item['from'] == from_station and item['to'] == to_station),
+                      None)
+
+        if travel_time is None:
+            travel_time_display = "infinit"
+        else:
+            travel_time_display = travel_time
+
+        result = {
+            'travel_time': travel_time_display,
+            'demand': demand
+        }
+        return jsonify(result)
+
+
+@app.route('/api/travel-info', methods=['POST'])
+def update_travel_info():
+    data = request.json
+    from_station = int(data['from'])
+    to_station = int(data['to'])
+    travel_time = int(data['travelTime'])
+    demand = int(data['demand'])
+    update_links_file('data/iasi/Iasi_links.txt', from_station, to_station, travel_time)
+    update_demands_file('data/iasi/Iasi_demand.txt', from_station, to_station, demand)
+    return jsonify({'message': 'Travel times updated successfully.'}), 200
+
+
+def send_percent_complete(run_id):
+    global last_sent_percent_complete
+    while True:
+        try:
+            percent_complete = ga_runs.get_percent_complete(run_id)
+            if percent_complete is not None and percent_complete != last_sent_percent_complete:
+                socketio.emit('percent_complete', {'percent_complete': percent_complete}, namespace='/')
+                last_sent_percent_complete = percent_complete
+                print(f"Sent percent_complete: {percent_complete}")
+            time.sleep(2)
+        except Exception as e:
+            print(f"Error in send_percent_complete thread: {str(e)}")
+            time.sleep(2)
+
+@app.route('/api/run-algorithm', methods=['POST'])
+@jwt_required()
+def trigger_algorithm():
+    user_id = get_jwt_identity()
+    data = request.json
+    data['user_id'] = user_id
+    if user_id in running_processes and running_processes[user_id].is_alive():
+        return jsonify({'error': 'Algorithm is already running for this user.'}), 400
+
+    run_id = ga_runs.insert_ga_run(None, None, datetime.now(), None, 0, user_id)
+    process = multiprocessing.Process(target=run_genetic_algorithm, args=(data,run_id, ))
+    process.start()
+    print("adaug user id")
+    running_processes[user_id] = process
+    print(running_processes)
+    # Start the thread to send percent_complete updates
+    threading.Thread(target=send_percent_complete, args=(run_id,), daemon=True).start()
+
+    return jsonify({'message': 'Algorithm execution started.', 'pid': process.pid, 'run_id': run_id}), 200
+
 
 @app.route('/api/cancel-algorithm', methods=['POST'])
 @jwt_required()
 def cancel_algorithm():
     user_id = get_jwt_identity()
-    pid = ga_runs.get_pid_by_userid(user_id)
-    try:
-        if pid:
-            # Terminate the process using psutil
-            process = psutil.Process(int(pid))
-            process.terminate()
-            process.wait()  # Wait for the process to terminate
+    process = running_processes.get(user_id)
 
-            # Find and cancel the corresponding future
-            for future, params in list(running_algorithms.items()):
-                if params['user_id'] == user_id:
-                    future.cancel()
-                    running_algorithms.pop(future, None)
-                    break
-            return jsonify({'message': f'Process with PID {pid} terminated.'}), 200
-        else:
-            return jsonify({'error': f'No PID found for user_id {user_id}.'}), 404
-    except psutil.NoSuchProcess:
-        return jsonify({'error': f'No process found with PID {pid}.'}), 404
-    except psutil.AccessDenied:
-        return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
+    if process and process.is_alive():
+        try:
+            psutil_process = psutil.Process(process.pid)
+            psutil_process.terminate()
+            psutil_process.wait()
+
+            running_processes.pop(user_id, None)
+            return jsonify({'message': f'Process with PID {process.pid} terminated.'}), 200
+        except psutil.NoSuchProcess:
+            return jsonify({'error': f'No process found with PID {process.pid}.'}), 404
+        except psutil.AccessDenied:
+            return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
+        except Exception as e:
+            return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
+    else:
+        return jsonify({'error': f'No running process found for user_id {user_id}.'}), 404
+
 
 
 @app.route('/directions', methods=['POST'])
@@ -210,10 +259,28 @@ def login():
     return jsonify({'message': 'Invalid credentials'}), 401
 
 
+@app.route('/api/is-algorithm-running', methods=['GET'])
+@jwt_required()
+def is_algorithm_running():
+    user_id = get_jwt_identity()
+    if user_id in running_processes and running_processes[user_id].is_alive():
+        return jsonify({'running': True}), 200
+    else:
+        return jsonify({'running': False}), 200
+
+
 @app.route('/api/routes', methods=['GET'])
 def get_routes():
     try:
-        filename = ga_runs.get_last_filename()
+        filename_param = request.args.get('filename', type=str)
+        if not isinstance(filename_param, str):
+            raise ValueError('Filename parameter must be a string.')
+        print(filename_param)
+        if filename_param:
+            filename = filename_param
+        else:
+            filename = ga_runs.get_last_filename()
+
         with open(filename, 'r') as f:
             data = json.load(f)
         routes_data = data["best_individual"]
@@ -280,7 +347,19 @@ def get_stops():
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
+@app.route('/api/files', methods=['GET'])
+def get_files():
+    try:
+        files = ga_runs.get_files()
+        print(files)
+        return jsonify(files)
+    except Exception as err:
+        print("Error: ", err)
+        return jsonify([]), 500
+
+monitor_thread = threading.Thread(target=monitor_running_algorithms)
+monitor_thread.start()
+socketio.init_app(app)
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=8000, debug=True, use_reloader=True, allow_unsafe_werkzeug=True)
-
-

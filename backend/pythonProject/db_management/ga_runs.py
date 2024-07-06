@@ -105,3 +105,52 @@ def get_pid_by_userid(user_id):
     except mysql.connector.Error as err:
         print("Error: ", err)
         return None
+
+
+def get_files():
+    try:
+        select_query = "SELECT id, filename FROM ga_runs"
+        cursor.execute(select_query)
+        results = cursor.fetchall()
+
+        files = [{'id': row[0], 'filename': row[1]} for row in results]
+        return files
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+        return []
+
+def update_percent_complete(run_id, percent_complete):
+    try:
+        update_query = "UPDATE ga_runs SET percent_complete = %s WHERE id = %s"
+        cursor.execute(update_query, (percent_complete, run_id))
+        db.commit()
+        print("Percent complete updated successfully")
+
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+
+def get_percent_complete(run_id):
+    try:
+        select_query = "SELECT percent_complete FROM ga_runs WHERE id = %s"
+        cursor.execute(select_query, (run_id,))
+        result = cursor.fetchone()
+
+        if result:
+            return result[0]  # Return percent_complete
+        else:
+            print(f"No run found with id {run_id}")
+            return None
+
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+        return None
+
+def update_process_id(run_id, process_id):
+    try:
+        update_query = "UPDATE ga_runs SET process_id = %s WHERE id = %s"
+        cursor.execute(update_query, (process_id, run_id))
+        db.commit()
+        print(f"Process ID updated successfully to {process_id} for run_id {run_id}")
+
+    except mysql.connector.Error as err:
+        print("Error: ", err)

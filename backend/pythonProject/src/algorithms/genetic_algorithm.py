@@ -5,8 +5,9 @@ from datetime import datetime
 from math import inf
 import numpy as np
 from matplotlib import pyplot as plt
+
+from db_management.ga_runs import update_percent_complete
 from src.algorithms.genetic_algorithm_helpers import roulette_wheel_selection, is_subsequence
-from src.algorithms.initial_solution import TransitNetwork
 
 
 class GeneticAlgorithm:
@@ -22,7 +23,8 @@ class GeneticAlgorithm:
 			elite_size,
 			route_set_size,
 			time_unit_factor,
-			unsatisfied_factor
+			unsatisfied_factor,
+			run_id
 
 	):
 		self.pop_size = pop_size
@@ -39,6 +41,9 @@ class GeneticAlgorithm:
 		self.best_fitness = -inf
 		self.time_unit_factor = time_unit_factor  # 1 for minutes, 60 for seconds
 		self.unsatisfied_factor = unsatisfied_factor
+		self.individual_characteristics_values = {}
+		self.total_route_length_values = {}
+		self.run_id = None
 
 	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
@@ -49,18 +54,26 @@ class GeneticAlgorithm:
 
 	# Calcularea lungimii totale a rutelor
 	def calculate_trl(self, route_set):
+		route_set_key = tuple(tuple(route) for route in route_set)
+		if route_set_key in self.total_route_length_values:
+			return self.total_route_length_values[route_set_key]
+
 		total_route_length = 0
 		for route in route_set:
 			edges = [(route[i], route[i + 1]) for i in range(len(route) - 1)]
 			total_route_length += np.sum(
 				[self.transit_network.graph[node_from][node_to] for node_from, node_to in edges])
 
+		self.total_route_length_values[route_set_key] = total_route_length
 		return total_route_length
 
 	# Calcularea caracteristicilor pentru un individ (set de rute)
 	def calculate_characteristics(self, individual):
-		node_to_routes = {node: [] for node in range(self.transit_network.number_of_vertices)}
+		individual_key = tuple(tuple(route) for route in individual)
+		if individual_key in self.individual_characteristics_values:
+			return self.individual_characteristics_values[individual_key]
 
+		node_to_routes = {node: [] for node in range(self.transit_network.number_of_vertices)}
 		for route_index, route in enumerate(individual):
 			for node in route:
 				node_to_routes[node].append(route_index)
@@ -121,8 +134,9 @@ class GeneticAlgorithm:
 		d2 = two_changes_connections_demand * 100 / (self.transit_network.total_demand / 2)
 		dun = unsatisfied_demand * 100 / (self.transit_network.total_demand / 2)
 
-
-		return d0, d1, d2, dun, avg_travel_time
+		characteristics = (d0, d1, d2, dun, avg_travel_time)
+		self.individual_characteristics_values[individual_key] = characteristics
+		return characteristics
 
 	# Calcularea fitness-ului pentru un individ
 	def calculate_fitness(self, individual):
@@ -306,14 +320,14 @@ class GeneticAlgorithm:
 				generations_without_improvement += 1
 			fitness_history.append(best_fitness)
 
-			print()
-			print()
-			print(f"Generation: {generation}, Best Fitness: {best_fitness}")
-			print("Best Individual:")
-			for element in best_individual:
-				print(element)
 			included_nodes = set().union(*[set(route) for route in best_individual]) if best_individual else set()
 			missing_nodes = self.transit_network.number_of_vertices - len(included_nodes)
+
+			print()
+			print()
+			print(f"Generation: {generation+1}")
+			print(f"Best Fitness: {best_fitness}")
+			print(f"Best individual: {best_individual}")
 			print(f"Number of nodes not included: {missing_nodes}")
 			d0, d1, d2, dun, avg_travel_time = self.calculate_characteristics(best_individual)
 			print("d0", d0, '%')
@@ -323,6 +337,14 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
+			update_percent_complete(generation, self.run_id)
+
+			'''
+			socketio.emit('generation_update', {
+				'generation': generation + 1,
+				'best_fitness': best_fitness
+			})
+			'''
 			# Crearea noii generatii
 			elite_indices = sorted(range(len(self.population)), key=lambda i: population_fitness[i], reverse=True)[
 							:self.elite_size]
@@ -341,12 +363,10 @@ class GeneticAlgorithm:
 			# Verificarea indeplinirii conditiei de convergenta
 			if generations_without_improvement >= convergence_threshold:
 				break
-		print(
-			"Fitness initial",
-			self.calculate_fitness(self.transit_network.find_initial_route_sets(self.route_set_size))
-		)
+
+		print("\n\nRezultatul aplicarii algoritmului genetic")
 		print("Best individual", best_individual)
-		d0,d1,d2,dun,att = self.calculate_characteristics(best_individual)
+		d0, d1, d2, dun, att = self.calculate_characteristics(best_individual)
 		print("d0", d0, '%')
 		print("d1", d1, '%')
 		print("d2", d2, '%')

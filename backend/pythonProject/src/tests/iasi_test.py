@@ -13,7 +13,7 @@ ga_iasi = GeneticAlgorithm(
 	0.125,
 	0.7,
 	0.4,
-	0,
+	5,
 	iasi_transit_network,
 	8,
 	35,
