@@ -1,35 +1,37 @@
 <div class="container container-main text-center">
   <h2>Datele din Iași</h2>
   <form [formGroup]="formDatele" (ngSubmit)="submitDateleForm()">
-    <div class="mb-4 d-flex flex-row justify-content-center">
-      <select class="form-select me-4" formControlName="stationSelect1" aria-label="Select a station">
-        <option disabled selected>Alegeți o stație</option>
-        <option value="1">Stația 1</option>
-        <option value="2">Stația 2</option>
-        <option value="3">Stația 3</option>
-        <option value="4">Stația 4</option>
-        <option value="5">Stația 5</option>
-      </select>
-
-      <select class="form-select me-4" formControlName="stationSelect2" aria-label="Select a station">
-        <option disabled selected>Alegeți o stație</option>
-        <option value="1">Stația 1</option>
-        <option value="2">Stația 2</option>
-        <option value="3">Stația 3</option>
-        <option value="4">Stația 4</option>
-        <option value="5">Stația 5</option>
-      </select>
-
-      <input type="text" class="form-control me-4" id="distance-input" formControlName="distanceInput"
-        placeholder="Introduceți timpul">
-      <div class="invalid-feedback" *ngIf="formDatele.get('distanceInput')?.invalid && formDatele.get('distanceInput')?.touched">
-        Introduceți un timp valid.
+    <div class="mb-4 d-flex flex-row justify-content-center align-items-start">
+      <div class="me-4">
+        <label for="stationSelect1">Selectează prima stație</label>
+        <select class="form-select" formControlName="stationSelect1" id="stationSelect1" aria-label="Selectează prima stație">
+          <option disabled selected>Alegeți o stație</option>
+          <option *ngFor="let stop of stops" [value]="stop.stop_id">{{ stop.stop_name }}</option>
+        </select>
       </div>
 
-      <input type="text" class="form-control" id="demand-input" formControlName="demandInput"
-        placeholder="Introduceți cererea">
-      <div class="invalid-feedback" *ngIf="formDatele.get('demandInput')?.invalid && formDatele.get('demandInput')?.touched">
-        Introduceți o valoare pentru cerere.
+      <div class="me-4">
+        <label for="stationSelect2">Selectează a doua stație</label>
+        <select class="form-select" formControlName="stationSelect2" id="stationSelect2" aria-label="Selectează a doua stație">
+          <option disabled selected>Alegeți o stație</option>
+          <option *ngFor="let stop of stops" [value]="stop.stop_id">{{ stop.stop_name }}</option>
+        </select>
+      </div>
+
+      <div class="me-4">
+        <label for="distance-input">Introduceți timpul</label>
+        <input type="text" class="form-control" id="distance-input" formControlName="distanceInput" placeholder="Introduceți timpul">
+        <div class="invalid-feedback" *ngIf="formDatele.get('distanceInput')?.invalid && formDatele.get('distanceInput')?.touched">
+          Introduceți un timp valid.
+        </div>
+      </div>
+
+      <div>
+        <label for="demand-input">Introduceți cererea</label>
+        <input type="text" class="form-control" id="demand-input" formControlName="demandInput" placeholder="Introduceți cererea">
+        <div class="invalid-feedback" *ngIf="formDatele.get('demandInput')?.invalid && formDatele.get('demandInput')?.touched">
+          Introduceți o valoare pentru cerere.
+        </div>
       </div>
     </div>
     <button type="submit" class="btn btn-primary custom-button">Modifică datele</button>
@@ -108,12 +110,29 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary custom-button">Generează algoritm</button>
+    <button 
+    type="submit" 
+    class="btn custom-button" 
+    [ngClass]="{ 'btn-danger': isAlgorithmRunning, 'btn-primary': !isAlgorithmRunning }">
+    {{ isAlgorithmRunning ? 'Anulează' : 'Generează algoritm' }}
+  </button>
   </form>
+  <div *ngIf="isAlgorithmRunning" class="mt-3">
+    Generația {{ currentGeneration }} din {{ totalGenerations }}
+  </div>
 </div>
 
 <div class="container container-main text-center mt-5">
   <h2>Hartă</h2>
+  
+  <div class="mb-4">
+    <label for="file-select">Selectați un fișier</label>
+    <select class="form-select" id="file-select" (change)="onFileSelect($event)">
+      <option disabled selected>Alegeți un fișier</option>
+      <option *ngFor="let file of files" [value]="file.id">{{ file.filename }}</option>
+    </select>
+  </div>
+  
   <div id="map-container" class="map-container">
     <div id="map" style="height: 400px; width: 100%;"></div>
   </div>

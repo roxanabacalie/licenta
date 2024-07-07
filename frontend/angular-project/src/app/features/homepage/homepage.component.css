@@ -1,6 +1,6 @@
 .jumbotron {
     background-color: #f2f2f2;
-    color: #FFDF6C;
+    color: #F5C000;
 
   }
   
@@ -28,7 +28,7 @@
   }
   
   .route-container:hover {
-    background-color: #FFDF6C; 
+    background-color: #F5C000; 
     color: #f2f2f2; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
   }

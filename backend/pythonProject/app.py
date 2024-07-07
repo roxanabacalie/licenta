@@ -7,7 +7,7 @@ import threading
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_socketio import SocketIO
 import psutil
 from flask import Flask, request, jsonify
@@ -15,6 +15,8 @@ from flask_cors import CORS
 import os
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from db_management import ga_runs, users
+from db_management.ga_runs import delete_ga_run, find_user_id, get_running_ga_run_by_user_id, update_process_id, \
+     get_running_pid_by_user_id, delete_ga_run_by_user_id
 from db_management.users import verify_account
 from src.algorithms.genetic_algorithm import GeneticAlgorithm
 from src.algorithms.initial_solution import TransitNetwork
@@ -32,6 +34,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 app.config['SECRET_KEY'] = 'your_strong_secret_key'
 app.config["JWT_SECRET_KEY"] = 'your_jwt_secret_key'
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 jwt = JWTManager(app)
 logging.basicConfig(level=logging.DEBUG)
 iasi_transit_network = TransitNetwork(
@@ -39,13 +42,13 @@ iasi_transit_network = TransitNetwork(
     "data/iasi/Iasi_links.txt",
     "data/iasi/Iasi_demand.txt"
 )
-running_processes = {}
+running_processes={}
 running_algorithms = {}
 executor = ProcessPoolExecutor()
 last_sent_percent_complete = 0
 def run_genetic_algorithm(params, run_id):
     try:
-        print("rga", running_processes)
+        print("run id", run_id)
         print("Running genetic algorithm with params:", params)
         process_id = multiprocessing.current_process().pid
         start_timestamp = datetime.now()
@@ -77,7 +80,6 @@ def run_genetic_algorithm(params, run_id):
         stop_timestamp = datetime.now()
         print(stop_timestamp)
         ga_runs.update_stop_timestamp(run_id, stop_timestamp)
-        ga_runs.update_percent_complete(run_id, 100)
         print(result_file)
         ga_runs.update_filename(run_id, result_file)
         print("Running genetic algorithm finished")
@@ -90,7 +92,7 @@ def run_genetic_algorithm(params, run_id):
         for idx, route in enumerate(routes_data):
             route_dict = {'id': idx + 1, 'stops': route}
             routes.append(route_dict)
-        del running_processes[user_id]
+
         return routes
     except Exception as e:
         print("Error running genetic algorithm:", e)
@@ -167,7 +169,7 @@ def update_travel_info():
 
 
 def send_percent_complete(run_id):
-    global last_sent_percent_complete
+    last_sent_percent_complete = 0
     while True:
         try:
             percent_complete = ga_runs.get_percent_complete(run_id)
@@ -175,10 +177,10 @@ def send_percent_complete(run_id):
                 socketio.emit('percent_complete', {'percent_complete': percent_complete}, namespace='/')
                 last_sent_percent_complete = percent_complete
                 print(f"Sent percent_complete: {percent_complete}")
-            time.sleep(2)
+            time.sleep(0.01)
         except Exception as e:
             print(f"Error in send_percent_complete thread: {str(e)}")
-            time.sleep(2)
+            time.sleep(0.01)
 
 @app.route('/api/run-algorithm', methods=['POST'])
 @jwt_required()
@@ -186,15 +188,15 @@ def trigger_algorithm():
     user_id = get_jwt_identity()
     data = request.json
     data['user_id'] = user_id
-    if user_id in running_processes and running_processes[user_id].is_alive():
+    if find_user_id(user_id) is not None and get_running_ga_run_by_user_id(user_id) is not None:
         return jsonify({'error': 'Algorithm is already running for this user.'}), 400
 
     run_id = ga_runs.insert_ga_run(None, None, datetime.now(), None, 0, user_id)
     process = multiprocessing.Process(target=run_genetic_algorithm, args=(data,run_id, ))
     process.start()
     print("adaug user id")
-    running_processes[user_id] = process
-    print(running_processes)
+    update_process_id(run_id, process.pid)
+
     # Start the thread to send percent_complete updates
     threading.Thread(target=send_percent_complete, args=(run_id,), daemon=True).start()
 
@@ -205,18 +207,18 @@ def trigger_algorithm():
 @jwt_required()
 def cancel_algorithm():
     user_id = get_jwt_identity()
-    process = running_processes.get(user_id)
+    process_id = get_running_pid_by_user_id()
 
-    if process and process.is_alive():
+    if process_id:
         try:
-            psutil_process = psutil.Process(process.pid)
+            psutil_process = psutil.Process(process_id)
             psutil_process.terminate()
             psutil_process.wait()
 
-            running_processes.pop(user_id, None)
-            return jsonify({'message': f'Process with PID {process.pid} terminated.'}), 200
+            delete_ga_run_by_user_id()
+            return jsonify({'message': f'Process with PID {process_id} terminated.'}), 200
         except psutil.NoSuchProcess:
-            return jsonify({'error': f'No process found with PID {process.pid}.'}), 404
+            return jsonify({'error': f'No process found with PID {process_id}.'}), 404
         except psutil.AccessDenied:
             return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
         except Exception as e:

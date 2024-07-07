@@ -30,11 +30,16 @@ type Route = {
 export class EditRoutesComponent {
   private map: any;
   private directionsService: any;
+  currentGeneration = 0;
+  totalGenerations = 100;
   private colorIndex: number = 0;
   public routes: Route[] = [];
-  private stops: Stop[] = [];
+  public stops: Stop[] = [];
+  public files: { id: number, filename: string }[] = [];
+  public selectedFile: number | null = null;
   private directionsRenderers: any[] = []; 
   private markers: any[] = []; 
+  public isAlgorithmRunning = false;
   private colors: string[] = [
     '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A8', '#33FFF2', '#F2FF33', 
     '#FF8F33', '#8F33FF', '#33FF8F', '#FF3333', '#33FF33', '#3333FF', '#8F8F33', 
@@ -64,23 +69,70 @@ export class EditRoutesComponent {
       crossoverProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
       deletionProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
       smallMutationProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
-      numberOfGenerationsInput: ['', [Validators.required, Validators.min(1)]],
+      numberOfGenerationsInput: ['', [Validators.required, Validators.min(0)]],
       eliteSizeInput: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
   ngOnInit(): void {
     this.loadGoogleMapsScript().then(() => {
+      this.fetchStops();
       this.initMap();
+      this.checkAlgorithmStatus();
+      this.fetchFiles();
     });
     
 
     this.socket.on('algorithm_complete', (message: any) => {
       console.log('Genetic algorithm finished:', message);
       this.routes = message.routes;
-      this.fetchStops();
+      this.isAlgorithmRunning = false;
     });
+
+    this.socket.on('percent_complete', (data: any) => {
+      console.log('Received percent_complete:', data);
+      if (data.percent_complete !== undefined) {
+        this.currentGeneration = data.percent_complete; 
+        console.log(this.currentGeneration);
+      }
+    });
+
+    this.formDatele = this.fb.group({
+      stationSelect1: [null, Validators.required],
+      stationSelect2: [null, Validators.required],
+      distanceInput: [{ value: '', disabled: true }, Validators.required],
+      demandInput: [{ value: '', disabled: true }, Validators.required]
+    });
+    this.formDatele.get('stationSelect1')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
+    this.formDatele.get('stationSelect2')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
   }
+
+  checkAlgorithmStatus(): void {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8000/api/is-algorithm-running');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      const token = localStorage.getItem('token');
+      if (token) {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      } else {
+        console.error("JWT token not found!");
+        return;
+      }
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          this.isAlgorithmRunning = response.running;
+        } else {
+          console.error('Error checking algorithm status:', xhr.status);
+        }
+      }
+    };
+    xhr.send();
+  }
+  
 
   loadGoogleMapsScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -100,51 +152,154 @@ export class EditRoutesComponent {
     });
   }
 
+  updateDisplayTravelInfo(): void {
+    const fromStation = this.formDatele.get('stationSelect1')?.value;
+    const toStation = this.formDatele.get('stationSelect2')?.value;
+  
+    if (fromStation && toStation) {
+      const url = `http://localhost:8000/api/travel-info?from=${fromStation}&to=${toStation}`;
+  
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          if (response.travel_time !== undefined && response.demand !== undefined) {
+            this.formDatele.patchValue({
+              distanceInput: response.travel_time,
+              demandInput: response.demand
+            });
+            this.formDatele.get('distanceInput')?.enable();
+            this.formDatele.get('demandInput')?.enable();
+          } else {
+            console.error('Data not found for the selected stations.');
+          }
+        } else {
+          console.error('Error fetching travel info:', xhr.statusText);
+        }
+      };
+      xhr.onerror = () => console.error('Network error.');
+      xhr.send();
+    }
+  }
+  
   submitDateleForm(): void {
     if (this.formDatele.valid) {
       console.log('Formular Datele din Iași submit:', this.formDatele.value);
+      const { stationSelect1, stationSelect2, distanceInput, demandInput } = this.formDatele.value;
+
+      const fromStation = stationSelect1;
+      const toStation = stationSelect2;
+      const travelTime = distanceInput;
+      const demand = demandInput;
+
+      this.updateTravelInfo(fromStation, toStation, travelTime, demand);
     }
   }
 
-  submitParametriiForm(): void {
-  if (this.formParametrii.valid) {
-    console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
-    const algorithmParams = {
-      populationSize: this.formParametrii.value.populationSizeInput,
-      tournamentSize: this.formParametrii.value.tournamentSizeInput,
-      crossoverProbability: this.formParametrii.value.crossoverProbabilityInput,
-      deletionProbability: this.formParametrii.value.deletionProbabilityInput,
-      smallMutationProbability: this.formParametrii.value.smallMutationProbabilityInput,
-      numberOfGenerations: this.formParametrii.value.numberOfGenerationsInput,
-      eliteSize: this.formParametrii.value.eliteSizeInput
-    };
+  updateTravelInfo(fromStation: string, toStation: string, travelTime: number, demand: number) {
+    const url = 'http://localhost:8000/api/travel-info'; 
 
     const xhr = new XMLHttpRequest();
-    const url = "http://localhost:8000/api/run-algorithm";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // Adăugarea token-ului JWT în header-ul cererii
-    const token = localStorage.getItem('token');
-    if (token) {
-      xhr.setRequestHeader("Authorization", "Bearer " + token);
-    } else {
-      console.error("JWT token not found!");
-      return;
-    }
-
-    xhr.onreadystatechange = () => {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          console.log("Response:", xhr.responseText);
+          console.log('Update successful', xhr.responseText);
         } else {
-          console.error("Error starting algorithm:", xhr.status);
+          console.error('Update failed', xhr.status);
         }
       }
     };
-    xhr.send(JSON.stringify(algorithmParams));
+
+    const body = JSON.stringify({
+      from: fromStation,
+      to: toStation,
+      travelTime: travelTime,
+      demand: demand
+    });
+    console.log(body);
+    xhr.send(body);
   }
+
+
+  submitParametriiForm(): void {
+    if (this.isAlgorithmRunning) {
+      this.cancelAlgorithm(); // Anulează algoritmul dacă este deja în execuție
+    } else if (this.formParametrii.valid) {
+      console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
+      const algorithmParams = {
+        populationSize: this.formParametrii.value.populationSizeInput,
+        tournamentSize: this.formParametrii.value.tournamentSizeInput,
+        crossoverProbability: this.formParametrii.value.crossoverProbabilityInput,
+        deletionProbability: this.formParametrii.value.deletionProbabilityInput,
+        smallMutationProbability: this.formParametrii.value.smallMutationProbabilityInput,
+        numberOfGenerations: this.formParametrii.value.numberOfGenerationsInput,
+        eliteSize: this.formParametrii.value.eliteSizeInput
+      };
+      const xhr = new XMLHttpRequest();
+      const url = "http://localhost:8000/api/run-algorithm";
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      // Adăugarea token-ului JWT în header-ul cererii
+      const token = localStorage.getItem('token');
+      if (token) {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      } else {
+        console.error("JWT token not found!");
+        return;
+      }
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            console.log("Response:", xhr.responseText);
+          } else {
+            console.error("Error starting algorithm:", xhr.status);
+          }
+        }
+      };
+      xhr.send(JSON.stringify(algorithmParams));
+  }
+  this.isAlgorithmRunning = true;
 }
+
+
+
+cancelAlgorithm() {
+  const xhr = new XMLHttpRequest();
+  const url = "http://localhost:8000/api/cancel-algorithm";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+  // Adăugarea token-ului JWT în header-ul cererii
+  const token = localStorage.getItem('token');
+  if (token) {
+    xhr.setRequestHeader("Authorization", "Bearer " + token);
+  } else {
+    console.error("JWT token not found!");
+    return;
+  }
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        this.isAlgorithmRunning = false;
+        console.log("Algorithm cancelled successfully");
+      } else {
+        console.error("Error cancelling algorithm:", xhr.status);
+      }
+    }
+  };
+
+  xhr.send(); 
+}
+
+
 
 async getRouteDataAndDraw(startId: string, stopId: string, color: string) {
   console.log("getRouteDataAndDraw");
@@ -185,6 +340,18 @@ async fetchRoutes() {
   console.log('Routes:', this.routes);
 } 
 
+async fetchRoutesByFilename(filename: string) {
+  console.log(`http://localhost:8000/api/routes/filename=${filename}`);
+  const routesResponse = await fetch(`http://localhost:8000/api/routes/filename=${filename}`);
+  
+  if (!routesResponse.ok) {
+    throw new Error('Network response was not ok.');
+  }
+  const routes = await routesResponse.json();
+  this.routes = routes;
+  console.log('Routes:', this.routes);
+} 
+
 
 drawRoute(routeData: any, color: string) {
   console.log("drawRoute", routeData)
@@ -214,6 +381,13 @@ async fetchStops() {
 getStopName(stopId: string): string {
   const stop = this.stops.find(s => s.stop_id === (parseInt(stopId, 10) + 1).toString());
   return stop ? stop.stop_name : 'Unknown';
+}
+
+getStopId(stopName: string): string {
+  console.log("Searching for stopName:", stopName);
+  const stop = this.stops.find(s => s.stop_name === stopName);
+  console.log("Found stop by stopName:", stop);
+  return stop ? stop.stop_id : 'Unknown';
 }
 
 clearPreviousRenderers() {
@@ -256,35 +430,77 @@ drawStops(stops: any[]) {
   });
 }
 
-async displayRoute(routeId: string): Promise<void> {
-  this.clearPreviousRenderers(); 
-  this.clearPreviousMarkers();
+  async displayRoute(routeId: string): Promise<void> {
+    this.clearPreviousRenderers(); 
+    this.clearPreviousMarkers();
  
-  console.log("Displaying route with ID:", routeId);
-  const route = this.routes.find(r => r.id === routeId);
-  if (!route) {
-    console.error('Route not found:', routeId);
-    return;
-  }
-  const color = this.getRandomColor();
-  for (let i = 0; i < route.stops.length - 1; i++) {
-    const startId = String(Number(route.stops[i]) + 1); 
-    const stopId = String(Number(route.stops[i + 1]) + 1); 
+    console.log("Displaying route with ID:", routeId);
+    const route = this.routes.find(r => r.id === routeId);
+    if (!route) {
+      console.error('Route not found:', routeId);
+      return;
+    }
+    const color = this.getRandomColor();
+    for (let i = 0; i < route.stops.length - 1; i++) {
+      const startId = String(Number(route.stops[i]) + 1); 
+      const stopId = String(Number(route.stops[i + 1]) + 1); 
     
     await this.getRouteDataAndDraw(startId, stopId, color);
-  }
-  const routeStops: Stop[] = [];
-  for (let i = 0; i < route.stops.length; i++) {
-    const stopId = route.stops[i];
-    const stop = this.stops.find(s => s.stop_id === String(stopId+1));
-    if (stop) {
-      routeStops.push(stop);
-    } else {
-      console.warn('Stop not found for stop_id:', stopId);
     }
+    const routeStops: Stop[] = [];
+    for (let i = 0; i < route.stops.length; i++) {
+      const stopId = route.stops[i];
+      const stop = this.stops.find(s => s.stop_id === String(stopId+1));
+      if (stop) {
+        routeStops.push(stop);
+      } else {
+        console.warn('Stop not found for stop_id:', stopId);
+      }
 }
 this.drawStops(routeStops);
 
+}
+
+fetchFiles(): void {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:8000/api/files');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        console.log(response);
+        response.forEach((file: { id: string | number; name: string }) => {
+          file.id = +file.id; 
+        });
+        this.files = response;
+        console.log('Files:', this.files); 
+      } else {
+        console.error('Error fetching files:', xhr.status);
+      }
+    }
+  };
+
+  xhr.send();
+}
+
+onFileSelect(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedIndex = selectElement.selectedIndex;
+
+  // Verificăm dacă există o opțiune selectată
+  if (selectedIndex !== -1) {
+    const selectedOption = selectElement.options[selectedIndex];
+    const filename = selectedOption.text;
+    this.selectedFile = +selectedOption.value;
+
+    console.log('Selected file:', this.selectedFile);
+    this.fetchRoutesByFilename(filename);
+  } else {
+    console.log('Nu a fost selectat niciun fișier.');
+    // Poți trata aici cum dorești situația când nu este selectată nicio opțiune
+  }
 }
 
 }

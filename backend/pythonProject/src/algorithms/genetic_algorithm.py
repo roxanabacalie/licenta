@@ -43,7 +43,7 @@ class GeneticAlgorithm:
 		self.unsatisfied_factor = unsatisfied_factor
 		self.individual_characteristics_values = {}
 		self.total_route_length_values = {}
-		self.run_id = None
+		self.run_id = run_id
 
 	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
@@ -337,7 +337,7 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
-			update_percent_complete(generation, self.run_id)
+			update_percent_complete(self.run_id, generation+1)
 
 			'''
 			socketio.emit('generation_update', {
