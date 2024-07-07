@@ -3,9 +3,11 @@ import csv
 import json
 import logging
 import multiprocessing
+import re
 import threading
 import time
 import traceback
+import validators
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timedelta
 from flask_socketio import SocketIO
@@ -20,7 +22,7 @@ from db_management.ga_runs import delete_ga_run, find_user_id, get_running_ga_ru
 from db_management.users import verify_account
 from src.algorithms.genetic_algorithm import GeneticAlgorithm
 from src.algorithms.initial_solution import TransitNetwork
-from src.data_processing.files_handler import read_travel_info, update_links_file, update_demands_file
+from src.data_processing.files_handler import read_travel_info, update_links_file, update_demands_file, remove_link
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'
@@ -46,14 +48,18 @@ running_processes={}
 running_algorithms = {}
 executor = ProcessPoolExecutor()
 last_sent_percent_complete = 0
-def run_genetic_algorithm(params, run_id):
+def run_genetic_algorithm(params):
     try:
-        print("run id", run_id)
         print("Running genetic algorithm with params:", params)
         process_id = multiprocessing.current_process().pid
         start_timestamp = datetime.now()
         user_id = int(params['user_id'])
-        ga_runs.update_process_id(run_id, process_id)
+        run_id = ga_runs.insert_ga_run(None, process_id, start_timestamp, None, 0, user_id)
+
+        #stop_event = threading.Event()
+        #percent_thread = threading.Thread(target=send_percent_complete, args=(user_id, stop_event), daemon=True)
+        #percent_thread.start()
+
         population_size = int(params['populationSize'])
         tournament_size = int(params['tournamentSize'])
         crossover_probability = float(params['crossoverProbability'])
@@ -74,7 +80,7 @@ def run_genetic_algorithm(params, run_id):
             35,
             60,
             120,
-            run_id
+            user_id
         )
         result_file = ga_iasi.run_genetic_algorithm()
         stop_timestamp = datetime.now()
@@ -98,6 +104,10 @@ def run_genetic_algorithm(params, run_id):
         print("Error running genetic algorithm:", e)
         traceback.print_exc()
         return str(e)
+    #finally:
+        # Ensure the percent_thread is terminated when the algorithm finishes
+        #stop_event.set()
+        #percent_thread.join()
 
 def monitor_algorithm_completion(future):
     try:
@@ -161,70 +171,165 @@ def get_travel_info():
 @app.route('/api/travel-info', methods=['POST'])
 def update_travel_info():
     data = request.json
+    try:
+        if data['travelTime'] != 'infinit':
+            data['travelTime'] = int(data['travelTime'])
+    except ValueError:
+        return jsonify({'error': 'travelTime must be an integer'}), 400
+    if data['travelTime'] != 'infinit' and data['travelTime'] <= 0:
+        return jsonify({'error': 'travelTime must be an integer greater than 0'}), 400
+
+    try:
+        data['demand'] = int(data['demand'])
+    except ValueError:
+        return jsonify({'error': 'demand must be an integer'}), 400
+    if data['demand'] < 0:
+        return jsonify({'error': 'demand must be an integer greater than or equal to 0'}), 400
+
     from_station = int(data['from'])
     to_station = int(data['to'])
-    travel_time = int(data['travelTime'])
+
     demand = int(data['demand'])
-    update_links_file('data/iasi/Iasi_links.txt', from_station, to_station, travel_time)
+    if data['travelTime'] != 'infinit':
+        travel_time = int(data['travelTime'])
+        update_links_file('data/iasi/Iasi_links.txt', from_station, to_station, travel_time)
+    else:
+        remove_link('data/iasi/Iasi_links.txt', from_station, to_station)
     update_demands_file('data/iasi/Iasi_demand.txt', from_station, to_station, demand)
     os.remove("data/Iasi/Iasi_links_initial_population.json")
     return jsonify({'message': 'Travel times updated successfully.'}), 200
 
 
-def send_percent_complete(run_id):
+def send_percent_complete(user_id, stop_event):
     last_sent_percent_complete = 0
-    while True:
+    while not stop_event.is_set():
         try:
-            percent_complete = ga_runs.get_percent_complete(run_id)
+            percent_complete = ga_runs.get_percent_complete_by_user_id(user_id)
             if percent_complete is not None and percent_complete != last_sent_percent_complete:
                 socketio.emit('percent_complete', {'percent_complete': percent_complete}, namespace='/')
                 last_sent_percent_complete = percent_complete
                 print(f"Sent percent_complete: {percent_complete}")
-            time.sleep(0.01)
+            time.sleep(0.1)  # Crește intervalul de timp la 1 secundă
         except Exception as e:
             print(f"Error in send_percent_complete thread: {str(e)}")
-            time.sleep(0.01)
+            time.sleep(0.01)  # Crește intervalul de timp la 1 secundă
+
+
 
 @app.route('/api/run-algorithm', methods=['POST'])
 @jwt_required()
 def trigger_algorithm():
+    data = request.get_json()
     user_id = get_jwt_identity()
-    data = request.json
+    print(user_id)
     data['user_id'] = user_id
-    if find_user_id(user_id) is not None and get_running_ga_run_by_user_id(user_id) is not None:
-        return jsonify({'error': 'Algorithm is already running for this user.'}), 400
 
-    run_id = ga_runs.insert_ga_run(None, None, datetime.now(), None, 0, user_id)
-    process = multiprocessing.Process(target=run_genetic_algorithm, args=(data,run_id, ))
-    process.start()
-    print("adaug user id")
-    update_process_id(run_id, process.pid)
+    try:
+        data['populationSize'] = int(data['populationSize'])
+    except ValueError:
+        return jsonify({'error': 'populationSize must be an integer'}), 400
 
-    # Start the thread to send percent_complete updates
-    threading.Thread(target=send_percent_complete, args=(run_id,), daemon=True).start()
+    if data['populationSize'] < 5:
+        return jsonify({'error': 'populationSize must be an integer greater than or equal to 5'}), 400
 
-    return jsonify({'message': 'Algorithm execution started.', 'pid': process.pid, 'run_id': run_id}), 200
+    try:
+        data['tournamentSize'] = int(data['tournamentSize'])
+    except ValueError:
+        return jsonify({'error': 'tournamentSize must be an integer'}), 400
+
+    if data['tournamentSize'] < 2:
+        return jsonify({'error': 'tournamentSize must be an integer greater than or equal to 2'}), 400
+
+    crossover_probability = data.get('crossoverProbability')
+    if not re.match(r'^[0-9]*\.?[0-9]+$', str(crossover_probability)) or not (0 <= float(crossover_probability) <= 1):
+        return jsonify({'error': 'crossoverProbability must be a float between 0 and 1'}), 400
+
+    deletion_probability = data.get('deletionProbability')
+    if not re.match(r'^[0-9]*\.?[0-9]+$', str(deletion_probability)) or not (0 <= float(deletion_probability) <= 1):
+        return jsonify({'error': 'deletionProbability must be a float between 0 and 1'}), 400
+
+    small_mutation_probability = data.get('smallMutationProbability')
+    if not re.match(r'^[0-9]*\.?[0-9]+$', str(small_mutation_probability)) or not (
+            0 <= float(small_mutation_probability) <= 1):
+        return jsonify({'error': 'smallMutationProbability must be a float between 0 and 1'}), 400
+
+    try:
+        data['numberOfGenerations'] = int(data['numberOfGenerations'])
+    except ValueError:
+        return jsonify({'error': 'numberOfGenerations must be an integer'}), 400
+
+    if data['numberOfGenerations'] < 0:
+        return jsonify({'error': 'numberOfGenerations must be an integer greater than or equal to 0'}), 400
+
+    try:
+        data['eliteSize'] = int(data['eliteSize'])
+    except ValueError:
+        return jsonify({'error': 'eliteSize must be an integer'}), 400
+
+    if data['eliteSize'] < 1:
+        return jsonify({'error': 'eliteSize must be an integer greater than or equal to 1'}), 400
+
+
+    print("Data validated successfully:", data)
+    future = executor.submit(run_genetic_algorithm, data)
+    running_algorithms[future] = data
+    #threading.Thread(target=send_percent_complete, args=(user_id,), daemon=True).start()
+    return jsonify({"message": "Genetic algorithm started."}), 200
+
+
+def cancel_algorithm():
+    user_id = get_jwt_identity()
+    pid = ga_runs.get_pid_by_userid(user_id)
+    try:
+        if pid:
+            process = psutil.Process(int(pid))
+            process.terminate()
+            process.wait()
+            delete_ga_run_by_user_id(user_id)
+
+            for future, params in list(running_algorithms.items()):
+                if params['user_id'] == user_id:
+                    future.cancel()
+                    running_algorithms.pop(future, None)
+                    break
+            return jsonify({'message': f'Process with PID {pid} terminated.'}), 200
+        else:
+            return jsonify({'error': f'No PID found for user_id {user_id}.'}), 404
+    except psutil.NoSuchProcess:
+        return jsonify({'error': f'No process found with PID {pid}.'}), 404
+    except psutil.AccessDenied:
+        return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
 
 
 @app.route('/api/cancel-algorithm', methods=['POST'])
 @jwt_required()
 def cancel_algorithm():
     user_id = get_jwt_identity()
-    process_id = get_running_pid_by_user_id()
+    process_id = int(get_running_pid_by_user_id(int(user_id)))
 
     if process_id:
         try:
             psutil_process = psutil.Process(process_id)
             psutil_process.terminate()
             psutil_process.wait()
-
-            delete_ga_run_by_user_id()
+            for future, params in list(running_algorithms.items()):
+                if params['user_id'] == user_id:
+                    future.cancel()
+                    running_algorithms.pop(future, None)
+                    break
+            delete_ga_run_by_user_id(int(user_id))
             return jsonify({'message': f'Process with PID {process_id} terminated.'}), 200
-        except psutil.NoSuchProcess:
+        except psutil.NoSuchProcess as e:
+            print(f'Error: No process found with PID {process_id}. Details: {str(e)}')
             return jsonify({'error': f'No process found with PID {process_id}.'}), 404
-        except psutil.AccessDenied:
+        except psutil.AccessDenied as e:
+            print(f'Error: Access denied when trying to terminate the process. Details: {str(e)}')
             return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
         except Exception as e:
+            print(f'Error: Unexpected error occurred: {str(e)}')
             return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
     else:
         return jsonify({'error': f'No running process found for user_id {user_id}.'}), 404

@@ -1,7 +1,7 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { io } from "socket.io-client";
 declare var google: any;
@@ -19,6 +19,7 @@ type Route = {
 };
 
 
+
 @Component({
   selector: 'app-edit-routes',
   standalone: true,
@@ -26,6 +27,8 @@ type Route = {
   templateUrl: './edit-routes.component.html',
   styleUrl: './edit-routes.component.css'
 })
+
+
 
 export class EditRoutesComponent {
   private map: any;
@@ -53,10 +56,10 @@ export class EditRoutesComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.socket = io('http://localhost:8000');
     this.formDatele = this.fb.group({
-      stationSelect1: ['', Validators.required],
-      stationSelect2: ['', Validators.required],
-      distanceInput: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      demandInput: ['', Validators.required]
+      stationSelect1: [null, Validators.required],
+      stationSelect2: [null, Validators.required],
+      distanceInput: ['', [Validators.required, this.distanceValidator()]],
+      demandInput: ['', [Validators.required, Validators.pattern(/^-?\d+$/), Validators.min(0)]]
     });
 
     this.formParametrii = this.fb.group({
@@ -65,12 +68,24 @@ export class EditRoutesComponent {
         Validators.pattern(/^[1-9]\d*$/), 
         Validators.min(5)
       ]],
-      tournamentSizeInput: ['', [Validators.required, Validators.min(2)]],
-      crossoverProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
-      deletionProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
-      smallMutationProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
-      numberOfGenerationsInput: ['', [Validators.required, Validators.min(0)]],
-      eliteSizeInput: ['', [Validators.required, Validators.min(1)]]
+      tournamentSizeInput: ['', [
+        Validators.required,
+        Validators.pattern(/^[1-9]\d*$/), 
+        Validators.min(2)
+      ]],
+      crossoverProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1), this.realNumberValidator()]],
+      deletionProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1), this.realNumberValidator()]],
+      smallMutationProbabilityInput: ['', [Validators.required, Validators.min(0), Validators.max(1), this.realNumberValidator()]],
+      numberOfGenerationsInput: ['', [
+        Validators.required,
+        Validators.pattern(/^[1-9]\d*$/), 
+        Validators.min(1)
+      ]],
+      eliteSizeInput: ['', [
+        Validators.required,
+        Validators.pattern(/^[1-9]\d*$/), 
+        Validators.min(1)
+      ]]
     });
   }
 
@@ -89,6 +104,7 @@ export class EditRoutesComponent {
       this.isAlgorithmRunning = false;
     });
 
+    
     this.socket.on('percent_complete', (data: any) => {
       console.log('Received percent_complete:', data);
       if (data.percent_complete !== undefined) {
@@ -97,15 +113,31 @@ export class EditRoutesComponent {
       }
     });
 
-    this.formDatele = this.fb.group({
-      stationSelect1: [null, Validators.required],
-      stationSelect2: [null, Validators.required],
-      distanceInput: [{ value: '', disabled: true }, Validators.required],
-      demandInput: [{ value: '', disabled: true }, Validators.required]
-    });
+    
     this.formDatele.get('stationSelect1')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
     this.formDatele.get('stationSelect2')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
   }
+
+  distanceValidator() {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (value === 'infinit' || /^[0-9]+$/.test(value)) {
+        return null; // Valoare validă
+      } else {
+        return { invalidDistance: true }; // Valoare invalidă
+      }
+    };
+  }
+
+  realNumberValidator(): ValidatorFn {
+    console.log("Validare");
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      const isValid = !isNaN(value) && parseFloat(value) === +value;
+      return isValid ? null : { 'notRealNumber': { value: control.value } };
+    };
+  }
+  
 
   checkAlgorithmStatus(): void {
     const xhr = new XMLHttpRequest();

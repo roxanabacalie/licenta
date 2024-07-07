@@ -9,7 +9,7 @@
           <option *ngFor="let stop of stops" [value]="stop.stop_id">{{ stop.stop_name }}</option>
         </select>
       </div>
-
+  
       <div class="me-4">
         <label for="stationSelect2">Selectează a doua stație</label>
         <select class="form-select" formControlName="stationSelect2" id="stationSelect2" aria-label="Selectează a doua stație">
@@ -17,7 +17,7 @@
           <option *ngFor="let stop of stops" [value]="stop.stop_id">{{ stop.stop_name }}</option>
         </select>
       </div>
-
+      
       <div class="me-4">
         <label for="distance-input">Introduceți timpul</label>
         <input type="text" class="form-control" id="distance-input" formControlName="distanceInput" placeholder="Introduceți timpul">
@@ -25,19 +25,17 @@
           Introduceți un timp valid.
         </div>
       </div>
-
+  
       <div>
         <label for="demand-input">Introduceți cererea</label>
         <input type="text" class="form-control" id="demand-input" formControlName="demandInput" placeholder="Introduceți cererea">
         <div class="invalid-feedback" *ngIf="formDatele.get('demandInput')?.invalid && formDatele.get('demandInput')?.touched">
-          Introduceți o valoare pentru cerere.
+          Introduceți o valoare validă pentru cerere.
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary custom-button">Modifică datele</button>
+    <button type="submit" class="btn btn-primary custom-button" [disabled]="formDatele.invalid">Modifică datele</button>
   </form>
-</div>
-
 <div class="container container-main text-center mt-5">
   <h2>Parametrii Algoritmului</h2>
   <form [formGroup]="formParametrii" (ngSubmit)="submitParametriiForm()">
@@ -117,9 +115,7 @@
     {{ isAlgorithmRunning ? 'Anulează' : 'Generează algoritm' }}
   </button>
   </form>
-  <div *ngIf="isAlgorithmRunning" class="mt-3">
-    Generația {{ currentGeneration }} din {{ totalGenerations }}
-  </div>
+  
 </div>
 
 <div class="container container-main text-center mt-5">

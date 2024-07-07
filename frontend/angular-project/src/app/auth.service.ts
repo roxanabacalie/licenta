@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
@@ -14,7 +15,7 @@ export class AuthService {
   public loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
     if (this.isLoggedIn()) {
       this.loggedIn.next(true);
     }
@@ -36,6 +37,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {

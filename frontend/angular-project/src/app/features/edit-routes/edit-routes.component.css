@@ -117,3 +117,10 @@
   .form-select option {
     color: #333; /* Culorează textul opțiunilor cu negru */
   }
+
+  .custom-button[disabled] {
+    background-color: #ccc; /* Schimbăm culoarea de fundal */
+    color: #666; /* Schimbăm culoarea textului */
+    cursor: not-allowed; /* Schimbăm cursorul la "not-allowed" pentru a indica indisponibilitatea */
+  }
+  

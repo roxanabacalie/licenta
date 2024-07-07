@@ -24,7 +24,7 @@ class GeneticAlgorithm:
 			route_set_size,
 			time_unit_factor,
 			unsatisfied_factor,
-			run_id
+			user_id
 
 	):
 		self.pop_size = pop_size
@@ -43,7 +43,7 @@ class GeneticAlgorithm:
 		self.unsatisfied_factor = unsatisfied_factor
 		self.individual_characteristics_values = {}
 		self.total_route_length_values = {}
-		self.run_id = run_id
+		self.user_id = user_id
 
 	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
@@ -347,8 +347,8 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
-			if self.run_id is not None:
-				update_percent_complete(self.run_id, generation+1)
+			if self.user_id is not None:
+				update_percent_complete(self.user_id, generation+1)
 
 			'''
 			socketio.emit('generation_update', {
@@ -388,7 +388,7 @@ class GeneticAlgorithm:
 
 		# Generare nume fișier cu data și ora curente
 		current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-		filename = f"ga_results_{current_time}.json"
+		filename = f"ga_results_{self.max_generations}_generations_{current_time}.json"
 
 		results = {
 			"best_individual": best_individual,

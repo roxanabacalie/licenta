@@ -38,12 +38,12 @@ def update_stop_timestamp(run_id, stop_timestamp):
         print("Error: ", err)
 
 
-def update_percent_complete(run_id, percent_complete):
+def update_percent_complete(user_id, percent_complete):
     try:
-        update_query = "UPDATE ga_runs SET percent_complete = %s WHERE id = %s"
-        cursor.execute(update_query, (percent_complete, run_id))
+        update_query = "UPDATE ga_runs SET percent_complete = %s WHERE user_id = %s AND stop_timestamp IS NULL"
+        cursor.execute(update_query, (percent_complete, user_id))
         db.commit()
-        print("Percent complete updated successfully", run_id, percent_complete)
+        print("Percent complete updated successfully", user_id, percent_complete)
 
     except mysql.connector.Error as err:
         print("Error: ", err)
@@ -136,6 +136,21 @@ def get_percent_complete(run_id):
         print("Error: ", err)
         return None
 
+def get_percent_complete_by_user_id(user_id):
+    try:
+        select_query = "SELECT percent_complete FROM ga_runs WHERE user_id = %s AND stop_timestamp is NULL"
+        cursor.execute(select_query, (user_id,))
+        result = cursor.fetchone()
+
+        if result:
+            return result[0]  # Return percent_complete
+        else:
+            print(f"No run found with id {user_id}")
+            return None
+
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+        return None
 def update_process_id(run_id, process_id):
     try:
         update_query = "UPDATE ga_runs SET process_id = %s WHERE id = %s"
@@ -201,6 +216,7 @@ def get_running_ga_run_by_user_id(user_id):
         return None
 
 def get_running_pid_by_user_id(user_id):
+    print("get pid by", user_id)
     try:
         select_query = """
            SELECT process_id
@@ -211,11 +227,11 @@ def get_running_pid_by_user_id(user_id):
            """
         cursor.execute(select_query, (user_id,))
         result = cursor.fetchone()
-
+        print(result)
         if result:
-            return result[0]  # Return the process_id
+            return result[0]
         else:
-            return None  # No running process found for the user_id
+            return None
 
     except mysql.connector.Error as err:
         print("Error: ", err)

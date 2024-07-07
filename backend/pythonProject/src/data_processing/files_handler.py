@@ -63,3 +63,17 @@ def update_demands_file(filename, from_station, to_station, demand):
 
     with open(filename, 'w', newline='') as f:
         f.writelines(updated_lines)
+
+def remove_link(filename, from_station, to_station):
+    lines_to_keep = []
+
+    with open(filename, mode='r', newline='') as file:
+        csv_reader = csv.reader(file)
+        header = next(csv_reader)
+        lines_to_keep.append(','.join(header) + '\n')
+        for row in csv_reader:
+            if int(row[0]) != from_station or int(row[1]) != to_station:
+                lines_to_keep.append(','.join(row) + '\n')
+
+    with open(filename, 'w', newline='') as f:
+        f.writelines(lines_to_keep)
