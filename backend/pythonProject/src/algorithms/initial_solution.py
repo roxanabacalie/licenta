@@ -10,6 +10,7 @@ class TransitNetwork:
         self.demand = self.create_demand_matrix(demand_file_path)
         self.total_demand = np.sum(self.demand)
         self.shortest_paths_matrix = self.precompute_all_pairs_shortest_paths()
+        self.links_file_path = links_file_path
 
     # Precalcularea celor mai scurte drumuri intre toate perechile de noduri
     def precompute_all_pairs_shortest_paths(self):

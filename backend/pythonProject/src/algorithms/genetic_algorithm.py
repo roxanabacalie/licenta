@@ -1,11 +1,11 @@
 import json
+import os
 import random
 from copy import deepcopy
 from datetime import datetime
 from math import inf
 import numpy as np
 from matplotlib import pyplot as plt
-
 from db_management.ga_runs import update_percent_complete
 from src.algorithms.genetic_algorithm_helpers import roulette_wheel_selection, is_subsequence
 
@@ -47,7 +47,17 @@ class GeneticAlgorithm:
 
 	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
-		initial_individual = self.transit_network.find_initial_route_sets(self.route_set_size)
+		base, extension = os.path.splitext(self.transit_network.links_file_path)
+		initial_population_filename = base + "_initial_population.json"
+		if os.path.isfile(initial_population_filename):
+			print("exista deja", initial_population_filename)
+			f = open(initial_population_filename)
+			initial_individual = json.load(f)
+		else:
+			print("nu exista", initial_population_filename)
+			initial_individual = self.transit_network.find_initial_route_sets(self.route_set_size)
+			with open(initial_population_filename, 'w') as f:
+				json.dump(initial_individual, f)
 		print("Initial individual: ", initial_individual)
 		for _ in range(self.pop_size):
 			self.population.append(deepcopy(initial_individual))
@@ -337,7 +347,8 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
-			update_percent_complete(self.run_id, generation+1)
+			if self.run_id is not None:
+				update_percent_complete(self.run_id, generation+1)
 
 			'''
 			socketio.emit('generation_update', {

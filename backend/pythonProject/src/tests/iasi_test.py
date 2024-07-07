@@ -18,6 +18,7 @@ ga_iasi = GeneticAlgorithm(
 	8,
 	35,
 	60,
-	120)
+	120,
+	None)
 ga_iasi.run_genetic_algorithm()
 

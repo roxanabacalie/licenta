@@ -101,11 +101,12 @@ def run_genetic_algorithm(params, run_id):
 
 def monitor_algorithm_completion(future):
     try:
+        print("algorithm completion")
         result = future.result()
         params = running_algorithms.pop(future)
         socketio.emit('algorithm_complete', {
             "message": "Genetic algorithm finished successfully.",
-            "routes": result,  # Send the routes data to the frontend
+            "routes": result,
             "params": params
         })
     except concurrent.futures.CancelledError:
@@ -119,6 +120,7 @@ def monitor_algorithm_completion(future):
 
 def monitor_running_algorithms():
     while True:
+
         for future in list(running_algorithms.keys()):
             if future.done():
                 monitor_algorithm_completion(future)
@@ -165,6 +167,7 @@ def update_travel_info():
     demand = int(data['demand'])
     update_links_file('data/iasi/Iasi_links.txt', from_station, to_station, travel_time)
     update_demands_file('data/iasi/Iasi_demand.txt', from_station, to_station, demand)
+    os.remove("data/Iasi/Iasi_links_initial_population.json")
     return jsonify({'message': 'Travel times updated successfully.'}), 200
 
 
