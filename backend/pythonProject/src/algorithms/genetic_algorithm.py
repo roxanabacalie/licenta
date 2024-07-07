@@ -347,8 +347,8 @@ class GeneticAlgorithm:
 			print("ATT", avg_travel_time)
 			print("TRL", self.calculate_trl(best_individual))
 
-			if self.user_id is not None:
-				update_percent_complete(self.user_id, generation+1)
+			#if self.user_id is not None:
+			#	update_percent_complete(self.user_id, generation+1)
 
 			'''
 			socketio.emit('generation_update', {

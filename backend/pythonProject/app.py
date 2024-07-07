@@ -130,7 +130,6 @@ def monitor_algorithm_completion(future):
 
 def monitor_running_algorithms():
     while True:
-
         for future in list(running_algorithms.keys()):
             if future.done():
                 monitor_algorithm_completion(future)
@@ -277,42 +276,16 @@ def trigger_algorithm():
     return jsonify({"message": "Genetic algorithm started."}), 200
 
 
-def cancel_algorithm():
-    user_id = get_jwt_identity()
-    pid = ga_runs.get_pid_by_userid(user_id)
-    try:
-        if pid:
-            process = psutil.Process(int(pid))
-            process.terminate()
-            process.wait()
-            delete_ga_run_by_user_id(user_id)
-
-            for future, params in list(running_algorithms.items()):
-                if params['user_id'] == user_id:
-                    future.cancel()
-                    running_algorithms.pop(future, None)
-                    break
-            return jsonify({'message': f'Process with PID {pid} terminated.'}), 200
-        else:
-            return jsonify({'error': f'No PID found for user_id {user_id}.'}), 404
-    except psutil.NoSuchProcess:
-        return jsonify({'error': f'No process found with PID {pid}.'}), 404
-    except psutil.AccessDenied:
-        return jsonify({'error': 'Access denied when trying to terminate the process.'}), 403
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
-
-
 @app.route('/api/cancel-algorithm', methods=['POST'])
 @jwt_required()
 def cancel_algorithm():
     user_id = get_jwt_identity()
-    process_id = int(get_running_pid_by_user_id(int(user_id)))
-
+    print(f"Canceling algorithm for user_id: {user_id}")
+    process_id = get_running_pid_by_user_id(int(user_id))
+    delete_ga_run_by_user_id(int(user_id))
     if process_id:
         try:
-            psutil_process = psutil.Process(process_id)
+            psutil_process = psutil.Process(int(process_id))
             psutil_process.terminate()
             psutil_process.wait()
             for future, params in list(running_algorithms.items()):
@@ -320,7 +293,7 @@ def cancel_algorithm():
                     future.cancel()
                     running_algorithms.pop(future, None)
                     break
-            delete_ga_run_by_user_id(int(user_id))
+
             return jsonify({'message': f'Process with PID {process_id} terminated.'}), 200
         except psutil.NoSuchProcess as e:
             print(f'Error: No process found with PID {process_id}. Details: {str(e)}')
