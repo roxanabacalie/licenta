@@ -32,10 +32,14 @@ type Route = {
 
 export class EditRoutesComponent {
   private map: any;
+  
   private directionsService: any;
   currentGeneration = 0;
   totalGenerations = 100;
   private colorIndex: number = 0;
+  public notificationMessage: string = '';
+  public showNotification: boolean = false;
+  public notificationType: 'success' | 'error' = 'success'; 
   public routes: Route[] = [];
   public stops: Stop[] = [];
   public files: { id: number, filename: string }[] = [];
@@ -61,7 +65,7 @@ export class EditRoutesComponent {
       distanceInput: ['', [Validators.required, this.distanceValidator()]],
       demandInput: ['', [Validators.required, Validators.pattern(/^-?\d+$/), Validators.min(0)]]
     });
-
+    
     this.formParametrii = this.fb.group({
       populationSizeInput: ['', [
         Validators.required,
@@ -122,9 +126,9 @@ export class EditRoutesComponent {
     return (control: AbstractControl) => {
       const value = control.value;
       if (value === 'infinit' || /^[0-9]+$/.test(value)) {
-        return null; // Valoare validă
+        return null; 
       } else {
-        return { invalidDistance: true }; // Valoare invalidă
+        return { invalidDistance: true }; 
       }
     };
   }
@@ -230,6 +234,15 @@ export class EditRoutesComponent {
     }
   }
 
+  showNotificationMessage(message: string, type: 'success' | 'error'): void {
+    this.notificationMessage = message;
+    this.notificationType = type;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 5000);
+  }
+
   updateTravelInfo(fromStation: string, toStation: string, travelTime: number, demand: number) {
     const url = 'http://localhost:8000/api/travel-info'; 
 
@@ -237,12 +250,14 @@ export class EditRoutesComponent {
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
           console.log('Update successful', xhr.responseText);
+          this.showNotificationMessage('Modificarea s-a făcut cu succes.', 'success');
         } else {
           console.error('Update failed', xhr.status);
+          this.showNotificationMessage('A apărut o eroare în modificarea dorită. Vă rugăm să încercați din nou.', 'error');
         }
       }
     };
@@ -260,7 +275,6 @@ export class EditRoutesComponent {
 
   submitParametriiForm(): void {
     if (this.isAlgorithmRunning) {
-      this.cancelAlgorithm(); // Anulează algoritmul dacă este deja în execuție
     } else if (this.formParametrii.valid) {
       console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
       const algorithmParams = {
@@ -276,8 +290,7 @@ export class EditRoutesComponent {
       const url = "http://localhost:8000/api/run-algorithm";
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-      // Adăugarea token-ului JWT în header-ul cererii
+      
       const token = localStorage.getItem('token');
       if (token) {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -299,38 +312,6 @@ export class EditRoutesComponent {
   }
   this.isAlgorithmRunning = true;
 }
-
-
-
-cancelAlgorithm() {
-  const xhr = new XMLHttpRequest();
-  const url = "http://localhost:8000/api/cancel-algorithm";
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-  // Adăugarea token-ului JWT în header-ul cererii
-  const token = localStorage.getItem('token');
-  if (token) {
-    xhr.setRequestHeader("Authorization", "Bearer " + token);
-  } else {
-    console.error("JWT token not found!");
-    return;
-  }
-
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        this.isAlgorithmRunning = false;
-        console.log("Algorithm cancelled successfully");
-      } else {
-        console.error("Error cancelling algorithm:", xhr.status);
-      }
-    }
-  };
-
-  xhr.send(); 
-}
-
 
 
 async getRouteDataAndDraw(startId: string, stopId: string, color: string) {
@@ -373,8 +354,8 @@ async fetchRoutes() {
 } 
 
 async fetchRoutesByFilename(filename: string) {
-  console.log(`http://localhost:8000/api/routes/filename=${filename}`);
-  const routesResponse = await fetch(`http://localhost:8000/api/routes/filename=${filename}`);
+  console.log(`http://localhost:8000/api/routes?filename=${filename}`);
+  const routesResponse = await fetch(`http://localhost:8000/api/routes?filename=${filename}`);
   
   if (!routesResponse.ok) {
     throw new Error('Network response was not ok.');
@@ -384,6 +365,31 @@ async fetchRoutesByFilename(filename: string) {
   console.log('Routes:', this.routes);
 } 
 
+setDefaultFile(): void {
+  if (this.selectedFile !== null) {
+    const filename = this.files.find(file => file.id === this.selectedFile)?.filename;
+    if (filename) {
+      const xhr = new XMLHttpRequest();
+      const url = 'http://localhost:8000/api/set_default_file';
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            console.log('Default file set successfully:', xhr.responseText);
+          } else {
+            console.error('Error setting default file:', xhr.status);
+          }
+        }
+      };
+      xhr.send(JSON.stringify({ filename }));
+    } else {
+      console.error('Selected file not found.');
+    }
+  } else {
+    console.error('No file selected.');
+  }
+}
 
 drawRoute(routeData: any, color: string) {
   console.log("drawRoute", routeData)
@@ -521,7 +527,6 @@ onFileSelect(event: Event) {
   const selectElement = event.target as HTMLSelectElement;
   const selectedIndex = selectElement.selectedIndex;
 
-  // Verificăm dacă există o opțiune selectată
   if (selectedIndex !== -1) {
     const selectedOption = selectElement.options[selectedIndex];
     const filename = selectedOption.text;
@@ -531,7 +536,6 @@ onFileSelect(event: Event) {
     this.fetchRoutesByFilename(filename);
   } else {
     console.log('Nu a fost selectat niciun fișier.');
-    // Poți trata aici cum dorești situația când nu este selectată nicio opțiune
   }
 }
 

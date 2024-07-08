@@ -115,12 +115,32 @@
   }
 
   .form-select option {
-    color: #333; /* Culorează textul opțiunilor cu negru */
+    color: #333; 
   }
 
   .custom-button[disabled] {
-    background-color: #ccc; /* Schimbăm culoarea de fundal */
-    color: #666; /* Schimbăm culoarea textului */
-    cursor: not-allowed; /* Schimbăm cursorul la "not-allowed" pentru a indica indisponibilitatea */
+    background-color: #ccc; 
+    color: #666; 
+    cursor: not-allowed;
+  }
+
+  .notification {
+    position: fixed;
+    top: 308px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 1000;
+  }
+  
+  .success {
+    background-color: #5cb85c; 
+  }
+  
+  .error {
+    background-color: #d9534f; 
   }
   

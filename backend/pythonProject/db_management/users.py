@@ -82,3 +82,8 @@ def get_userid_by_username(username):
         return result[0]
     else:
         return None
+
+
+create_user("roxana", "roxana12345")
+create_user("anapopescu", "ana12345")
+create_user("danstefan", "dan12345")

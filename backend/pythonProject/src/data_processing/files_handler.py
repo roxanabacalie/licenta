@@ -33,10 +33,7 @@ def update_links_file(filename, from_station, to_station, travel_time):
         csv_reader = csv.reader(file)
         header = next(csv_reader)
         for row in csv_reader:
-            print(int(row[0]), int(from_station))
-            print(int(row[1]), int(to_station))
             if int(row[0]) == int(from_station) and int(row[1]) == int(to_station):
-                print("egalitate")
                 row[2] = ' '+str(travel_time)
             updated_lines.append(','.join(row) + '\n')
     updated_lines.insert(0, ','.join(header) + '\n')
@@ -53,10 +50,7 @@ def update_demands_file(filename, from_station, to_station, demand):
         csv_reader = csv.reader(file)
         header = next(csv_reader)
         for row in csv_reader:
-            print(int(row[0]), int(from_station))
-            print(int(row[1]), int(to_station))
             if int(row[0]) == int(from_station) and int(row[1]) == int(to_station):
-                print("egalitate")
                 row[2] = ' '+str(demand)
             updated_lines.append(','.join(row) + '\n')
     updated_lines.insert(0, ','.join(header) + '\n')
@@ -77,3 +71,11 @@ def remove_link(filename, from_station, to_station):
 
     with open(filename, 'w', newline='') as f:
         f.writelines(lines_to_keep)
+
+def read_default_file():
+    with open('default_file.txt', 'r') as f:
+        return f.readline().strip()
+
+def write_default_file(filepath):
+    with open('default_file.txt', 'w') as f:
+        f.write(filepath)

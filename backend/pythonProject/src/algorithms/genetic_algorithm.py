@@ -45,6 +45,22 @@ class GeneticAlgorithm:
 		self.total_route_length_values = {}
 		self.user_id = user_id
 
+	def find_random_route(self):
+		start_node = random.randint(0, self.transit_network.number_of_vertices - 1)
+		end_node = random.randint(0, self.transit_network.number_of_vertices - 1)
+		while start_node == end_node:
+			end_node = random.randint(0, self.transit_network.number_of_vertices - 1)
+		route = self.transit_network.shortest_paths_matrix[start_node][end_node]
+		print(route)
+		return route
+
+	def get_random_individual(self):
+		random_individual = []
+		for _ in range(self.route_set_size):
+			route = self.find_random_route()
+			random_individual.append(route)
+		return random_individual
+
 	# Initializarea populatiei cu seturi de rute initiale
 	def initialize_population(self):
 		base, extension = os.path.splitext(self.transit_network.links_file_path)
@@ -59,8 +75,10 @@ class GeneticAlgorithm:
 			with open(initial_population_filename, 'w') as f:
 				json.dump(initial_individual, f)
 		print("Initial individual: ", initial_individual)
-		for _ in range(self.pop_size):
+		for _ in range(self.pop_size-1):
 			self.population.append(deepcopy(initial_individual))
+		diff_individual = self.get_random_individual()
+		self.population.append(deepcopy(diff_individual))
 
 	# Calcularea lungimii totale a rutelor
 	def calculate_trl(self, route_set):

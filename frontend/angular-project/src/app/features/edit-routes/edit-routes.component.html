@@ -22,7 +22,7 @@
         <label for="distance-input">Introduceți timpul</label>
         <input type="text" class="form-control" id="distance-input" formControlName="distanceInput" placeholder="Introduceți timpul">
         <div class="invalid-feedback" *ngIf="formDatele.get('distanceInput')?.invalid && formDatele.get('distanceInput')?.touched">
-          Introduceți un timp valid.
+          Introduceți o valoare validă.
         </div>
       </div>
   
@@ -30,12 +30,16 @@
         <label for="demand-input">Introduceți cererea</label>
         <input type="text" class="form-control" id="demand-input" formControlName="demandInput" placeholder="Introduceți cererea">
         <div class="invalid-feedback" *ngIf="formDatele.get('demandInput')?.invalid && formDatele.get('demandInput')?.touched">
-          Introduceți o valoare validă pentru cerere.
+          Introduceți o valoare validă.
         </div>
       </div>
     </div>
     <button type="submit" class="btn btn-primary custom-button" [disabled]="formDatele.invalid">Modifică datele</button>
+    <div *ngIf="showNotification" [ngClass]="{'notification': true, 'success': notificationType === 'success', 'error': notificationType === 'error'}">
+      {{ notificationMessage }}
+    </div>
   </form>
+  </div>
 <div class="container container-main text-center mt-5">
   <h2>Parametrii Algoritmului</h2>
   <form [formGroup]="formParametrii" (ngSubmit)="submitParametriiForm()">
@@ -43,7 +47,7 @@
       <div class="col-md-3">
         <label for="population-size-input">Dimensiunea Populației</label>
         <input type="text" class="form-control" id="population-size-input" formControlName="populationSizeInput"
-          placeholder="Dimensiunea Populației">
+          placeholder="ex: 50">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('populationSizeInput')?.invalid && formParametrii.get('populationSizeInput')?.touched">
           Dimensiunea Populației trebuie să fie un număr întreg mai mare sau egal cu 5.
@@ -52,7 +56,7 @@
       <div class="col-md-3">
         <label for="tournament-size-input">Dimensiunea Turneului</label>
         <input type="text" class="form-control" id="tournament-size-input" formControlName="tournamentSizeInput"
-          placeholder="Dimensiunea Turneului">
+          placeholder="ex: 10">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('tournamentSizeInput')?.invalid && formParametrii.get('tournamentSizeInput')?.touched">
           Dimensiunea Turneului trebuie să fie un număr întreg mai mare sau egal cu 2.
@@ -60,19 +64,19 @@
       </div>
 
       <div class="col-md-3">
-        <label for="crossover-probability-input">Probabilitate Interschimbării</label>
+        <label for="crossover-probability-input">Probabilitatea Interschimbării</label>
         <input type="text" class="form-control" id="crossover-probability-input" formControlName="crossoverProbabilityInput"
-          placeholder="Probabilitate Interschimbării">
+          placeholder="ex: 0.7">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('crossoverProbabilityInput')?.invalid && formParametrii.get('crossoverProbabilityInput')?.touched">
-          Probabilitate Interschimbării trebuie să fie un număr între 0 și 1.
+          Probabilitatea Interschimbării trebuie să fie un număr între 0 și 1.
         </div>
       </div>
 
       <div class="col-md-3">
         <label for="deletion-probability-input">Probabilitatea Ștergerii</label>
         <input type="text" class="form-control" id="deletion-probability-input" formControlName="deletionProbabilityInput"
-          placeholder="Probabilitatea Ștergerii">
+          placeholder="ex: 0.4">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('deletionProbabilityInput')?.invalid && formParametrii.get('deletionProbabilityInput')?.touched">
           Probabilitatea Ștergerii trebuie să fie un număr între 0 și 1.
@@ -83,7 +87,7 @@
       <div class="col-md-3">
         <label for="small-mutation-probability-input">Probabilitatea Mutației cu Modificare Mică</label>
         <input type="text" class="form-control" id="small-mutation-probability-input"
-          formControlName="smallMutationProbabilityInput" placeholder="Probabilitatea Micilor Mutări">
+          formControlName="smallMutationProbabilityInput" placeholder="ex: 0.2">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('smallMutationProbabilityInput')?.invalid && formParametrii.get('smallMutationProbabilityInput')?.touched">
           Probabilitatea Mutației trebuie să fie un număr între 0 și 1.
@@ -92,7 +96,7 @@
       <div class="col-md-3">
         <label for="number-of-generations-input">Numărul de Generații</label>
         <input type="text" class="form-control" id="number-of-generations-input" formControlName="numberOfGenerationsInput"
-          placeholder="Numărul de Generații">
+          placeholder="ex: 100">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('numberOfGenerationsInput')?.invalid && formParametrii.get('numberOfGenerationsInput')?.touched">
           Numărul de Generații trebuie să fie un număr întreg mai mare ca 1.
@@ -101,21 +105,15 @@
       <div class="col-md-3">
         <label for="elite-size-input">Dimensiunea Elitei</label>
         <input type="text" class="form-control" id="elite-size-input" formControlName="eliteSizeInput"
-          placeholder="Dimensiunea Elitei">
+          placeholder="ex: 4">
         <div class="invalid-feedback"
           *ngIf="formParametrii.get('eliteSizeInput')?.invalid && formParametrii.get('eliteSizeInput')?.touched">
           Dimensiunea Elitei trebuie să fie un număr mai mare sau egal cu 1.
         </div>
       </div>
     </div>
-    <button 
-    type="submit" 
-    class="btn custom-button" 
-    [ngClass]="{ 'btn-danger': isAlgorithmRunning, 'btn-primary': !isAlgorithmRunning }">
-    {{ isAlgorithmRunning ? 'Anulează' : 'Generează algoritm' }}
-  </button>
+    <button type="submit" class="btn btn-primary custom-button" [disabled]="formParametrii.invalid || isAlgorithmRunning">Generează algoritm</button>
   </form>
-  
 </div>
 
 <div class="container container-main text-center mt-5">
@@ -128,7 +126,7 @@
       <option *ngFor="let file of files" [value]="file.id">{{ file.filename }}</option>
     </select>
   </div>
-  
+  <button class="btn btn-primary custom-button" (click)="setDefaultFile()" [disabled]="!selectedFile">Setează fișierul drept implicit</button>
   <div id="map-container" class="map-container">
     <div id="map" style="height: 400px; width: 100%;"></div>
   </div>
@@ -142,5 +140,6 @@
         {{ getStopName(stop) }}
       </li>
     </ul>
+    
   </div>
 </div>

@@ -22,7 +22,8 @@ from db_management.ga_runs import delete_ga_run, find_user_id, get_running_ga_ru
 from db_management.users import verify_account
 from src.algorithms.genetic_algorithm import GeneticAlgorithm
 from src.algorithms.initial_solution import TransitNetwork
-from src.data_processing.files_handler import read_travel_info, update_links_file, update_demands_file, remove_link
+from src.data_processing.files_handler import read_travel_info, update_links_file, update_demands_file, remove_link, \
+    read_default_file, write_default_file
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'
@@ -195,7 +196,8 @@ def update_travel_info():
     else:
         remove_link('data/iasi/Iasi_links.txt', from_station, to_station)
     update_demands_file('data/iasi/Iasi_demand.txt', from_station, to_station, demand)
-    os.remove("data/Iasi/Iasi_links_initial_population.json")
+    if os.path.isfile("data/Iasi/Iasi_links_initial_population.json"):(
+        os.remove("data/Iasi/Iasi_links_initial_population.json"))
     return jsonify({'message': 'Travel times updated successfully.'}), 200
 
 
@@ -355,14 +357,15 @@ def is_algorithm_running():
 @app.route('/api/routes', methods=['GET'])
 def get_routes():
     try:
+        print("sunt in ruta")
         filename_param = request.args.get('filename', type=str)
-        if not isinstance(filename_param, str):
-            raise ValueError('Filename parameter must be a string.')
         print(filename_param)
         if filename_param:
             filename = filename_param
         else:
-            filename = ga_runs.get_last_filename()
+            with open('default_file.txt', 'r') as f:
+                filename =str(f.readline().strip())
+
 
         with open(filename, 'r') as f:
             data = json.load(f)
@@ -373,9 +376,33 @@ def get_routes():
             routes.append(route_dict)
 
         return jsonify(routes), 200
+    except FileNotFoundError as e:
+        print(f"File not found: {str(e)}")
+        return jsonify({'error': f'Fișierul "{filename}" nu a fost găsit.'}), 404
+
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {str(e)}")
+        return jsonify({'error': f'Eroare în decodarea fișierului JSON: {str(e)}'}), 500
+
     except Exception as e:
+        print(f"Server error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/api/set_default_file', methods=['POST'])
+def set_default_file_route():
+    try:
+        new_default_file = request.json.get('filename')
+
+        if not isinstance(new_default_file, str):
+            raise ValueError('Numele fișierului trebuie să fie un șir de caractere.')
+
+        write_default_file(new_default_file)
+
+        return jsonify({'message': f'Fișierul implicit a fost setat la "{new_default_file}"'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/directions', methods=['GET'])
 def get_direction():
