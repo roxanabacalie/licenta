@@ -112,8 +112,11 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary custom-button" [disabled]="formParametrii.invalid || isAlgorithmRunning">Generează algoritm</button>
+    <button type="submit" class="btn btn-primary custom-button" [disabled]="formParametrii.invalid || isAlgorithmRunning">Generează rute</button>
   </form>
+  <div *ngIf="showAlgorithmNotification" class="notification" [ngClass]="algorithmNotificationType">
+    {{ algorithmNotificationMessage }}
+  </div>
 </div>
 
 <div class="container container-main text-center mt-5">

@@ -75,10 +75,11 @@ class GeneticAlgorithm:
 			with open(initial_population_filename, 'w') as f:
 				json.dump(initial_individual, f)
 		print("Initial individual: ", initial_individual)
-		for _ in range(self.pop_size-1):
+		for _ in range(self.pop_size):
 			self.population.append(deepcopy(initial_individual))
-		diff_individual = self.get_random_individual()
-		self.population.append(deepcopy(diff_individual))
+		#for _ in range(int(self.pop_size/2)):
+		#	diff_individual = self.get_random_individual()
+		#	self.population.append(deepcopy(diff_individual))
 
 	# Calcularea lungimii totale a rutelor
 	def calculate_trl(self, route_set):

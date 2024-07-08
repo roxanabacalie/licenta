@@ -7,7 +7,6 @@ import re
 import threading
 import time
 import traceback
-import validators
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timedelta
 from flask_socketio import SocketIO
@@ -40,15 +39,28 @@ app.config['JWT_TOKEN_LOCATION'] = ['headers']
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 jwt = JWTManager(app)
 logging.basicConfig(level=logging.DEBUG)
+
+
+
+#'''
 iasi_transit_network = TransitNetwork(
     191,
     "data/iasi/Iasi_links.txt",
     "data/iasi/Iasi_demand.txt"
 )
+#'''
+'''
+iasi_transit_network = TransitNetwork (
+    40,
+    "data/iasi/Iasi_30stops_links.txt",
+"data/iasi/Iasi_30stops_demand.txt")
+'''
+
+
 running_processes={}
 running_algorithms = {}
 executor = ProcessPoolExecutor()
-last_sent_percent_complete = 0
+
 def run_genetic_algorithm(params):
     try:
         print("Running genetic algorithm with params:", params)
@@ -57,10 +69,6 @@ def run_genetic_algorithm(params):
         user_id = int(params['user_id'])
         run_id = ga_runs.insert_ga_run(None, process_id, start_timestamp, None, 0, user_id)
 
-        #stop_event = threading.Event()
-        #percent_thread = threading.Thread(target=send_percent_complete, args=(user_id, stop_event), daemon=True)
-        #percent_thread.start()
-
         population_size = int(params['populationSize'])
         tournament_size = int(params['tournamentSize'])
         crossover_probability = float(params['crossoverProbability'])
@@ -68,7 +76,7 @@ def run_genetic_algorithm(params):
         small_mutation_probability = float(params['smallMutationProbability'])
         number_of_generations = int(params['numberOfGenerations'])
         elite_size = int(params['eliteSize'])
-
+        #'''
         ga_iasi = GeneticAlgorithm(
             population_size,
             tournament_size,
@@ -83,6 +91,26 @@ def run_genetic_algorithm(params):
             120,
             user_id
         )
+        #'''
+
+        '''
+        ga_iasi = GeneticAlgorithm(
+            population_size,
+            tournament_size,
+            crossover_probability,
+            deletion_probability,
+            small_mutation_probability,
+            number_of_generations,
+            iasi_transit_network,
+            elite_size,
+            9,
+            60,
+            120,
+            user_id
+        )
+        '''
+
+
         result_file = ga_iasi.run_genetic_algorithm()
         stop_timestamp = datetime.now()
         print(stop_timestamp)
@@ -105,10 +133,7 @@ def run_genetic_algorithm(params):
         print("Error running genetic algorithm:", e)
         traceback.print_exc()
         return str(e)
-    #finally:
-        # Ensure the percent_thread is terminated when the algorithm finishes
-        #stop_event.set()
-        #percent_thread.join()
+
 
 def monitor_algorithm_completion(future):
     try:
@@ -201,22 +226,6 @@ def update_travel_info():
     return jsonify({'message': 'Travel times updated successfully.'}), 200
 
 
-def send_percent_complete(user_id, stop_event):
-    last_sent_percent_complete = 0
-    while not stop_event.is_set():
-        try:
-            percent_complete = ga_runs.get_percent_complete_by_user_id(user_id)
-            if percent_complete is not None and percent_complete != last_sent_percent_complete:
-                socketio.emit('percent_complete', {'percent_complete': percent_complete}, namespace='/')
-                last_sent_percent_complete = percent_complete
-                print(f"Sent percent_complete: {percent_complete}")
-            time.sleep(0.1)  # Crește intervalul de timp la 1 secundă
-        except Exception as e:
-            print(f"Error in send_percent_complete thread: {str(e)}")
-            time.sleep(0.01)  # Crește intervalul de timp la 1 secundă
-
-
-
 @app.route('/api/run-algorithm', methods=['POST'])
 @jwt_required()
 def trigger_algorithm():
@@ -274,7 +283,6 @@ def trigger_algorithm():
     print("Data validated successfully:", data)
     future = executor.submit(run_genetic_algorithm, data)
     running_algorithms[future] = data
-    #threading.Thread(target=send_percent_complete, args=(user_id,), daemon=True).start()
     return jsonify({"message": "Genetic algorithm started."}), 200
 
 
@@ -336,6 +344,12 @@ def login():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    if not re.match(r'^[a-zA-Z0-9_-]{3,20}$', username):
+        return jsonify({'message': 'Numele de utilizator trebuie să conțină doar litere, '
+                                   'cifre, cratime și underscore și să aibă între 3 și 20 de caractere.'}), 400
+
+    if len(password) < 8:
+        return jsonify({'message': 'Parola trebuie să aibă cel puțin 8 caractere.'}), 400
 
     if verify_account(username, password):
         user_id = users.get_userid_by_username(username)
@@ -365,8 +379,6 @@ def get_routes():
         else:
             with open('default_file.txt', 'r') as f:
                 filename =str(f.readline().strip())
-
-
         with open(filename, 'r') as f:
             data = json.load(f)
         routes_data = data["best_individual"]
@@ -374,7 +386,6 @@ def get_routes():
         for idx, route in enumerate(routes_data):
             route_dict = {'id': idx + 1, 'stops': route}
             routes.append(route_dict)
-
         return jsonify(routes), 200
     except FileNotFoundError as e:
         print(f"File not found: {str(e)}")
@@ -393,35 +404,28 @@ def get_routes():
 def set_default_file_route():
     try:
         new_default_file = request.json.get('filename')
-
         if not isinstance(new_default_file, str):
             raise ValueError('Numele fișierului trebuie să fie un șir de caractere.')
-
         write_default_file(new_default_file)
-
         return jsonify({'message': f'Fișierul implicit a fost setat la "{new_default_file}"'}), 200
-
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/api/directions', methods=['GET'])
 def get_direction():
     start_id = request.args.get('start_id')
     stop_id = request.args.get('stop_id')
-
     try:
         if start_id and stop_id:
             file_path = f"data/iasi/directions/directions_{start_id}_{stop_id}.json"
             if not os.path.isfile(file_path):
                 return jsonify({'error': f'Route file not found for start_id={start_id}, stop_id={stop_id}'}), 404
-
             with open(file_path, 'r') as file:
                 route = json.load(file)
                 return jsonify(route), 200
-
         else:
             return None
-
     except ValueError as ve:
         return jsonify({'error': f'Invalid value: {str(ve)}'}), 400
     except FileNotFoundError:
@@ -456,6 +460,7 @@ def get_stops():
         return jsonify({'error': 'Stops file not found'}), 404
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
 
 @app.route('/api/files', methods=['GET'])
 def get_files():

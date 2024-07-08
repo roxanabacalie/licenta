@@ -1,4 +1,6 @@
 import mysql.connector
+from mysql.connector import errorcode
+
 from db_management.database import cursor, db
 
 def insert_ga_run(filename, process_id, start_timestamp, stop_timestamp, percent_complete, user_id):
@@ -71,7 +73,7 @@ def get_last_filename():
         result = cursor.fetchone()
 
         if result:
-            return result[0]  # Return the filename
+            return result[0]
         else:
             print("No filename found")
             return None
@@ -109,14 +111,32 @@ def get_pid_by_userid(user_id):
 
 def get_files():
     try:
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="roxana",
+            password="pass",
+            database="licenta"
+        )
+        cursor = conn.cursor()
         select_query = "SELECT id, filename FROM ga_runs"
         cursor.execute(select_query)
         results = cursor.fetchall()
-
+        print("Fetched results from database:", results)
         files = [{'id': row[0], 'filename': row[1]} for row in results]
+        print("Processed files list:", files)
+        cursor.close()
+        conn.close()
         return files
     except mysql.connector.Error as err:
-        print("Error: ", err)
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print("Error: ", err)
+        return []
+    except Exception as e:
+        print("An error occurred:", e)
         return []
 
 
@@ -127,7 +147,7 @@ def get_percent_complete(run_id):
         result = cursor.fetchone()
 
         if result:
-            return result[0]  # Return percent_complete
+            return result[0]
         else:
             print(f"No run found with id {run_id}")
             return None
@@ -143,7 +163,7 @@ def get_percent_complete_by_user_id(user_id):
         result = cursor.fetchone()
 
         if result:
-            return result[0]  # Return percent_complete
+            return result[0]
         else:
             print(f"No run found with id {user_id}")
             return None
@@ -178,9 +198,9 @@ def find_user_id(user_id):
         result = cursor.fetchone()
 
         if result:
-            return result[0]  # Return the user_id
+            return result[0]
         else:
-            return None  # User ID not found
+            return None
 
     except mysql.connector.Error as err:
         print("Error: ", err)

@@ -40,6 +40,11 @@ export class EditRoutesComponent {
   public notificationMessage: string = '';
   public showNotification: boolean = false;
   public notificationType: 'success' | 'error' = 'success'; 
+
+  public algorithmNotificationMessage: string = '';
+  public showAlgorithmNotification: boolean = false;
+  public algorithmNotificationType: 'success' | 'error' = 'success';
+
   public routes: Route[] = [];
   public stops: Stop[] = [];
   public files: { id: number, filename: string }[] = [];
@@ -106,17 +111,8 @@ export class EditRoutesComponent {
       console.log('Genetic algorithm finished:', message);
       this.routes = message.routes;
       this.isAlgorithmRunning = false;
+      this.showAlgorithmNotificationMessage('Rularea algoritmului s-a terminat cu succes.', 'success');
     });
-
-    
-    this.socket.on('percent_complete', (data: any) => {
-      console.log('Received percent_complete:', data);
-      if (data.percent_complete !== undefined) {
-        this.currentGeneration = data.percent_complete; 
-        console.log(this.currentGeneration);
-      }
-    });
-
     
     this.formDatele.get('stationSelect1')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
     this.formDatele.get('stationSelect2')?.valueChanges.subscribe(() => this.updateDisplayTravelInfo());
@@ -169,6 +165,14 @@ export class EditRoutesComponent {
     xhr.send();
   }
   
+  showAlgorithmNotificationMessage(message: string, type: 'success' | 'error'): void {
+    this.algorithmNotificationMessage = message;
+    this.algorithmNotificationType = type;
+    this.showAlgorithmNotification = true;
+    setTimeout(() => {
+      this.showAlgorithmNotification = false;
+    }, 5000);
+  }
 
   loadGoogleMapsScript(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -275,6 +279,7 @@ export class EditRoutesComponent {
 
   submitParametriiForm(): void {
     if (this.isAlgorithmRunning) {
+      this.showAlgorithmNotificationMessage('Algoritmul deja rulează.', 'error');
     } else if (this.formParametrii.valid) {
       console.log('Formular Parametrii Algoritmului submit:', this.formParametrii.value);
       const algorithmParams = {
@@ -303,8 +308,10 @@ export class EditRoutesComponent {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
             console.log("Response:", xhr.responseText);
+            this.showAlgorithmNotificationMessage('Algoritmul a început să ruleze.', 'success');
           } else {
             console.error("Error starting algorithm:", xhr.status);
+            this.showAlgorithmNotificationMessage('Eroare în pornirea rulării algoritmului.', 'error');
           }
         }
       };

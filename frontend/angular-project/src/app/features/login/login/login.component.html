@@ -5,18 +5,20 @@
       <form [formGroup]="form" (ngSubmit)="login()">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="username" name="username" formControlName="username" placeholder="Username">
-          <label for="username">Username</label>
-          <div *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)"
-               class="text-danger">
-            <div *ngIf="form.get('username')?.errors?.['required']">Username is required.</div>
+          <label for="username">Nume utilizator</label>
+          <div *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)" class="text-danger">
+            <div *ngIf="form.get('username')?.errors?.['required']">Introduceți numele de utilizator.</div>
+            <div *ngIf="form.get('username')?.errors?.['minlength']">Numele de utilizator trebuie să aibă cel puțin 3 caractere.</div>
+            <div *ngIf="form.get('username')?.errors?.['maxlength']">Numele de utilizator nu poate avea mai mult de 20 de caractere.</div>
+            <div *ngIf="form.get('username')?.errors?.['invalidUsername']">Numele de utilizator poate conține doar litere, cifre, cratime și underscore.</div>
           </div>
         </div>
         <div class="form-floating mb-3">
           <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
-          <label for="password">Password</label>
-          <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)"
-               class="text-danger">
-            <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
+          <label for="password">Parolă</label>
+          <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)" class="text-danger">
+            <div *ngIf="form.get('password')?.errors?.['required']">Introduceți parola.</div>
+            <div *ngIf="form.get('password')?.errors?.['minlength']">Parola trebuie să aibă cel puțin 8 caractere.</div>
           </div>
         </div>
         <button type="submit" class="btn custom-login-btn">Login</button>

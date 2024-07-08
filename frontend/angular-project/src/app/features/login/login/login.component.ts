@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -23,9 +23,18 @@ export class LoginComponent {
     private authService: AuthService, 
     private router: Router) {
       this.form = this.fb.group({
-        username: ['',Validators.required],
-        password: ['',Validators.required]
+        username: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(20), this.usernameValidator]],
+        password: ['',[Validators.required, Validators.minLength(8)]]
       });
+    }
+
+    usernameValidator(control: FormControl) {
+      const username = control.value;
+      const regex = /^[a-zA-Z0-9_-]+$/;
+      if (username && !regex.test(username)) {
+        return { invalidUsername: true };
+      }
+      return null;
     }
 
     login() {
